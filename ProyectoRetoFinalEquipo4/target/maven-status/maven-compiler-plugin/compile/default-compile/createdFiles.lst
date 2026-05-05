@@ -1,0 +1,10 @@
+modelClasesTablas\Prestamo.class
+utilsClasesApoyo\ConexionBD.class
+modelClasesTablas\Usuarios.class
+modelClasesTablas\Material.class
+modelClasesTablas\Categoria.class
+modelClasesTablas\Inventario.class
+modelClasesTablas\Ubicacion.class
+com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
+modelClasesTablas\Estado.class
+modelClasesTablas\Registro.class
