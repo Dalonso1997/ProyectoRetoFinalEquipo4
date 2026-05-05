@@ -1,0 +1,56 @@
+/* Contenedor de la tabla para centrarla y darle aire */
+.tabla-inventario {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Estilo principal de la tabla (el armario) */
+.tabla-inventario table {
+    border-collapse: collapse; /* Elimina el espacio entre bordes */
+    width: 100%;
+    max-width: 700px; /* Tamaño máximo para que no se deforme */
+    background-color: #ffffff;
+    border: 4px solid #000000; /* Borde exterior grueso */
+}
+
+/* Estilo común para todas las baldas (celdas) */
+.tabla-inventario td {
+    border: 2px solid #000000; /* Bordes internos definidos */
+    text-align: center;
+    vertical-align: middle;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 10px;
+}
+
+/* --- AJUSTE DE PROPORCIONES SEGÚN IMAGEN --- */
+
+/* Filas superiores: baldas más bajas/estitilizadas */
+.tabla-inventario tr:nth-child(1),
+.tabla-inventario tr:nth-child(2) {
+    height: 40px;
+}
+
+/* Bloque central: celdas con más altura para materiales grandes */
+.tabla-inventario tr:nth-child(3),
+.tabla-inventario tr:nth-child(4),
+.tabla-inventario tr:nth-child(5),
+.tabla-inventario tr:nth-child(6),
+.tabla-inventario tr:nth-child(7),
+.tabla-inventario tr:nth-child(8) {
+    height: 70px;
+}
+
+/*armarios grandes*/
+.tabla-inventario td[rowspan] {
+    width: 25%; /*anchura */
+    background-color: #f9f9f9;
+}
+
+/*Efecto visual al pasar el raton*/
+.tabla-inventario td:hover {
+    background-color: #e8f4ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
