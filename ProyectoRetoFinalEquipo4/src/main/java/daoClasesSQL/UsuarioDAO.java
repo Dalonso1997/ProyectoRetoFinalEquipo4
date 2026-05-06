@@ -8,6 +8,8 @@ package daoClasesSQL;
  *
  * @author DAM126
  */
-public class NewClass {
+public class UsuarioDAO {
+    
+   // public Usuario login(String email, String password)
     
 }

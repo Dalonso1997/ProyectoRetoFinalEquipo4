@@ -13,23 +13,40 @@ import java.sql.SQLException;
  * @author DAM126
  */
 public class ConexionBD {
-    private static Connection conexion;
-
-    public static Connection getConexion() {
-        if (conexion == null) {
-            try {
-                conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/inventario",
-                    "root",
-                    "password"
-                );
-                System.out.println("Conexión OK");
-            } catch (SQLException e) {
-                System.out.println("Error conexión");
-                e.printStackTrace();
-            }
+    
+    //Variable estatica de la misma clase
+    private static ConexionBD instancia;
+    
+    //Varibale para la conexion SQL
+    private Connection conexion;
+    
+    private ConexionBD(){
+        
+        try {
+            
+            //Datos provisionales para localhost
+            String url = "jdbc:mysql://18.209.239.238:/inventario_taller"; 
+            String user = "admin";
+            String pass = "Grupo4"; 
+            
+            this.conexion = DriverManager.getConnection(url,user,pass);
+            System.out.println("Conexion establecida.");
+            
+        } catch (SQLException e){
+            System.out.println("Error al conectar: " + e.getMessage());
         }
-        return conexion;
+        
     }
     
+    //Metodo static que devuelve la instancia
+    public static ConexionBD getInstancia(){
+        if (instancia == null){
+            instancia = new ConexionBD();
+        }
+        return instancia;
+    }
+    
+    public Connection getConexion(){
+        return this.conexion;
+    } 
 }
