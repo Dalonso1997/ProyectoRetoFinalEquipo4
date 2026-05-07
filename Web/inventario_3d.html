@@ -1,212 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventario 3D - IES Miguel Herrero</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy-dark:   #0f172a;
-      --navy:        #1e293b;
-      --navy-mid:    #334155;
-      --blue:        #3b82f6;
-      --blue-light:  #60a5fa;
-      --blue-dim:    rgba(59,130,246,0.15);
-      --success:     #22c55e;
-      --warning:     #f59e0b;
-      --danger:      #ef4444;
-      --text:        #f1f5f9;
-      --text-muted:  #94a3b8;
-      --border:      rgba(255,255,255,0.08);
-      --panel-bg:    rgba(30,41,59,0.85);
-      --radius:      10px;
-    }
-
-    html, body { height: 100%; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy-dark);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* ── HEADER ──────────────────────────────────────── */
-    header {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      flex-shrink: 0;
-    }
-    header h1 {
-      font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em;
-      text-transform: uppercase; color: var(--text);
-    }
-    header p { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
-
-    /* ── NAV ─────────────────────────────────────────── */
-    nav {
-      background: var(--navy-mid);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    nav ul { display: flex; justify-content: center; list-style: none; }
-    nav a {
-      display: block; color: var(--text-muted); text-decoration: none;
-      padding: 0.75rem 1.75rem; font-size: 0.85rem; font-weight: 600;
-      letter-spacing: 0.03em; transition: color 0.2s, background 0.2s;
-    }
-    nav a:hover, nav a.active {
-      background: var(--blue-dim); color: var(--blue-light);
-    }
-
-    /* ── MAIN ────────────────────────────────────────── */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* ── TOOLBAR ─────────────────────────────────────── */
-    #toolbar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 16px;
-      background: var(--navy);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-      flex-wrap: wrap;
-    }
-    #toolbar span {
-      font-size: 11px; color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 0.07em; margin-right: 4px;
-    }
-    #toolbar button {
-      font-family: 'Inter', sans-serif;
-      font-size: 12px; padding: 5px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--navy-mid);
-      color: var(--text); cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    #toolbar button:hover { background: var(--blue-dim); border-color: var(--blue); color: var(--blue-light); }
-
-    /* ── CONTENT AREA ────────────────────────────────── */
-    #content {
-      flex: 1;
-      display: flex;
-      gap: 0;
-      overflow: hidden;
-    }
-
-    /* ── CANVAS WRAP ─────────────────────────────────── */
-    #canvas-wrap {
-      flex: 1;
-      min-width: 0;
-      position: relative;
-      background: #080810;
-    }
-    #canvas-wrap canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
-    }
-
-    /* ── TOOLTIP ─────────────────────────────────────── */
-    #tooltip {
-      position: absolute; pointer-events: none;
-      background: var(--navy); border: 1px solid var(--border);
-      border-radius: 8px; padding: 8px 12px;
-      font-size: 12px; color: var(--text); display: none;
-      z-index: 99; min-width: 140px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-    #tooltip b { font-weight: 600; display: block; margin-bottom: 4px; color: var(--blue-light); }
-    #tooltip .tip-row { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--text-muted); }
-    #tip-bar { height: 4px; border-radius: 2px; margin-top: 6px; background: var(--navy-mid); overflow: hidden; }
-    #tip-fill { height: 100%; border-radius: 2px; transition: width 0.2s; }
-
-    /* ── SIDE PANEL ──────────────────────────────────── */
-    #panel {
-      width: 240px;
-      flex-shrink: 0;
-      background: var(--panel-bg);
-      border-left: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .panel-section {
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .section-title {
-      font-size: 10px; font-weight: 600; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
-    }
-
-    /* Stats grid */
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .stat {
-      background: var(--navy-dark); border-radius: 8px;
-      padding: 8px 10px; text-align: center;
-      border: 1px solid var(--border);
-    }
-    .stat-val { font-size: 22px; font-weight: 700; color: var(--text); }
-    .stat-lbl { font-size: 10px; color: var(--text-muted); margin-top: 1px; }
-
-    /* Item list */
-    #item-list-wrap {
-      flex: 1; overflow-y: auto; padding: 10px 10px;
-    }
-    #item-list-wrap::-webkit-scrollbar { width: 4px; }
-    #item-list-wrap::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 2px; }
-
-    .item-row {
-      display: flex; align-items: center; gap: 8px;
-      padding: 7px 9px; border-radius: 8px; cursor: pointer;
-      border: 1px solid transparent;
-      transition: background 0.15s, border-color 0.15s;
-      margin-bottom: 4px;
-    }
-    .item-row:hover, .item-row.active {
-      background: var(--blue-dim); border-color: rgba(59,130,246,0.3);
-    }
-    .item-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .item-name { font-size: 11.5px; color: var(--text); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .item-qty { font-size: 10px; color: var(--text-muted); flex-shrink: 0; }
-    .badge {
-      font-size: 9px; padding: 2px 6px; border-radius: 8px;
-      font-weight: 600; flex-shrink: 0; letter-spacing: 0.02em;
-    }
-    .badge-ok  { background: rgba(34,197,94,0.15);  color: var(--success); }
-    .badge-low { background: rgba(245,158,11,0.15); color: var(--warning); }
-    .badge-out { background: rgba(239,68,68,0.15);  color: var(--danger); }
-
-    /* ── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 0.9rem 1rem;
-      font-size: 0.75rem; color: var(--text-muted);
-      flex-shrink: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <header>
-    <h1>Gestión de Taller</h1>
+    <h1>Gestión de Taller - Equipo 4</h1>
     <p>IES Miguel Herrero Pereda — Inventario 3D Interactivo</p>
   </header>
 
@@ -219,7 +25,7 @@
     </ul>
   </nav>
 
-  <main>
+  <main class="main-3d">
     <div id="toolbar">
       <span>Vista:</span>
       <button onclick="rot(-1)">← Rotar</button>
@@ -238,7 +44,9 @@
           <b id="tip-name"></b>
           <div class="tip-row"><span>Stock:</span><span id="tip-stock"></span></div>
           <div class="tip-row"><span>Nivel:</span><span id="tip-pct"></span></div>
-          <div id="tip-bar"><div id="tip-fill"></div></div>
+          <div id="tip-bar">
+            <div id="tip-fill"></div>
+          </div>
         </div>
       </div>
 
@@ -246,10 +54,22 @@
         <div class="panel-section">
           <div class="section-title">Resumen general</div>
           <div class="stat-grid">
-            <div class="stat"><div class="stat-val" id="s-total">0</div><div class="stat-lbl">Huecos</div></div>
-            <div class="stat"><div class="stat-val" id="s-units">0</div><div class="stat-lbl">Unidades</div></div>
-            <div class="stat"><div class="stat-val" id="s-low" style="color:var(--warning)">0</div><div class="stat-lbl">Stock bajo</div></div>
-            <div class="stat"><div class="stat-val" id="s-out" style="color:var(--danger)">0</div><div class="stat-lbl">Agotado</div></div>
+            <div class="stat">
+              <div class="stat-val" id="s-total">0</div>
+              <div class="stat-lbl">Huecos</div>
+            </div>
+            <div class="stat">
+              <div class="stat-val" id="s-units">0</div>
+              <div class="stat-lbl">Unidades</div>
+            </div>
+            <div class="stat">
+              <div class="stat-val" id="s-low" style="color:var(--warning)">0</div>
+              <div class="stat-lbl">Stock bajo</div>
+            </div>
+            <div class="stat">
+              <div class="stat-val" id="s-out" style="color:var(--danger)">0</div>
+              <div class="stat-lbl">Agotado</div>
+            </div>
           </div>
         </div>
         <div class="panel-section" style="padding-bottom:6px">
@@ -263,300 +83,299 @@
   </main>
 
   <footer>
-    &copy; 2026 Equipo 4 — CFGS Desarrollo de Aplicaciones Multiplataforma
+    <p>&copy; 2026 Equipo 4 — CFGS Desarrollo de Aplicaciones Multiplataforma</p>
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-  // ─── DATOS ─────────────────────────────────────────────────────────────────
-  const SLOTS = [
-    // Fila A — 4 huecos superiores
-    { id:0,  zone:'A0', name:'Archivadores',    qty:12, max:15, color:0x4A9EFF },
-    { id:1,  zone:'A1', name:'Carpetas',         qty:8,  max:15, color:0x4A9EFF },
-    { id:2,  zone:'A2', name:'Revistas',         qty:3,  max:15, color:0xFF9A4A },
-    { id:3,  zone:'A3', name:'Catálogos',        qty:15, max:15, color:0x4ADF8A },
-    // Fila B — 4 huecos
-    { id:4,  zone:'B0', name:'Cajas A4',         qty:0,  max:10, color:0xFF4A4A },
-    { id:5,  zone:'B1', name:'Toners',           qty:4,  max:10, color:0xFF9A4A },
-    { id:6,  zone:'B2', name:'Papel bond',       qty:10, max:10, color:0x4ADF8A },
-    { id:7,  zone:'B3', name:'Sobres',           qty:2,  max:10, color:0xFF9A4A },
-    // Fila C izq — hueco alto
-    { id:8,  zone:'CL', name:'Paraguas/Abrigos', qty:3,  max:5,  color:0xA78BFF },
-    // Fila C centro/der — 8 huecos (4 filas × 2 col)
-    { id:9,  zone:'C00', name:'Herramientas',    qty:6,  max:8,  color:0x4ADF8A },
-    { id:10, zone:'C01', name:'Materiales',      qty:2,  max:8,  color:0xFF9A4A },
-    { id:11, zone:'C10', name:'Tornillería',     qty:8,  max:8,  color:0x4ADF8A },
-    { id:12, zone:'C11', name:'Fijaciones',      qty:0,  max:8,  color:0xFF4A4A },
-    { id:13, zone:'C20', name:'Pinturas',        qty:5,  max:8,  color:0x4A9EFF },
-    { id:14, zone:'C21', name:'Disolventes',     qty:1,  max:8,  color:0xFF9A4A },
-    { id:15, zone:'C30', name:'Limpieza',        qty:7,  max:8,  color:0x4ADF8A },
-    { id:16, zone:'C31', name:'Consumibles',     qty:4,  max:8,  color:0x4A9EFF },
-  ];
+    // ─── DATOS ─────────────────────────────────────────────────────────────────
+    const SLOTS = [
+      // Fila A — 4 huecos superiores
+      { id: 0, zone: 'A0', name: 'Archivadores', qty: 12, max: 15, color: 0x4A9EFF },
+      { id: 1, zone: 'A1', name: 'Carpetas', qty: 8, max: 15, color: 0x4A9EFF },
+      { id: 2, zone: 'A2', name: 'Revistas', qty: 3, max: 15, color: 0xFF9A4A },
+      { id: 3, zone: 'A3', name: 'Catálogos', qty: 15, max: 15, color: 0x4ADF8A },
+      // Fila B — 4 huecos
+      { id: 4, zone: 'B0', name: 'Cajas A4', qty: 0, max: 10, color: 0xFF4A4A },
+      { id: 5, zone: 'B1', name: 'Toners', qty: 4, max: 10, color: 0xFF9A4A },
+      { id: 6, zone: 'B2', name: 'Papel bond', qty: 10, max: 10, color: 0x4ADF8A },
+      { id: 7, zone: 'B3', name: 'Sobres', qty: 2, max: 10, color: 0xFF9A4A },
+      // Fila C izq — hueco alto
+      { id: 8, zone: 'CL', name: 'Paraguas/Abrigos', qty: 3, max: 5, color: 0xA78BFF },
+      // Fila C centro/der — 8 huecos (4 filas × 2 col)
+      { id: 9, zone: 'C00', name: 'Herramientas', qty: 6, max: 8, color: 0x4ADF8A },
+      { id: 10, zone: 'C01', name: 'Materiales', qty: 2, max: 8, color: 0xFF9A4A },
+      { id: 11, zone: 'C10', name: 'Tornillería', qty: 8, max: 8, color: 0x4ADF8A },
+      { id: 12, zone: 'C11', name: 'Fijaciones', qty: 0, max: 8, color: 0xFF4A4A },
+      { id: 13, zone: 'C20', name: 'Pinturas', qty: 5, max: 8, color: 0x4A9EFF },
+      { id: 14, zone: 'C21', name: 'Disolventes', qty: 1, max: 8, color: 0xFF9A4A },
+      { id: 15, zone: 'C30', name: 'Limpieza', qty: 7, max: 8, color: 0x4ADF8A },
+      { id: 16, zone: 'C31', name: 'Consumibles', qty: 4, max: 8, color: 0x4A9EFF },
+    ];
 
-  function stColor(s) {
-    if (s.qty === 0) return 0xFF3333;
-    if (s.qty / s.max < 0.25) return 0xFFAA22;
-    return 0x44CC88;
-  }
-
-  // ─── RENDERER ──────────────────────────────────────────────────────────────
-  const canvas = document.getElementById('c');
-  const wrap   = document.getElementById('canvas-wrap');
-
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-  function resize() {
-    const W = wrap.clientWidth, H = wrap.clientHeight;
-    renderer.setSize(W, H);
-    camera.aspect = W / H;
-    camera.updateProjectionMatrix();
-  }
-  window.addEventListener('resize', resize);
-
-  const scene  = new THREE.Scene();
-  scene.background = new THREE.Color(0x080810);
-  scene.fog = new THREE.Fog(0x080810, 20, 40);
-
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  let theta = 0.18, phi = 1.05, radius = 14;
-  function camPos() {
-    camera.position.set(
-      radius * Math.sin(theta) * Math.sin(phi),
-      radius * Math.cos(phi) + 2,
-      radius * Math.cos(theta) * Math.sin(phi)
-    );
-    camera.lookAt(0, 2, 0);
-  }
-  camPos();
-
-  // Lights
-  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-  const dl = new THREE.DirectionalLight(0xffffff, 0.9);
-  dl.position.set(6, 10, 8); dl.castShadow = true;
-  dl.shadow.mapSize.set(1024, 1024);
-  scene.add(dl);
-  const pl = new THREE.PointLight(0x3b82f6, 0.5, 30);
-  pl.position.set(-5, 8, 5);
-  scene.add(pl);
-
-  // ─── MATERIALES ────────────────────────────────────────────────────────────
-  const WOOD = new THREE.MeshLambertMaterial({ color: 0x9C7A52 });
-  const DARK = new THREE.MeshLambertMaterial({ color: 0x5A3E22 });
-  const EDGE = new THREE.MeshLambertMaterial({ color: 0x7A5C34 });
-
-  function plank(w, h, d, mat, x, y, z) {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-    m.position.set(x, y, z);
-    m.castShadow = true; m.receiveShadow = true;
-    return m;
-  }
-
-  // ─── ESTRUCTURA DEL ARMARIO ────────────────────────────────────────────────
-  const AW = 8, AH = 7, AD = 1.2, TH = 0.08;
-
-  const rowC_h = 4.4, rowB_h = 1.25, rowA_h = 1.25;
-  const yFloor  = 0;
-  const yC_bot  = yFloor + TH;
-  const yC_top  = yC_bot + rowC_h;
-  const yB_bot  = yC_top + TH;
-  const yB_top  = yB_bot + rowB_h;
-  const yA_bot  = yB_top + TH;
-  const yA_top  = yA_bot + rowA_h;
-  const totalH  = yA_top + TH;
-
-  const arm = new THREE.Group();
-
-  // Caja exterior
-  arm.add(plank(AW+TH*2, TH,      AD,    DARK, 0,           yFloor,       0));
-  arm.add(plank(AW+TH*2, TH,      AD,    DARK, 0,           totalH,       0));
-  arm.add(plank(TH,       totalH, AD,    DARK, -(AW/2+TH/2), totalH/2,   0));
-  arm.add(plank(TH,       totalH, AD,    DARK,  (AW/2+TH/2), totalH/2,   0));
-  arm.add(plank(AW+TH*2, totalH, TH,    DARK, 0,             totalH/2, -(AD/2-TH/2)));
-
-  // Estantes horizontales (entre filas)
-  arm.add(plank(AW, TH, AD, WOOD, 0, yC_top+TH/2, 0));
-  arm.add(plank(AW, TH, AD, WOOD, 0, yB_top+TH/2, 0));
-
-  // Fila A — 4 divisores verticales
-  const colW = AW / 4;
-  for (let i = 1; i < 4; i++) arm.add(plank(TH, rowA_h, AD, EDGE, -AW/2 + i*colW, yA_bot+rowA_h/2, 0));
-  // Fila B
-  for (let i = 1; i < 4; i++) arm.add(plank(TH, rowB_h, AD, EDGE, -AW/2 + i*colW, yB_bot+rowB_h/2, 0));
-
-  // Fila C: columna izquierda + zona derecha subdividida
-  const cLeft_w  = colW;
-  const cRight_w = AW - cLeft_w;
-  const cLeft_x  = -AW/2 + cLeft_w;
-  const cMid_x   = cLeft_x + cRight_w/2;
-  arm.add(plank(TH, rowC_h, AD, EDGE, cLeft_x, yC_bot+rowC_h/2, 0));
-  arm.add(plank(TH, rowC_h, AD, EDGE, cMid_x,  yC_bot+rowC_h/2, 0));
-
-  const subRowH = rowC_h / 4;
-  for (let r = 1; r < 4; r++) {
-    arm.add(plank(cRight_w, TH, AD, EDGE, cLeft_x+cRight_w/2, yC_bot+r*subRowH, 0));
-  }
-
-  scene.add(arm);
-
-  // Suelo
-  const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(40, 40),
-    new THREE.MeshLambertMaterial({ color: 0x0d0d1a })
-  );
-  floor.rotation.x = -Math.PI/2;
-  floor.position.y = -0.05;
-  floor.receiveShadow = true;
-  scene.add(floor);
-
-  // ─── CAJAS DE INVENTARIO ────────────────────────────────────────────────────
-  const clickable = [], meshes = [];
-
-  function addBox(slot, cx, cy, w, h) {
-    const r   = slot.qty / slot.max;
-    const bw  = (w - 0.18) * Math.max(r, slot.qty > 0 ? 0.1 : 0);
-    const bh  = (h - 0.16) * 0.70;
-    const mat = new THREE.MeshLambertMaterial({
-      color: slot.color, transparent: true,
-      opacity: slot.qty === 0 ? 0.12 : 0.88
-    });
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, AD*0.58), mat);
-    mesh.position.set(cx, cy, 0);
-    mesh.castShadow = true;
-    mesh.userData = { slot };
-    scene.add(mesh);
-    clickable.push(mesh); meshes.push(mesh);
-
-    // LED de estado
-    const led = new THREE.Mesh(
-      new THREE.SphereGeometry(0.046, 8, 8),
-      new THREE.MeshBasicMaterial({ color: stColor(slot) })
-    );
-    led.position.set(cx + w*0.41, cy - h*0.30, AD*0.52);
-    scene.add(led);
-  }
-
-  // Fila A
-  for (let i = 0; i < 4; i++) addBox(SLOTS[i],   -AW/2+colW*i+colW/2,             yA_bot+rowA_h/2, colW, rowA_h);
-  // Fila B
-  for (let i = 0; i < 4; i++) addBox(SLOTS[4+i], -AW/2+colW*i+colW/2,             yB_bot+rowB_h/2, colW, rowB_h);
-  // Fila C izq
-  addBox(SLOTS[8], -AW/2+cLeft_w/2, yC_bot+rowC_h/2, cLeft_w, rowC_h);
-  // Fila C der 4×2
-  const cCol_w = cRight_w / 2;
-  for (let row = 0; row < 4; row++) {
-    for (let col = 0; col < 2; col++) {
-      addBox(SLOTS[9+row*2+col],
-        cLeft_x + cCol_w*col + cCol_w/2,
-        yC_bot  + subRowH*row + subRowH/2,
-        cCol_w, subRowH);
+    function stColor(s) {
+      if (s.qty === 0) return 0xFF3333;
+      if (s.qty / s.max < 0.25) return 0xFFAA22;
+      return 0x44CC88;
     }
-  }
 
-  // ─── UI PANEL ──────────────────────────────────────────────────────────────
-  document.getElementById('s-total').textContent = SLOTS.length;
-  document.getElementById('s-units').textContent = SLOTS.reduce((s,i)=>s+i.qty,0);
-  document.getElementById('s-low').textContent   = SLOTS.filter(s=>s.qty>0&&s.qty/s.max<0.25).length;
-  document.getElementById('s-out').textContent   = SLOTS.filter(s=>s.qty===0).length;
+    // ─── RENDERER ──────────────────────────────────────────────────────────────
+    const canvas = document.getElementById('c');
+    const wrap = document.getElementById('canvas-wrap');
 
-  const ilist = document.getElementById('item-list');
-  SLOTS.forEach((s,i) => {
-    const r  = s.qty/s.max;
-    const st = s.qty===0?'out':r<0.25?'low':'ok';
-    const lb = {ok:'OK',low:'Bajo',out:'Agotado'};
-    const row = document.createElement('div');
-    row.className='item-row'; row.id='r'+i;
-    row.innerHTML=`<div class="item-dot" style="background:#${s.color.toString(16).padStart(6,'0')}"></div><span class="item-name">${s.name}</span><span class="badge badge-${st}">${lb[st]}</span><span class="item-qty">${s.qty}</span>`;
-    row.onclick=()=>focus(i);
-    ilist.appendChild(row);
-  });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // ─── CONTROLES ─────────────────────────────────────────────────────────────
-  let drag=false, lx=0, ly=0;
-  canvas.addEventListener('mousedown', e=>{drag=true;lx=e.clientX;ly=e.clientY;});
-  window.addEventListener('mouseup',   ()=>drag=false);
-  window.addEventListener('mousemove', e=>{
-    if(!drag)return;
-    theta -= (e.clientX-lx)*0.007;
-    phi = Math.max(0.2,Math.min(1.45,phi-(e.clientY-ly)*0.005));
-    lx=e.clientX; ly=e.clientY;
+    function resize() {
+      const W = wrap.clientWidth, H = wrap.clientHeight;
+      renderer.setSize(W, H);
+      camera.aspect = W / H;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x080810);
+    scene.fog = new THREE.Fog(0x080810, 20, 40);
+
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    let theta = 0.18, phi = 1.05, radius = 14;
+    function camPos() {
+      camera.position.set(
+        radius * Math.sin(theta) * Math.sin(phi),
+        radius * Math.cos(phi) + 2,
+        radius * Math.cos(theta) * Math.sin(phi)
+      );
+      camera.lookAt(0, 2, 0);
+    }
     camPos();
-  });
-  canvas.addEventListener('wheel', e=>{ radius=Math.max(5,Math.min(22,radius+e.deltaY*0.012)); camPos(); });
 
-  function rot(d)    { theta+=d*0.2; camPos(); }
-  function tiltUp()  { phi=Math.max(0.2,phi-0.12); camPos(); }
-  function tiltDown(){ phi=Math.min(1.45,phi+0.12); camPos(); }
-  function zoomIn()  { radius=Math.max(5,radius-1); camPos(); }
-  function zoomOut() { radius=Math.min(22,radius+1); camPos(); }
-  function resetCam(){ theta=0.18;phi=1.05;radius=14;camPos(); }
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const dl = new THREE.DirectionalLight(0xffffff, 0.9);
+    dl.position.set(6, 10, 8); dl.castShadow = true;
+    dl.shadow.mapSize.set(1024, 1024);
+    scene.add(dl);
+    const pl = new THREE.PointLight(0x3b82f6, 0.5, 30);
+    pl.position.set(-5, 8, 5);
+    scene.add(pl);
 
-  // ─── TOOLTIP & RAYCAST ─────────────────────────────────────────────────────
-  const ray=new THREE.Raycaster(), mouse=new THREE.Vector2();
-  const tip=document.getElementById('tooltip');
+    // ─── MATERIALES ────────────────────────────────────────────────────────────
+    const WOOD = new THREE.MeshLambertMaterial({ color: 0x9C7A52 });
+    const DARK = new THREE.MeshLambertMaterial({ color: 0x5A3E22 });
+    const EDGE = new THREE.MeshLambertMaterial({ color: 0x7A5C34 });
 
-  canvas.addEventListener('mousemove', e=>{
-    const rect=canvas.getBoundingClientRect();
-    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
-    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
-    ray.setFromCamera(mouse,camera);
-    const hits=ray.intersectObjects(clickable);
-    if(hits.length){
-      const s=hits[0].object.userData.slot;
-      const pct=Math.round(s.qty/s.max*100);
-      tip.style.display='block';
-      tip.style.left=(e.clientX-wrap.getBoundingClientRect().left+14)+'px';
-      tip.style.top =(e.clientY-wrap.getBoundingClientRect().top -10)+'px';
-      document.getElementById('tip-name').textContent  = s.name;
-      document.getElementById('tip-stock').textContent = `${s.qty} / ${s.max}`;
-      document.getElementById('tip-pct').textContent   = pct+'%';
-      const fill=document.getElementById('tip-fill');
-      fill.style.width=pct+'%';
-      fill.style.background = s.qty===0?'#ef4444':pct<25?'#f59e0b':'#22c55e';
-    } else {
-      tip.style.display='none';
+    function plank(w, h, d, mat, x, y, z) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+      m.position.set(x, y, z);
+      m.castShadow = true; m.receiveShadow = true;
+      return m;
     }
-  });
 
-  canvas.addEventListener('click', e=>{
-    const rect=canvas.getBoundingClientRect();
-    mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
-    mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
-    ray.setFromCamera(mouse,camera);
-    const hits=ray.intersectObjects(clickable);
-    if(hits.length) focus(hits[0].object.userData.slot.id);
-  });
+    // ─── ESTRUCTURA DEL ARMARIO ────────────────────────────────────────────────
+    const AW = 8, AH = 7, AD = 1.2, TH = 0.08;
 
-  function focus(i){
-    document.querySelectorAll('.item-row').forEach(r=>r.classList.remove('active'));
-    document.getElementById('r'+i)?.classList.add('active');
-    document.getElementById('r'+i)?.scrollIntoView({block:'nearest'});
-    meshes.forEach((m,j)=>{
-      m.material.opacity = j===i ? 1.0 : 0.12;
-      m.material.emissive = new THREE.Color(j===i ? 0x1a2a44 : 0x000000);
-    });
-    setTimeout(()=>{
-      meshes.forEach((m,j)=>{
-        m.material.opacity = SLOTS[j].qty===0?0.12:0.88;
-        m.material.emissive = new THREE.Color(0x000000);
+    const rowC_h = 4.4, rowB_h = 1.25, rowA_h = 1.25;
+    const yFloor = 0;
+    const yC_bot = yFloor + TH;
+    const yC_top = yC_bot + rowC_h;
+    const yB_bot = yC_top + TH;
+    const yB_top = yB_bot + rowB_h;
+    const yA_bot = yB_top + TH;
+    const yA_top = yA_bot + rowA_h;
+    const totalH = yA_top + TH;
+
+    const arm = new THREE.Group();
+
+    // Caja exterior
+    arm.add(plank(AW + TH * 2, TH, AD, DARK, 0, yFloor, 0));
+    arm.add(plank(AW + TH * 2, TH, AD, DARK, 0, totalH, 0));
+    arm.add(plank(TH, totalH, AD, DARK, -(AW / 2 + TH / 2), totalH / 2, 0));
+    arm.add(plank(TH, totalH, AD, DARK, (AW / 2 + TH / 2), totalH / 2, 0));
+    arm.add(plank(AW + TH * 2, totalH, TH, DARK, 0, totalH / 2, -(AD / 2 - TH / 2)));
+
+    // Estantes horizontales (entre filas)
+    arm.add(plank(AW, TH, AD, WOOD, 0, yC_top + TH / 2, 0));
+    arm.add(plank(AW, TH, AD, WOOD, 0, yB_top + TH / 2, 0));
+
+    // Fila A — 4 divisores verticales
+    const colW = AW / 4;
+    for (let i = 1; i < 4; i++) arm.add(plank(TH, rowA_h, AD, EDGE, -AW / 2 + i * colW, yA_bot + rowA_h / 2, 0));
+    // Fila B
+    for (let i = 1; i < 4; i++) arm.add(plank(TH, rowB_h, AD, EDGE, -AW / 2 + i * colW, yB_bot + rowB_h / 2, 0));
+
+    // Fila C: columna izquierda + zona derecha subdividida
+    const cLeft_w = colW;
+    const cRight_w = AW - cLeft_w;
+    const cLeft_x = -AW / 2 + cLeft_w;
+    const cMid_x = cLeft_x + cRight_w / 2;
+    arm.add(plank(TH, rowC_h, AD, EDGE, cLeft_x, yC_bot + rowC_h / 2, 0));
+    arm.add(plank(TH, rowC_h, AD, EDGE, cMid_x, yC_bot + rowC_h / 2, 0));
+
+    const subRowH = rowC_h / 4;
+    for (let r = 1; r < 4; r++) {
+      arm.add(plank(cRight_w, TH, AD, EDGE, cLeft_x + cRight_w / 2, yC_bot + r * subRowH, 0));
+    }
+
+    scene.add(arm);
+
+    // Suelo
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(40, 40),
+      new THREE.MeshLambertMaterial({ color: 0x0d0d1a })
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -0.05;
+    floor.receiveShadow = true;
+    scene.add(floor);
+
+    // ─── CAJAS DE INVENTARIO ────────────────────────────────────────────────────
+    const clickable = [], meshes = [];
+
+    function addBox(slot, cx, cy, w, h) {
+      const r = slot.qty / slot.max;
+      const bw = (w - 0.18) * Math.max(r, slot.qty > 0 ? 0.1 : 0);
+      const bh = (h - 0.16) * 0.70;
+      const mat = new THREE.MeshLambertMaterial({
+        color: slot.color, transparent: true,
+        opacity: slot.qty === 0 ? 0.12 : 0.88
       });
-      document.querySelectorAll('.item-row').forEach(r=>r.classList.remove('active'));
-    },2000);
-  }
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, AD * 0.58), mat);
+      mesh.position.set(cx, cy, 0);
+      mesh.castShadow = true;
+      mesh.userData = { slot };
+      scene.add(mesh);
+      clickable.push(mesh); meshes.push(mesh);
 
-  // ─── RENDER LOOP ───────────────────────────────────────────────────────────
-  let t=0;
-  (function animate(){
-    requestAnimationFrame(animate);
-    t+=0.01;
-    meshes.forEach((m,i)=>{ m.position.y+=Math.sin(t+i*0.9)*0.0003; });
-    renderer.render(scene,camera);
-  })();
+      // LED de estado
+      const led = new THREE.Mesh(
+        new THREE.SphereGeometry(0.046, 8, 8),
+        new THREE.MeshBasicMaterial({ color: stColor(slot) })
+      );
+      led.position.set(cx + w * 0.41, cy - h * 0.30, AD * 0.52);
+      scene.add(led);
+    }
 
-  // Resize al cargar
-  setTimeout(resize, 50);
+    // Fila A
+    for (let i = 0; i < 4; i++) addBox(SLOTS[i], -AW / 2 + colW * i + colW / 2, yA_bot + rowA_h / 2, colW, rowA_h);
+    // Fila B
+    for (let i = 0; i < 4; i++) addBox(SLOTS[4 + i], -AW / 2 + colW * i + colW / 2, yB_bot + rowB_h / 2, colW, rowB_h);
+    // Fila C izq
+    addBox(SLOTS[8], -AW / 2 + cLeft_w / 2, yC_bot + rowC_h / 2, cLeft_w, rowC_h);
+    // Fila C der 4×2
+    const cCol_w = cRight_w / 2;
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 2; col++) {
+        addBox(SLOTS[9 + row * 2 + col],
+          cLeft_x + cCol_w * col + cCol_w / 2,
+          yC_bot + subRowH * row + subRowH / 2,
+          cCol_w, subRowH);
+      }
+    }
+
+    // ─── UI PANEL ──────────────────────────────────────────────────────────────
+    document.getElementById('s-total').textContent = SLOTS.length;
+    document.getElementById('s-units').textContent = SLOTS.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('s-low').textContent = SLOTS.filter(s => s.qty > 0 && s.qty / s.max < 0.25).length;
+    document.getElementById('s-out').textContent = SLOTS.filter(s => s.qty === 0).length;
+
+    const ilist = document.getElementById('item-list');
+    SLOTS.forEach((s, i) => {
+      const r = s.qty / s.max;
+      const st = s.qty === 0 ? 'out' : r < 0.25 ? 'low' : 'ok';
+      const lb = { ok: 'OK', low: 'Bajo', out: 'Agotado' };
+      const row = document.createElement('div');
+      row.className = 'item-row'; row.id = 'r' + i;
+      row.innerHTML = `<div class="item-dot" style="background:#${s.color.toString(16).padStart(6, '0')}"></div><span class="item-name">${s.name}</span><span class="badge badge-${st}">${lb[st]}</span><span class="item-qty">${s.qty}</span>`;
+      row.onclick = () => focus(i);
+      ilist.appendChild(row);
+    });
+
+    // ─── CONTROLES ─────────────────────────────────────────────────────────────
+    let drag = false, lx = 0, ly = 0;
+    canvas.addEventListener('mousedown', e => { drag = true; lx = e.clientX; ly = e.clientY; });
+    window.addEventListener('mouseup', () => drag = false);
+    window.addEventListener('mousemove', e => {
+      if (!drag) return;
+      theta -= (e.clientX - lx) * 0.007;
+      phi = Math.max(0.2, Math.min(1.45, phi - (e.clientY - ly) * 0.005));
+      lx = e.clientX; ly = e.clientY;
+      camPos();
+    });
+    canvas.addEventListener('wheel', e => { radius = Math.max(5, Math.min(22, radius + e.deltaY * 0.012)); camPos(); });
+
+    function rot(d) { theta += d * 0.2; camPos(); }
+    function tiltUp() { phi = Math.max(0.2, phi - 0.12); camPos(); }
+    function tiltDown() { phi = Math.min(1.45, phi + 0.12); camPos(); }
+    function zoomIn() { radius = Math.max(5, radius - 1); camPos(); }
+    function zoomOut() { radius = Math.min(22, radius + 1); camPos(); }
+    function resetCam() { theta = 0.18; phi = 1.05; radius = 14; camPos(); }
+
+    // ─── TOOLTIP & RAYCAST ─────────────────────────────────────────────────────
+    const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+    const tip = document.getElementById('tooltip');
+
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      ray.setFromCamera(mouse, camera);
+      const hits = ray.intersectObjects(clickable);
+      if (hits.length) {
+        const s = hits[0].object.userData.slot;
+        const pct = Math.round(s.qty / s.max * 100);
+        tip.style.display = 'block';
+        tip.style.left = (e.clientX - wrap.getBoundingClientRect().left + 14) + 'px';
+        tip.style.top = (e.clientY - wrap.getBoundingClientRect().top - 10) + 'px';
+        document.getElementById('tip-name').textContent = s.name;
+        document.getElementById('tip-stock').textContent = `${s.qty} / ${s.max}`;
+        document.getElementById('tip-pct').textContent = pct + '%';
+        const fill = document.getElementById('tip-fill');
+        fill.style.width = pct + '%';
+        fill.style.background = s.qty === 0 ? '#ef4444' : pct < 25 ? '#f59e0b' : '#22c55e';
+      } else {
+        tip.style.display = 'none';
+      }
+    });
+
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      ray.setFromCamera(mouse, camera);
+      const hits = ray.intersectObjects(clickable);
+      if (hits.length) focus(hits[0].object.userData.slot.id);
+    });
+
+    function focus(i) {
+      document.querySelectorAll('.item-row').forEach(r => r.classList.remove('active'));
+      document.getElementById('r' + i)?.classList.add('active');
+      document.getElementById('r' + i)?.scrollIntoView({ block: 'nearest' });
+      meshes.forEach((m, j) => {
+        m.material.opacity = j === i ? 1.0 : 0.12;
+        m.material.emissive = new THREE.Color(j === i ? 0x1a2a44 : 0x000000);
+      });
+      setTimeout(() => {
+        meshes.forEach((m, j) => {
+          m.material.opacity = SLOTS[j].qty === 0 ? 0.12 : 0.88;
+          m.material.emissive = new THREE.Color(0x000000);
+        });
+        document.querySelectorAll('.item-row').forEach(r => r.classList.remove('active'));
+      }, 2000);
+    }
+
+    // ─── RENDER LOOP ───────────────────────────────────────────────────────────
+    let t = 0;
+    (function animate() {
+      requestAnimationFrame(animate);
+      t += 0.01;
+      meshes.forEach((m, i) => { m.position.y += Math.sin(t + i * 0.9) * 0.0003; });
+      renderer.render(scene, camera);
+    })();
+
+    setTimeout(resize, 50);
   </script>
 </body>
 </html>
