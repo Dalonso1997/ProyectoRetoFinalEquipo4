@@ -1,0 +1,14 @@
+utilsClasesApoyo\ConexionBD.class
+daoClasesSQL\UsuarioDAO.class
+modelClasesTablas\Inventario.class
+com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
+modelClasesTablas\Registro.class
+controllerClasesGestionModelVista\NewClass.class
+pruebas\Pruebas.class
+modelClasesTablas\Prestamo.class
+modelClasesTablas\Material.class
+modelClasesTablas\Categoria.class
+modelClasesTablas\Usuario.class
+viewFormularios\NewClass.class
+modelClasesTablas\Ubicacion.class
+modelClasesTablas\Estado.class

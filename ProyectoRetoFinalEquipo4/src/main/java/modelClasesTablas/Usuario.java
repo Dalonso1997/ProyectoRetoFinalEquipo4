@@ -8,23 +8,38 @@ package modelClasesTablas;
  *
  * @author DAM126
  */
-public class Usuarios {
+public class Usuario {
     private int id_usuario;
     private String nombre;
     private String apellidos;
     private String email;
     private String password;
     private boolean activo;
-
-    public Usuarios(int id_usuario, String nombre, String apellidos, String email, String password, boolean activo) {
+    private String rol; //Anadido para diferenciar entre "Administrador" y "Profesor"
+    
+    //Constructor con todos los parametros
+    public Usuario(){
+        
+    }
+    
+    public Usuario(int id_usuario, String nombre, String apellidos, String email, String password, boolean activo, String rol) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.password = password;
         this.activo = activo;
+        this.rol = rol;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
     public int getId_usuario() {
         return id_usuario;
     }
