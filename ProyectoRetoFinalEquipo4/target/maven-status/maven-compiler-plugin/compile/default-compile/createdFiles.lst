@@ -1,10 +1,14 @@
 utilsClasesApoyo\ConexionBD.class
 daoClasesSQL\UsuarioDAO.class
+interfaz\login$2.class
+interfaz\login.class
 modelClasesTablas\Inventario.class
 com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
+interfaz\mainInterfaz.class
 modelClasesTablas\Registro.class
 daoClasesSQL\MaterialDAO.class
 controllerClasesGestionModelVista\NewClass.class
+interfaz\login$1.class
 pruebas\Pruebas.class
 modelClasesTablas\Prestamo.class
 daoClasesSQL\CategoriaDAO.class
@@ -13,8 +17,7 @@ viewFormularios\VentanaBusqueda$1.class
 modelClasesTablas\Categoria.class
 modelClasesTablas\Usuario.class
 viewFormularios\NewClass.class
-viewFormularios\VentanaBusqueda$3.class
-viewFormularios\VentanaBusqueda.class
+interfaz\login$3.class
 modelClasesTablas\Ubicacion.class
 modelClasesTablas\Estado.class
 viewFormularios\VentanaBusqueda$2.class
