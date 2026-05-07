@@ -8,6 +8,8 @@ import daoClasesSQL.UsuarioDAO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelClasesTablas.Usuario;
+import viewFormularios.VentanaBusqueda;
+import viewFormularios.mainInterfazBusqueda;
 
 /**
  *
@@ -183,7 +185,7 @@ public class login extends javax.swing.JFrame {
 
             this.dispose();
 
-            new mainInterfaz().setVisible(true);
+            new VentanaBusqueda().setVisible(true);
 
         } else {
 
