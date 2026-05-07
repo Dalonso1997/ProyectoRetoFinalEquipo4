@@ -4,9 +4,12 @@
  */
 package utilsClasesApoyo;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  *
@@ -14,31 +17,52 @@ import java.sql.SQLException;
  */
 public class ConexionBD {
     
-    //Variable estatica de la misma clase
+    // Variable estatica de la misma clase
     private static ConexionBD instancia;
     
-    //Varibale para la conexion SQL
+    // Variable para la conexion SQL
     private Connection conexion;
     
     private ConexionBD(){
         
-        try {
+        // Objeto para leer el archivo de configuración externo
+        Properties props = new Properties();
+        
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
             
-            //Datos provisionales para localhost
-            String url = "jdbc:mysql://18.209.239.238:/inventario_taller"; 
-            String user = "admin";
-            String pass = "Grupo4"; 
+            // Cargamos el archivo
+            props.load(fis);
             
-            this.conexion = DriverManager.getConnection(url,user,pass);
-            System.out.println("Conexion establecida.");
+            // Leemos qué entorno queremos usar (local o aws)
+            String entorno = props.getProperty("entorno");
+            String url, user, pass;
             
+            // Elegimos las credenciales según el entorno
+            if ("aws".equalsIgnoreCase(entorno)) {
+                url = props.getProperty("aws.url");
+                user = props.getProperty("aws.user");
+                pass = props.getProperty("aws.pass");
+                System.out.println("Iniciando conexión a AWS...");
+            } else {
+                url = props.getProperty("local.url");
+                user = props.getProperty("local.user");
+                pass = props.getProperty("local.pass");
+                System.out.println("Iniciando conexión a LOCALHOST...");
+            }
+            
+            // Establecemos la conexión con los datos seguros
+            this.conexion = DriverManager.getConnection(url, user, pass);
+            System.out.println("Conexion establecida con éxito.");
+            
+        } catch (IOException e) {
+            System.out.println("⚠️ ERROR: No se encuentra el archivo config.properties. ¿Lo has creado en la raíz del proyecto?");
         } catch (SQLException e){
-            System.out.println("Error al conectar: " + e.getMessage());
+            System.out.println("⚠️ Error al conectar: " + e.getMessage());
         }
         
     }
     
-    //Metodo static que devuelve la instancia
+    // Metodo static que devuelve la instancia
     public static ConexionBD getInstancia(){
         if (instancia == null){
             instancia = new ConexionBD();
