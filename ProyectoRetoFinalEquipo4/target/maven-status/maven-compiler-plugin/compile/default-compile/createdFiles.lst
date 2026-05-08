@@ -1,10 +1,13 @@
+interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
 interfaz\login$2.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$3.class
 viewFormularios\mainInterfazBusqueda.class
 com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 modelClasesTablas\Registro.class
 pruebas\Pruebas.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$5.class
 daoClasesSQL\CategoriaDAO.class
 modelClasesTablas\Material.class
@@ -14,6 +17,8 @@ viewFormularios\NewClass.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
 modelClasesTablas\Ubicacion.class
+interfaz\menuPrincipal\MenuPrincipalAdmin.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$4.class
 daoClasesSQL\UbicacionDAO.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$3.class
 utilsClasesApoyo\ConexionBD.class
@@ -21,6 +26,7 @@ daoClasesSQL\UsuarioDAO.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 interfaz\login.class
 modelClasesTablas\Inventario.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
 daoClasesSQL\MaterialDAO.class
 controllerClasesGestionModelVista\NewClass.class
 interfaz\login$1.class
