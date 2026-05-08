@@ -13,12 +13,10 @@ pruebas\Pruebas.class
 modelClasesTablas\Prestamo.class
 daoClasesSQL\CategoriaDAO.class
 modelClasesTablas\Material.class
-viewFormularios\VentanaBusqueda$1.class
 modelClasesTablas\Categoria.class
 modelClasesTablas\Usuario.class
 viewFormularios\NewClass.class
 interfaz\login$3.class
 modelClasesTablas\Ubicacion.class
 modelClasesTablas\Estado.class
-viewFormularios\VentanaBusqueda$2.class
 daoClasesSQL\UbicacionDAO.class
