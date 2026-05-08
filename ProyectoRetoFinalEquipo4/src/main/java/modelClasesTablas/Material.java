@@ -31,6 +31,17 @@ public class Material {
         this.id_ubicacion = id_ubicacion;
     }
 
+    public Material(String nombre, String descripcion, int cantidad, String estado, int id_categoria, int id_ubicacion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.estado = estado;
+        this.id_categoria = id_categoria;
+        this.id_ubicacion = id_ubicacion;
+    }
+    
+    
+    
     public int getId_material() {
         return id_material;
     }
