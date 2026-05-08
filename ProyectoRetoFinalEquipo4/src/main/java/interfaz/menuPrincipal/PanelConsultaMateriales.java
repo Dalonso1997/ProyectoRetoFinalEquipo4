@@ -69,6 +69,8 @@ public class PanelConsultaMateriales extends JPanel {
 
         
         List<Object[]> materiales = dao.buscar("", "", "", "");
+        
+        System.out.println(materiales.size());
 
         modelo.setRowCount(0);
 
