@@ -5,6 +5,7 @@
 package interfaz;
 
 import daoClasesSQL.UsuarioDAO;
+import interfaz.menuPrincipal.MenuPrincipalProfesor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelClasesTablas.Usuario;
@@ -184,9 +185,9 @@ public class login extends javax.swing.JFrame {
                     "Bienvenido, " + usuario.getNombre());
 
             this.dispose();
-
-            new VentanaBusqueda().setVisible(true);
-
+            
+            new MenuPrincipalProfesor().setVisible(true);
+            
         } else {
 
             JOptionPane.showMessageDialog(this,
