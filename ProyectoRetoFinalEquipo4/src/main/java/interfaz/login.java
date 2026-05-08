@@ -5,9 +5,13 @@
 package interfaz;
 
 import daoClasesSQL.UsuarioDAO;
+import interfaz.menuPrincipal.MenuPrincipalAdmin;
+import interfaz.menuPrincipal.MenuPrincipalProfesor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelClasesTablas.Usuario;
+import viewFormularios.VentanaBusqueda;
+import viewFormularios.mainInterfazBusqueda;
 
 /**
  *
@@ -182,13 +186,17 @@ public class login extends javax.swing.JFrame {
                     "Bienvenido, " + usuario.getNombre());
 
             this.dispose();
-
-            new mainInterfaz().setVisible(true);
-
+            
+            if(usuario.getRol().equals("Profesor")){
+                new MenuPrincipalProfesor().setVisible(true);
+            } else {
+                new MenuPrincipalAdmin().setVisible(true);
+            }
+            
         } else {
 
             JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos");
+                    "Usuario o contraseña incorrectos, espabila.");
 
         }
     }//GEN-LAST:event_botonContActionPerformed
