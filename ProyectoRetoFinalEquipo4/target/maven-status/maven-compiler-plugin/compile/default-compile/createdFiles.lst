@@ -11,7 +11,6 @@ interfaz\menuPrincipal\MenuPrincipalAdmin$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$5.class
 daoClasesSQL\CategoriaDAO.class
 modelClasesTablas\Material.class
-viewFormularios\VentanaBusqueda$1.class
 modelClasesTablas\Categoria.class
 viewFormularios\NewClass.class
 viewFormularios\VentanaBusqueda$3.class
@@ -36,4 +35,4 @@ modelClasesTablas\Usuario.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
 interfaz\login$3.class
 modelClasesTablas\Estado.class
-viewFormularios\VentanaBusqueda$2.class
+daoClasesSQL\UbicacionDAO.class
