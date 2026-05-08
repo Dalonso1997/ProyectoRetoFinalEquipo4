@@ -67,7 +67,7 @@ public class PanelConsultaMateriales extends JPanel {
 
         MaterialDAO dao = new MaterialDAO();
 
-        //Sin filtros -> muestra todo
+        
         List<Object[]> materiales = dao.buscar("", "", "", "");
 
         modelo.setRowCount(0);
