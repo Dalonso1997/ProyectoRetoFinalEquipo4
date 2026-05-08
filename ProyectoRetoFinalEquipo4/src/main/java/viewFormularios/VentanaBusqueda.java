@@ -5,9 +5,12 @@
 package viewFormularios;
 
 import daoClasesSQL.CategoriaDAO;
+import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
+import java.util.List;
 import modelClasesTablas.Categoria;
 import modelClasesTablas.Estado;
+import modelClasesTablas.Material;
 import modelClasesTablas.Ubicacion;
 
 /**
@@ -201,7 +204,36 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         String estadoSel = (String) ElejirEstado.getSelectedItem();
         String ubicacionSel = (String) ElejirUbicacion.getSelectedItem();
         
-
+        Integer idCategoria = null;
+        if(idCategoria != null && !idCategoria.equals("TODAS")){
+            for (Categoria c : new CategoriaDAO().listarTodos()) {
+                if(c.getNombre().equals(categoriaSel))
+                    idCategoria =c.getId_categoria();
+            }   
+        }
+        
+        String estado = null;
+        if(estadoSel != null && !estadoSel.equals("TODAS")){
+            estado = estadoSel;
+        }
+        
+        Integer idUbicacion = null;
+        if(idUbicacion != null && !idUbicacion.equals("TODAS")){
+            for (Ubicacion u : new UbicacionDAO().listarTodos()) {
+                String UbicacionStr = u.getArmario() + " - " + u.getBalda();
+                if(idUbicacion.equals(UbicacionStr)){
+                    idUbicacion = u.getId_ubicacion();                
+                }          
+            }
+            
+        }
+        
+        List<Material> lista = new MaterialDAO().buscar(
+                texto.isEmpty() ? null : texto, 
+                categoriaSel, 
+                estado, 
+                ubicacionSel);
+        
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void TextBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextBusquedaActionPerformed
@@ -212,9 +244,9 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ElejirCategoriaActionPerformed
 
-//    /**
-//     * @param args the command line arguments
-//     */
+    /**
+     * @param args the command line arguments
+     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
