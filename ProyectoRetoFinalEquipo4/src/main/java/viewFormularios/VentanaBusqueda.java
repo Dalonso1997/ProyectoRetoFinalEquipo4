@@ -7,7 +7,9 @@ package viewFormularios;
 import daoClasesSQL.CategoriaDAO;
 import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
+import java.io.File;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import modelClasesTablas.Categoria;
 import modelClasesTablas.Estado;
 import modelClasesTablas.Material;
@@ -71,7 +73,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         TextBusqueda = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        MensageMaterialesEncontrados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +124,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Mensaje: \"3 material(es) encontrados\"");
+        MensageMaterialesEncontrados.setText("Mensaje: \"3 material(es) encontrados\"");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,7 +156,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(992, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,7 +179,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(103, 103, 103))
         );
 
@@ -228,11 +230,27 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             
         }
         
-        List<Material> lista = new MaterialDAO().buscar(
+        List<Object[]> lista = new MaterialDAO().buscar(
                 texto.isEmpty() ? null : texto, 
                 categoriaSel, 
                 estado, 
                 ubicacionSel);
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setRowCount(0);
+        for (Object[] fila : lista) {
+            modelo.addRow(new Object[]{
+                fila[0],
+                fila[1],
+                fila[2],
+                fila[3],
+                fila[4],
+                fila[5],
+                fila[6],
+            });
+            
+        }
+        MensageMaterialesEncontrados.setText(lista.size()+ " material encontrado");
         
     }//GEN-LAST:event_botonBuscarActionPerformed
 
@@ -283,9 +301,9 @@ public class VentanaBusqueda extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
     private javax.swing.JComboBox<String> ElejirUbicacion;
+    private javax.swing.JLabel MensageMaterialesEncontrados;
     private javax.swing.JTextField TextBusqueda;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
