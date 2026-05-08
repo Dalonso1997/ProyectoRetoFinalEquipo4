@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import modelClasesTablas.Material;
 import utilsClasesApoyo.ConexionBD;
 
 /**
@@ -106,5 +107,31 @@ public class MaterialDAO {
 
         //Devolvemos la lista con los resultados (vacia si no encontro ninguno)
         return resultados;
+    }
+    
+    public boolean insertarMaterial(Material m){
+        
+        //Llamamos a la instancia de la conexion de la base de datos
+        Connection con = ConexionBD.getInstancia().getConexion();
+        
+        //Creamos un string con la update de la SQL
+        //Como siempre, usamos las ? como posicion para luego introducir los datos
+        String sql = "INSERT INTO materiales (nombre,descripcion,cantidad,estado,id_categoria,id_ubicacion) VALUES (?,?,?,?,?,?)";
+        
+        //Introducimos los datos recibidos del manterial en la consulta creada arriba
+        try (PreparedStatement ps = con.prepareStatement(sql) ){
+            ps.setString(1, m.getNombre());
+            ps.setString(2, m.getDescripcion());
+            ps.setInt(3, m.getCantidad());
+            ps.setString(4, m.getEstado());
+            ps.setInt(5, m.getId_categoria());
+            ps.setInt(6, m.getId_ubicacion());
+            //Ejecutamos la update
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }
