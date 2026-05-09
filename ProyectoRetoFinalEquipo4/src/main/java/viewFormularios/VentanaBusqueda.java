@@ -9,6 +9,7 @@ import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
 import java.io.File;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelClasesTablas.Categoria;
 import modelClasesTablas.Estado;
@@ -31,7 +32,8 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         //Recorremos todas las categorias de la base de datos y las añadimos al combobox
-        for (Categoria c : new CategoriaDAO().listarTodos()) {
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        for (Categoria c : categoriaDAO.listarTodos()) {
             ElejirCategoria.addItem(c.getNombre());
         }
         //Limpiamos el combobox de estados y añadimos la opcion "TODOS" al principio
@@ -47,7 +49,8 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         ElejirUbicacion.addItem("TODAS");
 
         //Recorremos todas las ubicaciones de la base de datos y las añadimos al combobox con formato "Armario - Balda"
-        for (Ubicacion u : new UbicacionDAO().listarTodos()) {
+        UbicacionDAO ubicacionDAO = new UbicacionDAO();
+        for (Ubicacion u : ubicacionDAO.listarTodos()) {
             ElejirUbicacion.addItem(u.getArmario() + " - " + u.getBalda());
         }
 
@@ -201,57 +204,69 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
-        String texto = TextBusqueda.getText().trim();
-        String categoriaSel = (String) ElejirCategoria.getSelectedItem();
-        String estadoSel = (String) ElejirEstado.getSelectedItem();
-        String ubicacionSel = (String) ElejirUbicacion.getSelectedItem();
-        
-        Integer idCategoria = null;
-        if(idCategoria != null && !idCategoria.equals("TODAS")){
-            for (Categoria c : new CategoriaDAO().listarTodos()) {
-                if(c.getNombre().equals(categoriaSel))
-                    idCategoria =c.getId_categoria();
-            }   
-        }
-        
-        String estado = null;
-        if(estadoSel != null && !estadoSel.equals("TODAS")){
-            estado = estadoSel;
-        }
-        
-        Integer idUbicacion = null;
-        if(idUbicacion != null && !idUbicacion.equals("TODAS")){
-            for (Ubicacion u : new UbicacionDAO().listarTodos()) {
-                String UbicacionStr = u.getArmario() + " - " + u.getBalda();
-                if(idUbicacion.equals(UbicacionStr)){
-                    idUbicacion = u.getId_ubicacion();                
-                }          
+
+        try {
+            String texto = TextBusqueda.getText().trim();
+            String categoriaSel = (String) ElejirCategoria.getSelectedItem();
+            String estadoSel = (String) ElejirEstado.getSelectedItem();
+            String ubicacionSel = (String) ElejirUbicacion.getSelectedItem();
+
+            Integer idCategoria = null;
+
+            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
+                for (Categoria c : new CategoriaDAO().listarTodos()) {
+                    if (c.getNombre().equals(categoriaSel)) {
+                        idCategoria = c.getId_categoria();
+                    }
+                }
             }
-            
+
+            String estado = null;
+            if (estadoSel != null && !estadoSel.equals("TODOS")) {
+                estado = estadoSel.toLowerCase();
+            }
+
+            Integer idUbicacion = null;
+            if (ubicacionSel != null && !ubicacionSel.equals("TODAS")) {  // ← Cambiar a ubicacionSel
+                for (Ubicacion u : new UbicacionDAO().listarTodos()) {
+                    String ubicacionStr = u.getArmario() + " - " + u.getBalda();
+                    if (ubicacionStr.equals(ubicacionSel)) {
+                        idUbicacion = u.getId_ubicacion();
+                    }
+                }
+            }
+
+            List<Object[]> lista = new MaterialDAO().buscar(
+                    texto.isEmpty() ? null : texto,
+                    categoriaSel,
+                    estado,
+                    ubicacionSel);
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+            for (Object[] fila : lista) {
+                modelo.addRow(new Object[]{
+                    fila[1],
+                    fila[2],
+                    fila[3],
+                    fila[4],
+                    fila[5],
+                    fila[6],});
+
+            }
+            if (lista.isEmpty()) {
+                MensageMaterialesEncontrados.setText("No se encontraron materiales");
+            } else if (lista.size() == 1) {
+                MensageMaterialesEncontrados.setText("1 material encontrado");
+            } else {
+                MensageMaterialesEncontrados.setText(lista.size() + " materiales encontrados");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al buscar: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        
-        List<Object[]> lista = new MaterialDAO().buscar(
-                texto.isEmpty() ? null : texto, 
-                categoriaSel, 
-                estado, 
-                ubicacionSel);
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        modelo.setRowCount(0);
-        for (Object[] fila : lista) {
-            modelo.addRow(new Object[]{
-                fila[0],
-                fila[1],
-                fila[2],
-                fila[3],
-                fila[4],
-                fila[5],
-                fila[6],
-            });
-            
-        }
-        MensageMaterialesEncontrados.setText(lista.size()+ " material encontrado");
-        
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void TextBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextBusquedaActionPerformed
