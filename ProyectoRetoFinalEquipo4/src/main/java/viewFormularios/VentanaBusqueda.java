@@ -91,7 +91,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
         jLabel3.setText("Ubicación:");
 
-        ElejirCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "a", "b", "c", "d" }));
+        ElejirCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elejir" }));
         ElejirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElejirCategoriaActionPerformed(evt);
@@ -235,23 +235,21 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                     }
                 }
             }
-
-            List<Object[]> lista = new MaterialDAO().buscar(
-                    texto.isEmpty() ? null : texto,
-                    categoriaSel,
-                    estado,
-                    ubicacionSel);
+            MaterialDAO dao = new MaterialDAO();
+            List<Object[]> lista = dao.buscar("","","","");
+                  
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
             for (Object[] fila : lista) {
                 modelo.addRow(new Object[]{
+                    
                     fila[1],
                     fila[2],
                     fila[3],
                     fila[4],
                     fila[5],
-                    fila[6],});
+                    fila[6]});
 
             }
             if (lista.isEmpty()) {
