@@ -196,7 +196,7 @@ public class login extends javax.swing.JFrame {
         } else {
 
             JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos, espabila.");
+                    "Usuario o contraseña incorrectos.");
 
         }
     }//GEN-LAST:event_botonContActionPerformed

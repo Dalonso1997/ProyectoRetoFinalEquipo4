@@ -1,3 +1,5 @@
+viewFormularios\FormularioAltaMaterial$1.class
+viewFormularios\FormularioAltaMaterial$5$1.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
 interfaz\login$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$3.class
@@ -7,32 +9,55 @@ interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 modelClasesTablas\Registro.class
 pruebas\Pruebas.class
+CSV\GenerarCSV.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$5.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
+interfaz\menuPrincipal\PanelConsultaMateriales$1.class
 daoClasesSQL\CategoriaDAO.class
 modelClasesTablas\Material.class
+viewFormularios\VentanaBusqueda$1.class
 modelClasesTablas\Categoria.class
 viewFormularios\NewClass.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$9.class
 modelClasesTablas\Ubicacion.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$10.class
 interfaz\menuPrincipal\MenuPrincipalAdmin.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$4.class
 daoClasesSQL\UbicacionDAO.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$3.class
+<<<<<<< Updated upstream
+interfaz\menuPrincipal\PanelConsultaMateriales.class
+=======
+viewFormularios\FormularioAltaMaterial$3.class
+>>>>>>> Stashed changes
 utilsClasesApoyo\ConexionBD.class
 daoClasesSQL\UsuarioDAO.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
+viewFormularios\FormularioAltaMaterial$2.class
 interfaz\login.class
+<<<<<<< Updated upstream
+interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
+=======
+viewFormularios\FormularioAltaMaterial.class
+>>>>>>> Stashed changes
 modelClasesTablas\Inventario.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
 daoClasesSQL\MaterialDAO.class
+viewFormularios\FormularioAltaMaterial$5.class
 controllerClasesGestionModelVista\NewClass.class
 interfaz\login$1.class
 modelClasesTablas\Prestamo.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$8.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$4.class
 modelClasesTablas\Usuario.class
+viewFormularios\FormularioAltaMaterial$4.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
 interfaz\login$3.class
 modelClasesTablas\Estado.class
-daoClasesSQL\UbicacionDAO.class
+<<<<<<< Updated upstream
+=======
+viewFormularios\VentanaBusqueda$2.class
+>>>>>>> Stashed changes
