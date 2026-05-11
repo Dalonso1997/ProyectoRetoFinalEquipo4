@@ -90,7 +90,7 @@
                           <Component id="jButton5" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                           <Component id="jButton7" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                           <Component id="jButton8" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
+                          <Component id="botonModificar" alignment="0" min="-2" pref="193" max="-2" attributes="0"/>
                           <Component id="jButton4" min="-2" pref="193" max="-2" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="193" max="-2" attributes="0"/>
                           <Component id="botonConsulta" min="-2" pref="193" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton7" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="botonModificar" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButton5" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -182,7 +182,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="botonModificar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -190,7 +190,7 @@
                 <Property name="text" type="java.lang.String" value="Modificar datos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonModificarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">

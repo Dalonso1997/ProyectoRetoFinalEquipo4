@@ -1,0 +1,17 @@
+
+
+ID,Nombre,Categoria,Estado,Ubicacion,Cantidad
+1,PC Sobremesa Dell OptiPlex,Ordenadores,Operativo,Armario A - Balda 1,8
+2,Portátil HP Pavilion,Ordenadores,Operativo,Armario A - Balda 2,5
+3,Mini PC Intel NUC,Ordenadores,Mantenimiento,Armario A - Balda 3,3
+4,Teclado Logitech K120,Periféricos,Disponible,Armario B - Balda 1,20
+5,Ratón Logitech M185,Periféricos,Disponible,Armario B - Balda 1,25
+6,Monitor ASUS 24",Periféricos,Operativo,Armario B - Balda 2,10
+7,Switch Cisco 24 puertos,Redes,Operativo,Armario C - Balda 1,4
+8,Router TP-Link Archer,Redes,Operativo,Armario C - Balda 2,6
+9,Cable Ethernet Cat6,Redes,Disponible,Armario C - Balda 3,50
+10,Disco SSD 480GB Kingston,Almacenamiento,Disponible,Armario D - Balda 1,12
+11,Disco HDD 1TB Seagate,Almacenamiento,Disponible,Armario D - Balda 2,10
+12,Memoria RAM DDR4 8GB,Componentes,Disponible,Armario E - Balda 1,15
+13,Procesador Intel i5 10th Gen,Componentes,Operativo,Armario E - Balda 2,6
+14,Placa Base ASUS Prime,Componentes,Mantenimiento,Armario E - Balda 3,5
