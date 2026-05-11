@@ -5,6 +5,7 @@
 package interfaz.menuPrincipal;
 
 import java.awt.BorderLayout;
+import viewFormularios.FormularioAltaMaterial;
 
 /**
  *
@@ -239,7 +240,16 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        
+        //Abrimos la ventana de alta de material
+        FormularioAltaMaterial altaMaterial = new FormularioAltaMaterial(this,true);
+        altaMaterial.setVisible(true);
+        //Llamamos al boton de consulta para refrescar la consulta a la base de datos
+        botonConsultaActionPerformed(null);
+        
+        panelDerecha.revalidate(); // Re-calcula el diseño
+    panelDerecha.repaint();    // Vuelve a pintar los píxeles
+        
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed

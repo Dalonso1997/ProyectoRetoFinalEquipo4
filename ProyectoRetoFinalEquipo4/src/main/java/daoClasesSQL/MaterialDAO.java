@@ -116,7 +116,7 @@ public class MaterialDAO {
         
         //Creamos un string con la update de la SQL
         //Como siempre, usamos las ? como posicion para luego introducir los datos
-        String sql = "INSERT INTO materiales (nombre,descripcion,cantidad,estado,id_categoria,id_ubicacion) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO materiales (nombre,descripcion,cantidad,estado,id_categoria,id_ubicacion,fecha_alta) VALUES (?,?,?,?,?,?,NOW())";
         
         //Introducimos los datos recibidos del manterial en la consulta creada arriba
         try (PreparedStatement ps = con.prepareStatement(sql) ){
