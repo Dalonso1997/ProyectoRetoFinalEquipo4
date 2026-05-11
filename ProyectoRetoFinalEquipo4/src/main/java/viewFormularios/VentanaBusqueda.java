@@ -51,7 +51,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         //Recorremos todas las ubicaciones de la base de datos y las añadimos al combobox con formato "Armario - Balda"
         UbicacionDAO ubicacionDAO = new UbicacionDAO();
         for (Ubicacion u : ubicacionDAO.listarTodos()) {
-            ElejirUbicacion.addItem(u.getArmario() + " - " + u.getBalda());
+            ElejirUbicacion.addItem(u.getUbicacion() + " - " + u.getCajon());
         }
 
     }
@@ -91,7 +91,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
         jLabel3.setText("Ubicación:");
 
-        ElejirCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elejir" }));
         ElejirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElejirCategoriaActionPerformed(evt);
@@ -120,7 +119,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        TextBusqueda.setText("Busqueda");
         TextBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextBusquedaActionPerformed(evt);
@@ -209,41 +207,40 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             String texto = TextBusqueda.getText().trim();
             String categoriaSel = (String) ElejirCategoria.getSelectedItem();
             String estadoSel = (String) ElejirEstado.getSelectedItem();
-            String ubicacionSel = (String) ElejirUbicacion.getSelectedItem();
+            String ubicacionSel = (String) ElejirUbicacion.getSelectedItem().toString();
 
-            Integer idCategoria = null;
+           // Integer idCategoria = null;
 
-            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
-                for (Categoria c : new CategoriaDAO().listarTodos()) {
-                    if (c.getNombre().equals(categoriaSel)) {
-                        idCategoria = c.getId_categoria();
-                    }
-                }
-            }
-
-            String estado = null;
-            if (estadoSel != null && !estadoSel.equals("TODOS")) {
-                estado = estadoSel.toLowerCase();
-            }
-
-            Integer idUbicacion = null;
-            if (ubicacionSel != null && !ubicacionSel.equals("TODAS")) {  // ← Cambiar a ubicacionSel
-                for (Ubicacion u : new UbicacionDAO().listarTodos()) {
-                    String ubicacionStr = u.getArmario() + " - " + u.getBalda();
-                    if (ubicacionStr.equals(ubicacionSel)) {
-                        idUbicacion = u.getId_ubicacion();
-                    }
-                }
-            }
+//            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
+//                for (Categoria c : new CategoriaDAO().listarTodos()) {
+//                    if (c.getNombre().equals(categoriaSel)) {
+//                        idCategoria = c.getId_categoria();
+//                    }
+//                }
+//            }
+//
+//            String estado = null;
+//            if (estadoSel != null && !estadoSel.equals("TODOS")) {
+//                estado = estadoSel.toLowerCase();
+//            }
+//
+//            Integer idUbicacion = null;
+//            if (ubicacionSel != null && !ubicacionSel.equals("TODAS")) {  // ← Cambiar a ubicacionSel
+//                for (Ubicacion u : new UbicacionDAO().listarTodos()) {
+//                    String ubicacionStr = u.getArmario() + " - " + u.getBalda();
+//                    if (ubicacionStr.equals(ubicacionSel)) {
+//                        idUbicacion = u.getId_ubicacion();
+//                    }
+//                }
+//            }
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar("","","","");
-                  
+                    
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
             for (Object[] fila : lista) {
                 modelo.addRow(new Object[]{
-                    
                     fila[1],
                     fila[2],
                     fila[3],
