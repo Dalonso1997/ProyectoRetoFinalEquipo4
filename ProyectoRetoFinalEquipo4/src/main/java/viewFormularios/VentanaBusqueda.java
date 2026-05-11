@@ -91,7 +91,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
         jLabel3.setText("Ubicación:");
 
-        ElejirCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elejir" }));
         ElejirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElejirCategoriaActionPerformed(evt);
@@ -120,7 +119,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
-        TextBusqueda.setText("Busqueda");
         TextBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextBusquedaActionPerformed(evt);
@@ -236,14 +234,16 @@ public class VentanaBusqueda extends javax.swing.JFrame {
                 }
             }
             MaterialDAO dao = new MaterialDAO();
-            List<Object[]> lista = dao.buscar("","","","");
-                  
+            List<Object[]> lista = dao.buscar(
+                    texto.isEmpty() ? null : texto,
+                    categoriaSel,
+                    estado,
+                    ubicacionSel != null && ubicacionSel.equals("TODAS") ? null : ubicacionSel);
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
             for (Object[] fila : lista) {
                 modelo.addRow(new Object[]{
-                    
                     fila[1],
                     fila[2],
                     fila[3],
