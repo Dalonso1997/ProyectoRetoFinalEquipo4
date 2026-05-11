@@ -4,17 +4,38 @@
  */
 package CSV;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author DAM119
  */
+
 public class LeerCSV {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        String archivo = "src/inventario.csv";
+        String linea;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+
+            while ((linea = br.readLine()) != null) {
+
+                String[] datos = linea.split(",");
+
+                
+                for (String dato : datos) {
+                    System.out.print(dato + " | ");
+                }
+
+                System.out.println();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
 }
