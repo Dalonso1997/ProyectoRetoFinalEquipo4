@@ -100,6 +100,8 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
 
         etiquetaCantidad.setText("Cantidad:");
 
+        selectorCantidad.setModel(new javax.swing.SpinnerNumberModel(0, null, 1000, 1));
+
         etiquetaEstado.setText("Estado:");
 
         desplegableEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
