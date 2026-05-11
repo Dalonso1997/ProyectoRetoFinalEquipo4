@@ -235,6 +235,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //            }
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar("","","","");
+                    
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
