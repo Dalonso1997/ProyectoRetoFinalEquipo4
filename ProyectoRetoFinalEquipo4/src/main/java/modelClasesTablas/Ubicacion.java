@@ -9,6 +9,7 @@ package modelClasesTablas;
  * @author DAM126
  */
 public class Ubicacion {
+
     private int id_ubicacion;
     private String armario;
     private String balda;
@@ -65,9 +66,15 @@ public class Ubicacion {
 
     @Override
     public String toString() {
-        return "Ubicacion{" + "id_ubicacion=" + id_ubicacion + ", armario=" + armario + ", balda=" + balda + ", cajon=" + cajon + ", descripcion=" + descripcion + '}';
+        String texto = "";
+        if (balda != null) {
+            texto = "Armario: " + armario + " Balda: " + balda;
+        } else if (balda == null) {
+            texto = "Armario: " + armario;
+        }
+
+        return texto;
+
     }
-    
-    
-    
+
 }
