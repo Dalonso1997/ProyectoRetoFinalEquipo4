@@ -234,11 +234,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //                }
 //            }
             MaterialDAO dao = new MaterialDAO();
-            List<Object[]> lista = dao.buscar(
-                    texto.isEmpty() ? null : texto,
-                    categoriaSel,
-                    estado,
-                    ubicacionSel != null && ubicacionSel.equals("TODAS") ? null : ubicacionSel);
+            List<Object[]> lista = dao.buscar("","","","");
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
