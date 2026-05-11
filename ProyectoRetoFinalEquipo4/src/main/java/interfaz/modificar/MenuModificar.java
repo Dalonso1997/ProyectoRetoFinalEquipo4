@@ -69,9 +69,39 @@ public class MenuModificar extends javax.swing.JFrame {
         lblCantidad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCantidad.setText("Cantidad:");
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
+
+        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriaActionPerformed(evt);
+            }
+        });
+
+        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEstadoActionPerformed(evt);
+            }
+        });
+
+        txtUbicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUbicacionActionPerformed(evt);
+            }
+        });
+
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,7 +156,13 @@ public class MenuModificar extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
         );
 
+        botonConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         botonConfirmar.setText("Confirmar");
+        botonConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonConfirmarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,6 +204,31 @@ public class MenuModificar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_botonConfirmarActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaActionPerformed
+
+    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEstadoActionPerformed
+
+    private void txtUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUbicacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUbicacionActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
     /**
      * @param args the command line arguments
