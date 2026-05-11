@@ -36,8 +36,9 @@ public class MaterialDAO {
         StringBuilder sql = new StringBuilder();
 
         //Consulta base que obtiene los datos del material junto con el nombre de la categoria y la ubicacion
+        // Cambiamos u.armario por u.ubicacion (o el nombre nuevo que pusieras)
         sql.append("SELECT m.id_material, m.nombre, m.descripcion, c.nombre AS categoria, ")
-                .append("m.estado, CONCAT(u.armario, ' - ', u.balda) AS ubicacion, m.cantidad ")
+                .append("m.estado, CONCAT(u.ubicacion, IFNULL(CONCAT(', Cajón: ', u.cajon), '')) AS ubicacion_str, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
                 .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
@@ -95,7 +96,7 @@ public class MaterialDAO {
                         rs.getString("descripcion"),
                         rs.getString("categoria"),
                         rs.getString("estado"),
-                        rs.getString("ubicacion"),
+                        rs.getString("ubicacion_str"),
                         rs.getInt("cantidad")
                     });
                 }
@@ -108,18 +109,18 @@ public class MaterialDAO {
         //Devolvemos la lista con los resultados (vacia si no encontro ninguno)
         return resultados;
     }
-    
-    public boolean insertarMaterial(Material m){
-        
+
+    public boolean insertarMaterial(Material m) {
+
         //Llamamos a la instancia de la conexion de la base de datos
         Connection con = ConexionBD.getInstancia().getConexion();
-        
+
         //Creamos un string con la update de la SQL
         //Como siempre, usamos las ? como posicion para luego introducir los datos
         String sql = "INSERT INTO materiales (nombre,descripcion,cantidad,estado,id_categoria,id_ubicacion,fecha_alta) VALUES (?,?,?,?,?,?,NOW())";
-        
+
         //Introducimos los datos recibidos del manterial en la consulta creada arriba
-        try (PreparedStatement ps = con.prepareStatement(sql) ){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getDescripcion());
             ps.setInt(3, m.getCantidad());
@@ -129,7 +130,7 @@ public class MaterialDAO {
             //Ejecutamos la update
             ps.executeUpdate();
             return true;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }

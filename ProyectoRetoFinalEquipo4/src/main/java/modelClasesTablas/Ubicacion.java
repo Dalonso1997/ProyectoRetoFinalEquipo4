@@ -11,15 +11,13 @@ package modelClasesTablas;
 public class Ubicacion {
 
     private int id_ubicacion;
-    private String armario;
-    private String balda;
+    private String ubicacion;
     private String cajon;
     private String descripcion;
 
-    public Ubicacion(int id_ubicacion, String armario, String balda, String cajon, String descripcion) {
+    public Ubicacion(int id_ubicacion, String ubicacion, String cajon, String descripcion) {
         this.id_ubicacion = id_ubicacion;
-        this.armario = armario;
-        this.balda = balda;
+        this.ubicacion = ubicacion;
         this.cajon = cajon;
         this.descripcion = descripcion;
     }
@@ -32,20 +30,12 @@ public class Ubicacion {
         this.id_ubicacion = id_ubicacion;
     }
 
-    public String getArmario() {
-        return armario;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public void setArmario(String armario) {
-        this.armario = armario;
-    }
-
-    public String getBalda() {
-        return balda;
-    }
-
-    public void setBalda(String balda) {
-        this.balda = balda;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public String getCajon() {
@@ -67,10 +57,10 @@ public class Ubicacion {
     @Override
     public String toString() {
         String texto = "";
-        if (balda != null) {
-            texto = "Armario: " + armario + " Balda: " + balda;
-        } else if (balda == null) {
-            texto = "Armario: " + armario;
+        if (cajon != null) {
+            texto = "Armario: " + ubicacion+ " Cajon: " + cajon;
+        } else if (cajon == null) {
+            texto = "Armario: " + ubicacion;
         }
 
         return texto;
