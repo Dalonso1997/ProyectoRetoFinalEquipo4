@@ -22,7 +22,7 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 ├── .gitignore           # Archivos excluidos (secretos, venv, etc.)
 └── README.md            # Este archivo
 
----
+```
 
 
 ## 🌐 Sitio Web
@@ -177,7 +177,7 @@ La web contiene:
 - Visualización 3D.
 - Paneles informativos y estadísticas.
 
----
+```
 
 # Ruta o enlace de la web
 
