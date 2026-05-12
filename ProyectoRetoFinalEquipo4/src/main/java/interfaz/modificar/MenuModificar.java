@@ -8,13 +8,15 @@ package interfaz.modificar;
  *
  * @author DAM119
  */
-public class MenuModificar extends javax.swing.JFrame {
+public class MenuModificar extends javax.swing.JDialog {
 
     /**
      * Creates new form menuModificar
      */
-    public MenuModificar() {
+    public MenuModificar(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
+        this.setTitle("Modificar material");
     }
 
     /**
@@ -44,7 +46,7 @@ public class MenuModificar extends javax.swing.JFrame {
         txtCantidad = new javax.swing.JTextField();
         botonConfirmar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         titulo.setText("Modificar datos");
@@ -261,7 +263,14 @@ public class MenuModificar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuModificar().setVisible(true);
+                MenuModificar modific = new MenuModificar(new javax.swing.JFrame(), true);
+                modific.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                modific.setVisible(true);
             }
         });
     }

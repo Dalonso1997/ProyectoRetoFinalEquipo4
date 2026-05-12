@@ -20,16 +20,16 @@ import modelClasesTablas.Ubicacion;
  *
  * @author DAM126
  */
-public class VentanaBusqueda extends javax.swing.JFrame {
+public class VentanaBusqueda extends javax.swing.JDialog {
 
     /**
      * Creates new form VentanaBusqueda
      */
-    public VentanaBusqueda() {
+    public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
         this.setTitle("Busqueda Componentes");
         this.setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
 
         //Recorremos todas las categorias de la base de datos y las añadimos al combobox
         CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -78,7 +78,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         TextBusqueda = new javax.swing.JTextField();
         MensageMaterialesEncontrados = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         botonBuscar.setText("Buscar");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +91,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
         jLabel3.setText("Ubicación:");
 
+        ElejirCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "a", "b", "c", "d" }));
         ElejirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElejirCategoriaActionPerformed(evt);
@@ -119,6 +120,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
+        TextBusqueda.setText("Busqueda");
         TextBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextBusquedaActionPerformed(evt);
@@ -209,8 +211,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             String estadoSel = (String) ElejirEstado.getSelectedItem();
             String ubicacionSel = (String) ElejirUbicacion.getSelectedItem().toString();
 
-           // Integer idCategoria = null;
-
+            // Integer idCategoria = null;
 //            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
 //                for (Categoria c : new CategoriaDAO().listarTodos()) {
 //                    if (c.getNombre().equals(categoriaSel)) {
@@ -234,8 +235,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //                }
 //            }
             MaterialDAO dao = new MaterialDAO();
-            List<Object[]> lista = dao.buscar("","","","");
-                    
+            List<Object[]> lista = dao.buscar("", "", "", "");
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
@@ -275,37 +275,44 @@ public class VentanaBusqueda extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new VentanaBusqueda().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VentanaBusqueda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                VentanaBusqueda busqueda = new VentanaBusqueda(new javax.swing.JFrame(), true);
+                busqueda.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                busqueda.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ElejirCategoria;

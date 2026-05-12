@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelClasesTablas.Usuario;
 import viewFormularios.VentanaBusqueda;
-import viewFormularios.mainInterfazBusqueda;
 
 /**
  *
