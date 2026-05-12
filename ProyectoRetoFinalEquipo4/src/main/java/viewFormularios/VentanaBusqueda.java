@@ -209,8 +209,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
             String estadoSel = (String) ElejirEstado.getSelectedItem();
             String ubicacionSel = (String) ElejirUbicacion.getSelectedItem().toString();
 
-           // Integer idCategoria = null;
-
+            // Integer idCategoria = null;
 //            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
 //                for (Categoria c : new CategoriaDAO().listarTodos()) {
 //                    if (c.getNombre().equals(categoriaSel)) {
@@ -233,9 +232,17 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //                    }
 //                }
 //            }
+//            MaterialDAO dao = new MaterialDAO();
+//            List<Object[]> lista = dao.buscar("","","","");
+            
+
+            String textoFiltro = texto.isEmpty() ? null : texto;
+            String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
+            String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
+            String ubicacionFiltro = (ubicacionSel != null && ubicacionSel.equals("TODAS")) ? null : ubicacionSel;
+
             MaterialDAO dao = new MaterialDAO();
-            List<Object[]> lista = dao.buscar("","","","");
-                    
+            List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);

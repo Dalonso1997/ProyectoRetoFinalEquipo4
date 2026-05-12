@@ -68,7 +68,7 @@ public class MaterialDAO {
         if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
             //Dividimos el string "Armario - Balda" en dos partes
             String[] partes = ubicacionStr.split(" - ");
-            sql.append("AND u.armario = ? AND u.cajon = ? ");
+            sql.append("AND u.ubicacion = ? AND u.cajon = ? ");
             parametros.add(partes[0].trim());
             parametros.add(partes.length > 1 ? partes[1].trim() : "");
         }
@@ -96,7 +96,7 @@ public class MaterialDAO {
                         rs.getString("descripcion"),
                         rs.getString("categoria"),
                         rs.getString("estado"),
-                        rs.getString("ubicacion_str"),
+                        rs.getString("ubicacion"),
                         rs.getInt("cantidad")
                     });
                 }
