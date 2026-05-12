@@ -22,10 +22,10 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 ├── .gitignore           # Archivos excluidos (secretos, venv, etc.)
 └── README.md            # Este archivo
 
+```
 
 
-
-## Sitio Web 
+## 🌐 Sitio Web
 # Gestión de Taller - Equipo 4
 
 Este proyecto consiste en una aplicación web para la gestión y localización de material del taller del IES Miguel Herrero Pereda.
@@ -34,7 +34,7 @@ La aplicación permite visualizar la distribución física del taller mediante a
 
 ---
 
-# Estructura HTML
+## 🧱 Estructura HTML
 
 La página está desarrollada utilizando HTML5 y etiquetas semánticas para organizar correctamente el contenido.
 
@@ -77,7 +77,7 @@ Incluye información del equipo y del ciclo formativo.
 
 ---
 
-# Explicación del CSS
+## 🎨 Explicación del CSS
 
 Los estilos están definidos en el archivo `style.css`.
 
@@ -129,7 +129,7 @@ La sección `inventario_3d.html` incluye:
 
 ---
 
-# Explicación del JavaScript
+## ⚙️ Explicación del JavaScript
 
 La lógica interactiva está implementada en `script.js`.
 
@@ -177,8 +177,10 @@ La web contiene:
 - Visualización 3D.
 - Paneles informativos y estadísticas.
 
----
+```
 
 # Ruta o enlace de la web
 
 ## Archivo principal
+
+---
