@@ -38,7 +38,7 @@ public class MaterialDAO {
         //Consulta base que obtiene los datos del material junto con el nombre de la categoria y la ubicacion
         // Cambiamos u.armario por u.ubicacion (o el nombre nuevo que pusieras)
         sql.append("SELECT m.id_material, m.nombre, m.descripcion, c.nombre AS categoria, ")
-                .append("m.estado, CONCAT(u.armario, ' - ', u.cajon) AS ubicacion, m.cantidad ")
+                .append("m.estado, CONCAT(u.ubicacion, ' - ', u.cajon) AS ubicacion, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
                 .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
@@ -68,7 +68,7 @@ public class MaterialDAO {
         if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
             //Dividimos el string "Armario - Balda" en dos partes
             String[] partes = ubicacionStr.split(" - ");
-            sql.append("AND u.armario = ? AND u.cajon = ? ");
+            sql.append("AND u.ubicacion = ? AND u.cajon = ? ");
             parametros.add(partes[0].trim());
             parametros.add(partes.length > 1 ? partes[1].trim() : "");
         }
@@ -96,7 +96,7 @@ public class MaterialDAO {
                         rs.getString("descripcion"),
                         rs.getString("categoria"),
                         rs.getString("estado"),
-                        rs.getString("ubicacion_str"),
+                        rs.getString("ubicacion"),
                         rs.getInt("cantidad")
                     });
                 }
