@@ -4,6 +4,11 @@
  */
 package interfaz.modificar;
 
+import daoClasesSQL.MaterialDAO;
+import modelClasesTablas.Categoria;
+import modelClasesTablas.Material;
+import modelClasesTablas.Ubicacion;
+
 /**
  *
  * @author DAM119
@@ -14,7 +19,7 @@ public class MenuModificar extends javax.swing.JDialog {
      * Creates new form menuModificar
      */
     public MenuModificar(java.awt.Frame parent, boolean modal) {
-        super(parent,modal);
+        super(parent, modal);
         initComponents();
         this.setTitle("Modificar material");
     }
@@ -40,10 +45,10 @@ public class MenuModificar extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        txtCategoria = new javax.swing.JTextField();
-        txtEstado = new javax.swing.JTextField();
-        txtUbicacion = new javax.swing.JTextField();
-        txtCantidad = new javax.swing.JTextField();
+        selectCantidad = new javax.swing.JSpinner();
+        selectEstado = new javax.swing.JComboBox<>();
+        selectCategoria = new javax.swing.JComboBox<>();
+        selectUbicacion = new javax.swing.JComboBox<>();
         botonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,27 +86,26 @@ public class MenuModificar extends javax.swing.JDialog {
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        txtCategoria.addActionListener(new java.awt.event.ActionListener() {
+        selectCantidad.setModel(new javax.swing.SpinnerNumberModel(0, null, 1000, 1));
+
+        selectEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoriaActionPerformed(evt);
+                selectEstadoActionPerformed(evt);
             }
         });
 
-        txtEstado.addActionListener(new java.awt.event.ActionListener() {
+        selectCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEstadoActionPerformed(evt);
+                selectCategoriaActionPerformed(evt);
             }
         });
 
-        txtUbicacion.addActionListener(new java.awt.event.ActionListener() {
+        selectUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectUbicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUbicacionActionPerformed(evt);
-            }
-        });
-
-        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadActionPerformed(evt);
+                selectUbicacionActionPerformed(evt);
             }
         });
 
@@ -120,13 +124,13 @@ public class MenuModificar extends javax.swing.JDialog {
                     .addComponent(lblCantidad))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCantidad)
-                    .addComponent(txtUbicacion)
-                    .addComponent(txtEstado)
                     .addComponent(txtNombre)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-                    .addComponent(txtCategoria))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(selectEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectCategoria, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(selectCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(selectUbicacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,20 +146,20 @@ public class MenuModificar extends javax.swing.JDialog {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEstado)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(selectCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstado)
+                    .addComponent(selectEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUbicacion)
-                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(selectUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantidad)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                    .addComponent(selectCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         botonConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -171,15 +175,15 @@ public class MenuModificar extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(382, 382, 382)
-                .addComponent(botonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGap(366, 366, 366)
+                            .addComponent(botonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(titulo))
-                .addGap(55, 55, 55))
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,28 +213,41 @@ public class MenuModificar extends javax.swing.JDialog {
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         // TODO add your handling code here:
-        
+        String nombre = txtNombre.getText().trim();
+
+        if (nombre.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor añade un nombre", "Campo vacío", javax.swing.JOptionPane.WARNING_MESSAGE);
+        } else {
+            String descripcion = txtDescripcion.getText().trim();
+            int cantidad = (int) selectCantidad.getValue();
+            Categoria cat = (Categoria) selectCategoria.getSelectedItem();
+            Ubicacion ubi = (Ubicacion) selectUbicacion.getSelectedItem();
+            String estado = (String) selectEstado.getSelectedItem();
+
+            Material nuevoMaterial = new Material(nombre, descripcion, cantidad, estado, cat.getId_categoria(), ubi.getId_ubicacion());
+            MaterialDAO dao = new MaterialDAO();
+            dao.insertarMaterial(nuevoMaterial);
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
+            this.dispose();
+        }
+
     }//GEN-LAST:event_botonConfirmarActionPerformed
+
+    private void selectEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectEstadoActionPerformed
+
+    private void selectCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectCategoriaActionPerformed
+
+    private void selectUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectUbicacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectUbicacionActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoriaActionPerformed
-
-    private void txtEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEstadoActionPerformed
-
-    private void txtUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUbicacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUbicacionActionPerformed
-
-    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,12 +303,12 @@ public class MenuModificar extends javax.swing.JDialog {
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblUbicacion;
+    private javax.swing.JSpinner selectCantidad;
+    private javax.swing.JComboBox<String> selectCategoria;
+    private javax.swing.JComboBox<String> selectEstado;
+    private javax.swing.JComboBox<String> selectUbicacion;
     private javax.swing.JLabel titulo;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextArea txtDescripcion;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtUbicacion;
     // End of variables declaration//GEN-END:variables
 }

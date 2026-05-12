@@ -18,7 +18,6 @@ utilsClasesApoyo\ConexionBD.class
 daoClasesSQL\UsuarioDAO.class
 interfaz\modificar\MenuModificar$5.class
 interfaz\login.class
-interfaz\modificar\MenuModificar$7$1.class
 viewFormularios\FormularioAltaMaterial.class
 modelClasesTablas\Inventario.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
@@ -39,7 +38,7 @@ interfaz\modificar\MenuModificar$4.class
 com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
 modelClasesTablas\Registro.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
-interfaz\modificar\MenuModificar$7.class
+interfaz\modificar\MenuModificar$6$1.class
 modelClasesTablas\Categoria.class
 viewFormularios\NewClass.class
 viewFormularios\VentanaBusqueda$3.class
