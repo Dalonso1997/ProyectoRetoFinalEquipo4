@@ -300,7 +300,47 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
-        // TODO add your handling code here:
+        //cogemos lo que ve el usuario en el panel
+        java.awt.Component componenteActual = panelDerecha.getViewport().getView();
+        
+        //comprobamos si esta viendo la consulta de materiales
+        if (componenteActual instanceof PanelConsultaMateriales) {
+            PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
+            
+            //cogemos el id de lo que selecciona
+            int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
+            
+            //Si es -1 significa que no selecciona nada
+            if (idSeleccionado == -1) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Selecciona primero un material de la tabla para darlo de baja.", 
+                    "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            //pedimos confirmacion antes de dar de baja
+            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, 
+                "Estas seguro de que deseas dar de baja el material con ID: " + idSeleccionado, 
+                "Confirmar Baja", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
+                
+            if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+                //si da a si llamamos al metodo para cmabiar el estado a baja
+                daoClasesSQL.MaterialDAO dao = new daoClasesSQL.MaterialDAO();
+                boolean exito = dao.bajaMaterial(idSeleccionado);
+                
+                if (exito) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Material dado de baja correctamente.");
+                    //actualizamos la tabla
+                    panelConsulta.refrescarLsitado();
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Hubo un error al intentar dar de baja el material.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Abre primero la pantalla de 'Consulta' y selecciona un material.", 
+                "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_botonBajaActionPerformed
 
     private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
