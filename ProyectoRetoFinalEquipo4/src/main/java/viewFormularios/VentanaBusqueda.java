@@ -234,8 +234,6 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //            }
 //            MaterialDAO dao = new MaterialDAO();
 //            List<Object[]> lista = dao.buscar("","","","");
-            
-
             String textoFiltro = texto.isEmpty() ? null : texto;
             String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
             String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
@@ -243,6 +241,8 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
+//Variables añadidas para un push
+            
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
@@ -314,6 +314,7 @@ public class VentanaBusqueda extends javax.swing.JFrame {
 //        });
 //    }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
