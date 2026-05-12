@@ -42,7 +42,7 @@ public class MaterialDAO {
                 .append("m.estado, CONCAT(u.ubicacion, ' - ', u.cajon) AS ubicacion, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
-                .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
+                .append("JOIN ubicacion u ON u.id_ubicacion = u.id_ubicacion ")
                 .append("WHERE 1=1 "); //El 1=1 es para poder añadir condiciones con AND sin comprobar si es la primera
         //Lista para guardar los parametros que sustituiran a las ? en la consulta
         List<Object> parametros = new ArrayList<>();
@@ -206,5 +206,23 @@ public class MaterialDAO {
 
         return null;
     }
+    
+    public boolean bajaMaterial(int idMaterial) {
+        //Llamamos a la instancia de la conexion de la base de datos
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        //cambiamos el estado a baja
+        String sql = "UPDATE materiales SET estado = 'baja' WHERE id_material=?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idMaterial);
+            //si devuelve distinto a cero se ha ejecutado correctamente
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al dar de baja el material: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }
