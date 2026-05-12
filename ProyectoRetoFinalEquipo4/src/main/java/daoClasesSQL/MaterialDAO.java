@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import modelClasesTablas.Material;
@@ -135,6 +136,75 @@ public class MaterialDAO {
             return false;
         }
     }
-    
-    
+
+    public boolean modificararmaterial(Material m) {
+
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        String sql = "UPDATE materiales "
+                + "SET nombre=?, descripcion=?, cantidad=?, estado=?, "
+                + "id_categoria=?, id_ubicacion=? "
+                + "WHERE id_material=?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, m.getNombre());
+            ps.setString(2, m.getDescripcion());
+            ps.setInt(3, m.getCantidad());
+            ps.setString(4, m.getEstado());
+            ps.setInt(5, m.getId_categoria());
+            ps.setInt(6, m.getId_ubicacion());
+
+            
+            ps.setInt(7, m.getId_material());
+
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al modificar material: " + e.getMessage());
+
+            return false;
+        }
+    }
+
+    public Material buscarPorNombre(String nombre) {
+
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        String sql = "SELECT * FROM materiales WHERE nombre = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nombre);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                LocalDateTime fechaAlta
+                        = rs.getTimestamp("fecha_alta").toLocalDateTime();
+
+                if (rs.next()) {
+
+                    return new Material(
+                            rs.getInt("id_material"),
+                            rs.getString("nombre"),
+                            rs.getString("descripcion"),
+                            rs.getInt("cantidad"),
+                            rs.getString("estado"),
+                            fechaAlta,
+                            rs.getInt("id_categoria"),
+                            rs.getInt("id_ubicacion")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
 }

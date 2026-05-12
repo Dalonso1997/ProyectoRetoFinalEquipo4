@@ -49,74 +49,103 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
+        jPanel2.setBackground(new java.awt.Color(128, 128, 128));
+
+        botonConsulta.setBackground(new java.awt.Color(51, 51, 51));
         botonConsulta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonConsulta.setForeground(new java.awt.Color(255, 255, 255));
         botonConsulta.setText("Consulta");
+        botonConsulta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonConsultaActionPerformed(evt);
             }
         });
 
+        botonLocalizacion.setBackground(new java.awt.Color(51, 51, 51));
         botonLocalizacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonLocalizacion.setForeground(new java.awt.Color(255, 255, 255));
         botonLocalizacion.setText("Localización");
+        botonLocalizacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonLocalizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonLocalizacionActionPerformed(evt);
             }
         });
 
+        botonPrestamos.setBackground(new java.awt.Color(51, 51, 51));
         botonPrestamos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonPrestamos.setForeground(new java.awt.Color(255, 255, 255));
         botonPrestamos.setText("Préstamos");
+        botonPrestamos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonPrestamosActionPerformed(evt);
             }
         });
 
+        botonDevoluciones.setBackground(new java.awt.Color(51, 51, 51));
         botonDevoluciones.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonDevoluciones.setForeground(new java.awt.Color(255, 255, 255));
         botonDevoluciones.setText("Devoluciones");
+        botonDevoluciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonDevoluciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonDevolucionesActionPerformed(evt);
             }
         });
 
+        botonAlta.setBackground(new java.awt.Color(51, 51, 51));
         botonAlta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonAlta.setForeground(new java.awt.Color(255, 255, 255));
         botonAlta.setText("Alta");
+        botonAlta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAltaActionPerformed(evt);
             }
         });
 
+        botonBaja.setBackground(new java.awt.Color(51, 51, 51));
         botonBaja.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonBaja.setForeground(new java.awt.Color(255, 255, 255));
         botonBaja.setText("Baja");
+        botonBaja.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBajaActionPerformed(evt);
             }
         });
 
+        botonModificar.setBackground(new java.awt.Color(51, 51, 51));
         botonModificar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonModificar.setForeground(new java.awt.Color(255, 255, 255));
         botonModificar.setText("Modificar datos");
+        botonModificar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonModificarActionPerformed(evt);
             }
         });
 
+        botonInformes.setBackground(new java.awt.Color(51, 51, 51));
         botonInformes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonInformes.setForeground(new java.awt.Color(255, 255, 255));
         botonInformes.setText("Informes");
+        botonInformes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonInformesActionPerformed(evt);
             }
         });
 
+        botonGestionar.setBackground(new java.awt.Color(51, 51, 51));
         botonGestionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        botonGestionar.setForeground(new java.awt.Color(255, 255, 255));
         botonGestionar.setText("Gestionar ubicación");
+        botonGestionar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonGestionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGestionarActionPerformed(evt);
@@ -143,8 +172,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
                 .addComponent(botonConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonLocalizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,11 +191,15 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 .addComponent(botonInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonGestionar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Administrador");
+
+        panelDerecha.setBackground(new java.awt.Color(153, 153, 153));
+        panelDerecha.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -193,7 +226,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelDerecha)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

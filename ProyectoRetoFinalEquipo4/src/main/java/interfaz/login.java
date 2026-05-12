@@ -54,9 +54,13 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        Titulo.setBackground(new java.awt.Color(51, 51, 51));
+        Titulo.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Inicio de sesión");
 
         javax.swing.GroupLayout TituloLayout = new javax.swing.GroupLayout(Titulo);
@@ -64,24 +68,24 @@ public class login extends javax.swing.JFrame {
         TituloLayout.setHorizontalGroup(
             TituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TituloLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         TituloLayout.setVerticalGroup(
             TituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TituloLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jLabel2))
         );
 
-        panelLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelLogin.setBackground(new java.awt.Color(153, 153, 153));
 
-        contraseña.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        contraseña.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        contraseña.setForeground(new java.awt.Color(255, 255, 255));
         contraseña.setText("Contraseña: ");
 
-        usuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        usuario.setForeground(new java.awt.Color(255, 255, 255));
         usuario.setText("Usuario: ");
 
         textoUsuario.addActionListener(new java.awt.event.ActionListener() {
