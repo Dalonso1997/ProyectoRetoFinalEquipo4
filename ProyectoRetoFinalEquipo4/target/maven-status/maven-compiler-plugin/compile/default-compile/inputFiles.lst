@@ -1,6 +1,7 @@
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\controllerClasesGestionModelVista\NewClass.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\CSV\GenerarCSV.java
+D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\CSV\LeerCSV.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\CategoriaDAO.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\MaterialDAO.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\UbicacionDAO.java
@@ -10,6 +11,7 @@ D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\s
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\interfaz\menuPrincipal\MenuPrincipalAdmin.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\interfaz\menuPrincipal\MenuPrincipalProfesor.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\interfaz\menuPrincipal\PanelConsultaMateriales.java
+D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\interfaz\modificar\MenuModificar.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\modelClasesTablas\Categoria.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\modelClasesTablas\Estado.java
 D:\Usuarios\dam125\Documents\GitHub\ProyectoRetoFinal\ProyectoRetoFinalEquipo4\src\main\java\modelClasesTablas\Inventario.java
