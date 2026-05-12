@@ -42,7 +42,7 @@ public class MaterialDAO {
                 .append("m.estado, CONCAT(u.ubicacion, ' - ', u.cajon) AS ubicacion, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
-                .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
+                .append("JOIN ubicacion u ON u.id_ubicacion = u.id_ubicacion ")
                 .append("WHERE 1=1 "); //El 1=1 es para poder añadir condiciones con AND sin comprobar si es la primera
         //Lista para guardar los parametros que sustituiran a las ? en la consulta
         List<Object> parametros = new ArrayList<>();
