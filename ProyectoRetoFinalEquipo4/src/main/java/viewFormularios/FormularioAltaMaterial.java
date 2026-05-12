@@ -88,20 +88,32 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Introduce los datos del componente");
 
         lineaSeparador1.setForeground(new java.awt.Color(255, 255, 255));
 
+        etiquetaNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaNombre.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaNombre.setText("Nombre:");
 
         lineaSeparador2.setForeground(new java.awt.Color(255, 255, 255));
 
+        etiquetaDescripcion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaDescripcion.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaDescripcion.setText("Descripcion:");
 
+        etiquetaCantidad.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaCantidad.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaCantidad.setText("Cantidad:");
 
         selectorCantidad.setModel(new javax.swing.SpinnerNumberModel(0, null, 1000, 1));
 
+        etiquetaEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaEstado.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaEstado.setText("Estado:");
 
         desplegableEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -117,8 +129,12 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
             }
         });
 
+        etiquetaCategoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaCategoria.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaCategoria.setText("Categoria:");
 
+        etiquetaUbicacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaUbicacion.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaUbicacion.setText("Ubicacion:");
 
         btnCancelar.setText("Cancelar");
@@ -142,10 +158,6 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lineaSeparador2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -167,15 +179,19 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
                             .addComponent(desplegableCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 156, Short.MAX_VALUE))
                             .addComponent(desplegableUbicacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(btnGuardar)
-                .addGap(14, 14, 14))
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,13 +224,13 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etiquetaUbicacion)
                     .addComponent(desplegableUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(lineaSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar))
-                .addGap(10, 10, 10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
