@@ -34,7 +34,7 @@ La aplicación permite visualizar la distribución física del taller mediante a
 
 ---
 <details>
-<summary>## 🧱 Estructura HTML</summary>
+<summary>🧱 Estructura HTML</summary>
 
 La página está desarrollada utilizando HTML5 y etiquetas semánticas para organizar correctamente el contenido.
 
@@ -78,7 +78,7 @@ Incluye información del equipo y del ciclo formativo.
 ---
 </details>
 <details>
-<summary>## 🎨 Explicación del CSS</summary>
+<summary>🎨 Explicación del CSS</summary>
 
 Los estilos están definidos en el archivo `style.css`.
 
@@ -169,7 +169,7 @@ También se muestra:
 
 ---
 </details>
-<summary># Contenido Incluido</summary>
+<summary>Contenido Incluido</summary>
 
 La web contiene:
 - Plano visual del taller.
