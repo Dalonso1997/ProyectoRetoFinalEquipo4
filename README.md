@@ -77,7 +77,8 @@ Incluye información del equipo y del ciclo formativo.
 
 ---
 </details>
-## 🎨 Explicación del CSS
+<details>
+<summary>## 🎨 Explicación del CSS</summary>
 
 Los estilos están definidos en el archivo `style.css`.
 
@@ -128,8 +129,9 @@ La sección `inventario_3d.html` incluye:
 - Área de renderizado 3D mediante canvas.
 
 ---
-
-## ⚙️ Explicación del JavaScript
+</details>
+<details>
+<summary>## ⚙️ Explicación del JavaScript</summary>
 
 La lógica interactiva está implementada en `script.js`.
 
@@ -166,8 +168,8 @@ También se muestra:
 - Mensajes cuando una balda está vacía.
 
 ---
-
-# Contenido Incluido
+</details>
+<summary># Contenido Incluido</summary>
 
 La web contiene:
 - Plano visual del taller.
