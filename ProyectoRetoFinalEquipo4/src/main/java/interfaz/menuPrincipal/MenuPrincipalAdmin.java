@@ -4,10 +4,12 @@
  */
 package interfaz.menuPrincipal;
 
+import devoluciones.devoluciones;
 import interfaz.modificar.MenuModificar;
 import java.awt.BorderLayout;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
+
 
 /**
  *
@@ -232,10 +234,18 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_botonPrestamosActionPerformed
 
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
         // TODO add your handling code here:
+        
+        devoluciones devolucion = new devoluciones(this,true);
+        devolucion.setVisible(true);
+        
+        panelDerecha.revalidate();
+        panelDerecha.repaint();
+        
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed

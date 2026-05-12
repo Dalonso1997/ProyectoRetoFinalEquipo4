@@ -1,5 +1,6 @@
 viewFormularios\FormularioAltaMaterial$1.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
+devoluciones\devoluciones$1.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 pruebas\Pruebas.class
@@ -16,6 +17,7 @@ interfaz\menuPrincipal\MenuPrincipalAdmin.class
 interfaz\menuPrincipal\PanelConsultaMateriales.class
 utilsClasesApoyo\ConexionBD.class
 daoClasesSQL\UsuarioDAO.class
+devoluciones\devoluciones$1$1.class
 interfaz\modificar\MenuModificar$5.class
 interfaz\login.class
 viewFormularios\FormularioAltaMaterial.class
@@ -24,6 +26,7 @@ interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
 daoClasesSQL\MaterialDAO.class
 controllerClasesGestionModelVista\NewClass.class
 modelClasesTablas\Prestamo.class
+devoluciones\devoluciones.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$8.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$4.class
 interfaz\modificar\MenuModificar$1.class
@@ -40,7 +43,6 @@ modelClasesTablas\Registro.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
 interfaz\modificar\MenuModificar$6$1.class
 modelClasesTablas\Categoria.class
-viewFormularios\NewClass.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
 modelClasesTablas\Ubicacion.class
