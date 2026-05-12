@@ -90,4 +90,22 @@ public class PanelConsultaMateriales extends JPanel {
             modelo.addRow(fila);
         }
     }
+    
+        //metodo que devuelve el id del matrial que el admin selecciona
+    public int getIdMaterialSeleccionado() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada==-1) {
+            return -1;
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return (int) modelo.getValueAt(filaSeleccionada, 0);
+        }
+    }
+    
+    //es un metodo para usar el metodo de cargar materiales
+    //para ver actualizada la tabla, porque el metodo es privado
+    public void refrescarLsitado() {
+        cargarMateriales();
+    }
 }

@@ -206,5 +206,23 @@ public class MaterialDAO {
 
         return null;
     }
+    
+    public boolean bajaMaterial(int idMaterial) {
+        //Llamamos a la instancia de la conexion de la base de datos
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        //cambiamos el estado a baja
+        String sql = "UPDATE materiales SET estado = 'baja' WHERE id_material=?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idMaterial);
+            //si devuelve distinto a cero se ha ejecutado correctamente
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al dar de baja el material: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }
