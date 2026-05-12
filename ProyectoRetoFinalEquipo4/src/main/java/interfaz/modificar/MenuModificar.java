@@ -259,20 +259,21 @@ public class MenuModificar extends javax.swing.JDialog {
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         // TODO add your handling code here:
 
-        materialActual.setNombre(
-                txtNuevo.getText().trim()
-        );
+        materialActual.setNombre(txtNuevo.getText().trim());
+        materialActual.setDescripcion(txtDescripcion.getText().trim());
+        materialActual.setCantidad((int) selectCantidad.getValue());
 
-        materialActual.setDescripcion(
-                txtDescripcion.getText().trim()
-        );
+        Categoria cat = (Categoria) selectCategoria.getSelectedItem();
+        Ubicacion ubi = (Ubicacion) selectUbicacion.getSelectedItem();
+        String estado = (String) selectEstado.getSelectedItem();
 
-        materialActual.setCantidad(
-                (int) selectCantidad.getValue()
-        );
-        
-        dao.modificararmaterial(materialActual);
-        
+        materialActual.setId_categoria(cat.getId_categoria());
+        materialActual.setId_ubicacion(ubi.getId_ubicacion());
+        materialActual.setEstado(estado);
+
+        MaterialDAO dao = new MaterialDAO();
+        dao.modificarMaterial(materialActual);
+
         javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
         this.dispose();
 
@@ -301,30 +302,19 @@ public class MenuModificar extends javax.swing.JDialog {
 
     private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
         // TODO add your handling code here:
-        
-        
-        String nombreBuscado = txtNombre.getText().trim();
 
-        materialActual = dao.buscarPorNombre(nombreBuscado);
+        MaterialDAO dao = new MaterialDAO();
+
+        materialActual = dao.buscarPorNombre(
+                txtNombre.getText().trim()
+        );
 
         if (materialActual != null) {
 
             txtNuevo.setText(materialActual.getNombre());
+            txtDescripcion.setText(materialActual.getDescripcion());
+            selectCantidad.setValue(materialActual.getCantidad());
 
-            txtDescripcion.setText(
-                    materialActual.getDescripcion()
-            );
-
-            selectCantidad.setValue(
-                    materialActual.getCantidad()
-            );
-
-        } else {
-
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Material no encontrado"
-            );
         }
 
     }//GEN-LAST:event_botonCargarActionPerformed
