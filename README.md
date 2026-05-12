@@ -33,8 +33,8 @@ Este proyecto consiste en una aplicación web para la gestión y localización d
 La aplicación permite visualizar la distribución física del taller mediante armarios, cajoneras y mesas, además de consultar el inventario almacenado en cada zona. También incluye una visualización adicional en 3D para facilitar la organización y búsqueda de materiales.
 
 ---
-
-## 🧱 Estructura HTML
+<details>
+<summary>## 🧱 Estructura HTML</summary>
 
 La página está desarrollada utilizando HTML5 y etiquetas semánticas para organizar correctamente el contenido.
 
@@ -76,7 +76,7 @@ Elementos principales:
 Incluye información del equipo y del ciclo formativo.
 
 ---
-
+</details>
 ## 🎨 Explicación del CSS
 
 Los estilos están definidos en el archivo `style.css`.
