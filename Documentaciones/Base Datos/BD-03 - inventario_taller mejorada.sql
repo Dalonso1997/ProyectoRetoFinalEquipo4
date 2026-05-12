@@ -16,9 +16,9 @@ CREATE TABLE categorias (
 -- UBICACION
 CREATE TABLE ubicacion (
     id_ubicacion INT AUTO_INCREMENT PRIMARY KEY,
-    armario VARCHAR(50) NOT NULL,
+    ubicacion VARCHAR(50) NOT NULL,
     balda VARCHAR(50),
-    cajon VARCHAR(50),
+    cajon INT,
     descripcion VARCHAR(255)
 );
 -- MATERIALES
@@ -30,10 +30,7 @@ CREATE TABLE materiales (
     estado ENUM('disponible', 'prestado', 'reparacion', 'baja') NOT NULL DEFAULT 'disponible',
     fecha_alta DATE NOT NULL,
     id_categoria INT NOT NULL,
-    id_ubicacion INT NOT NULL,
     FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
-        ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (id_ubicacion) REFERENCES ubicacion(id_ubicacion)
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 -- PRESTAMOS
@@ -69,6 +66,9 @@ CREATE TABLE inventario (
     fecha_registro DATETIME ,
     cantidad INT NOT NULL,
     id_material INT NOT NULL,
+    id_ubicacion INT NOT NULL,
     FOREIGN KEY (id_material) REFERENCES materiales(id_material)
-        ON UPDATE CASCADE ON DELETE RESTRICT
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (id_ubicacion) REFERENCES ubicacion(id_ubicacion)
+	ON UPDATE CASCADE ON DELETE RESTRICT
 );
