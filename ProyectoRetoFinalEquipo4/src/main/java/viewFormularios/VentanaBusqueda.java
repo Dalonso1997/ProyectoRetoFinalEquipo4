@@ -234,8 +234,13 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 //                    }
 //                }
 //            }
+            String textoFiltro = texto.isEmpty() ? null : texto;
+            String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
+            String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
+            String ubicacionFiltro = (ubicacionSel != null && ubicacionSel.equals("TODAS")) ? null : ubicacionSel;
+
             MaterialDAO dao = new MaterialDAO();
-            List<Object[]> lista = dao.buscar("", "", "", "");
+            List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
