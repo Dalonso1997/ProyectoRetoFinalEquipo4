@@ -131,7 +131,7 @@ La sección `inventario_3d.html` incluye:
 ---
 </details>
 <details>
-<summary>## ⚙️ Explicación del JavaScript</summary>
+<summary>⚙️ Explicación del JavaScript</summary>
 
 La lógica interactiva está implementada en `script.js`.
 
