@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<inventario>
+
+    <material>
+        <id>1</id>
+        <nombre>PC Sobremesa Dell OptiPlex</nombre>
+        <categoria>Ordenadores</categoria>
+        <subcategoria>PC sobremesa</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario A - Balda 1</ubicacion>
+        <cantidad>8</cantidad>
+        <descripcion>Ordenador de uso general para prácticas</descripcion>
+    </material>
+
+    <material>
+        <id>2</id>
+        <nombre>Portátil HP Pavilion</nombre>
+        <categoria>Ordenadores</categoria>
+        <subcategoria>Portátiles</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario A - Balda 2</ubicacion>
+        <cantidad>5</cantidad>
+        <descripcion>Portátiles para trabajo móvil</descripcion>
+    </material>
+
+    <material>
+        <id>3</id>
+        <nombre>Mini PC Intel NUC</nombre>
+        <categoria>Ordenadores</categoria>
+        <subcategoria>Mini PC</subcategoria>
+        <estado>Mantenimiento</estado>
+        <ubicacion>Armario A - Balda 3</ubicacion>
+        <cantidad>3</cantidad>
+        <descripcion>Equipos compactos para pruebas</descripcion>
+    </material>
+
+    <material>
+        <id>4</id>
+        <nombre>Teclado Logitech K120</nombre>
+        <categoria>Periféricos</categoria>
+        <subcategoria>Entrada</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario B - Balda 1</ubicacion>
+        <cantidad>20</cantidad>
+        <descripcion>Teclados USB estándar</descripcion>
+    </material>
+
+    <material>
+        <id>5</id>
+        <nombre>Ratón Logitech M185</nombre>
+        <categoria>Periféricos</categoria>
+        <subcategoria>Entrada</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario B - Balda 1</ubicacion>
+        <cantidad>25</cantidad>
+        <descripcion>Ratones inalámbricos básicos</descripcion>
+    </material>
+
+    <material>
+        <id>6</id>
+        <nombre>Monitor ASUS 24"</nombre>
+        <categoria>Periféricos</categoria>
+        <subcategoria>Salida</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario B - Balda 2</ubicacion>
+        <cantidad>10</cantidad>
+        <descripcion>Monitores Full HD</descripcion>
+    </material>
+
+    <material>
+        <id>7</id>
+        <nombre>Switch Cisco 24 puertos</nombre>
+        <categoria>Redes</categoria>
+        <subcategoria>Switch</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario C - Balda 1</ubicacion>
+        <cantidad>4</cantidad>
+        <descripcion>Switch gestionable para prácticas de red</descripcion>
+    </material>
+
+    <material>
+        <id>8</id>
+        <nombre>Router TP-Link Archer</nombre>
+        <categoria>Redes</categoria>
+        <subcategoria>Router</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario C - Balda 2</ubicacion>
+        <cantidad>6</cantidad>
+        <descripcion>Router WiFi para laboratorio</descripcion>
+    </material>
+
+    <material>
+        <id>9</id>
+        <nombre>Cable Ethernet Cat6</nombre>
+        <categoria>Redes</categoria>
+        <subcategoria>Cableado</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario C - Balda 3</ubicacion>
+        <cantidad>50</cantidad>
+        <descripcion>Cables de red de 2 metros</descripcion>
+    </material>
+
+    <material>
+        <id>10</id>
+        <nombre>Disco SSD 480GB Kingston</nombre>
+        <categoria>Almacenamiento</categoria>
+        <subcategoria>SSD</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario D - Balda 1</ubicacion>
+        <cantidad>12</cantidad>
+        <descripcion>Unidades SSD SATA</descripcion>
+    </material>
+
+    <material>
+        <id>11</id>
+        <nombre>Disco HDD 1TB Seagate</nombre>
+        <categoria>Almacenamiento</categoria>
+        <subcategoria>HDD</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario D - Balda 2</ubicacion>
+        <cantidad>10</cantidad>
+        <descripcion>Discos mecánicos para backup</descripcion>
+    </material>
+
+    <material>
+        <id>12</id>
+        <nombre>Memoria RAM DDR4 8GB</nombre>
+        <categoria>Componentes</categoria>
+        <subcategoria>RAM</subcategoria>
+        <estado>Disponible</estado>
+        <ubicacion>Armario E - Balda 1</ubicacion>
+        <cantidad>15</cantidad>
+        <descripcion>Módulos de memoria para PCs</descripcion>
+    </material>
+
+    <material>
+        <id>13</id>
+        <nombre>Procesador Intel i5 10th Gen</nombre>
+        <categoria>Componentes</categoria>
+        <subcategoria>CPU</subcategoria>
+        <estado>Operativo</estado>
+        <ubicacion>Armario E - Balda 2</ubicacion>
+        <cantidad>6</cantidad>
+        <descripcion>CPUs para montaje de equipos</descripcion>
+    </material>
+
+    <material>
+        <id>14</id>
+        <nombre>Placa Base ASUS Prime</nombre>
+        <categoria>Componentes</categoria>
+        <subcategoria>Placa base</subcategoria>
+        <estado>Mantenimiento</estado>
+        <ubicacion>Armario E - Balda 3</ubicacion>
+        <cantidad>5</cantidad>
+        <descripcion>Placas base para ensamblaje</descripcion>
+    </material>
+
+</inventario>
