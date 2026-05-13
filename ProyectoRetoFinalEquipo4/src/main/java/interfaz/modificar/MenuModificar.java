@@ -59,14 +59,14 @@ public class MenuModificar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(76, 76, 76));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setText("Modificar datos");
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setBackground(new java.awt.Color(76, 76, 76));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
 
         lblNuevo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNuevo.setForeground(new java.awt.Color(255, 255, 255));
@@ -259,20 +259,21 @@ public class MenuModificar extends javax.swing.JDialog {
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         // TODO add your handling code here:
 
-        materialActual.setNombre(
-                txtNuevo.getText().trim()
-        );
+        materialActual.setNombre(txtNuevo.getText().trim());
+        materialActual.setDescripcion(txtDescripcion.getText().trim());
+        materialActual.setCantidad((int) selectCantidad.getValue());
 
-        materialActual.setDescripcion(
-                txtDescripcion.getText().trim()
-        );
+        Categoria cat = (Categoria) selectCategoria.getSelectedItem();
+        Ubicacion ubi = (Ubicacion) selectUbicacion.getSelectedItem();
+        String estado = (String) selectEstado.getSelectedItem();
 
-        materialActual.setCantidad(
-                (int) selectCantidad.getValue()
-        );
-        
-        dao.modificararmaterial(materialActual);
-        
+        materialActual.setId_categoria(cat.getId_categoria());
+        materialActual.setId_ubicacion(ubi.getId_ubicacion());
+        materialActual.setEstado(estado);
+
+        MaterialDAO dao = new MaterialDAO();
+        dao.modificarMaterial(materialActual);
+
         javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
         this.dispose();
 
@@ -301,30 +302,19 @@ public class MenuModificar extends javax.swing.JDialog {
 
     private void botonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargarActionPerformed
         // TODO add your handling code here:
-        
-        
-        String nombreBuscado = txtNombre.getText().trim();
 
-        materialActual = dao.buscarPorNombre(nombreBuscado);
+        MaterialDAO dao = new MaterialDAO();
+
+        materialActual = dao.buscarPorNombre(
+                txtNombre.getText().trim()
+        );
 
         if (materialActual != null) {
 
             txtNuevo.setText(materialActual.getNombre());
+            txtDescripcion.setText(materialActual.getDescripcion());
+            selectCantidad.setValue(materialActual.getCantidad());
 
-            txtDescripcion.setText(
-                    materialActual.getDescripcion()
-            );
-
-            selectCantidad.setValue(
-                    materialActual.getCantidad()
-            );
-
-        } else {
-
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Material no encontrado"
-            );
         }
 
     }//GEN-LAST:event_botonCargarActionPerformed

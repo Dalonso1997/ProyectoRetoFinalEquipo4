@@ -17,7 +17,6 @@ CREATE TABLE categorias (
 CREATE TABLE ubicacion (
     id_ubicacion INT AUTO_INCREMENT PRIMARY KEY,
     ubicacion VARCHAR(50) NOT NULL,
-    balda VARCHAR(50),
     cajon INT,
     descripcion VARCHAR(255)
 );

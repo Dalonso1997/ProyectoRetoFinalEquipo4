@@ -142,7 +142,7 @@ public class MaterialDAO {
         }
     }
 
-    public boolean modificararmaterial(Material m) {
+    public boolean modificarMaterial(Material m) {
 
         Connection con = ConexionBD.getInstancia().getConexion();
 
