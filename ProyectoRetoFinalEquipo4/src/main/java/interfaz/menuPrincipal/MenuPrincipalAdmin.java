@@ -4,7 +4,8 @@
  */
 package interfaz.menuPrincipal;
 
-import devoluciones.devoluciones;
+import devolucionesYPrestamos.devoluciones;
+import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
 import java.awt.BorderLayout;
 import viewFormularios.FormularioAltaMaterial;
@@ -276,6 +277,12 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
+        
+        prestamos prestamo = new prestamos(this,true);
+        prestamo.setVisible(true);
+        
+        panelDerecha.revalidate();
+        panelDerecha.repaint();
         
     }//GEN-LAST:event_botonPrestamosActionPerformed
 

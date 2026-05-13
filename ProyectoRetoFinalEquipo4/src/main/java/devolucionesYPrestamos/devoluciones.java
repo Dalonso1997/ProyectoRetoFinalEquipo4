@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package devoluciones;
+package devolucionesYPrestamos;
 
 /**
  *
@@ -10,14 +10,38 @@ package devoluciones;
  */
 public class devoluciones extends javax.swing.JDialog {
 
-    /**
-     * Creates new form devoluciones
-     */
+    
+    private daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
+    private javax.swing.DefaultListModel<Object[]> modeloLista = new javax.swing.DefaultListModel<>();
+
     public devoluciones(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarPrestamosPendientes(); // Llenamos la lista al abrir
     }
-
+    private void cargarPrestamosPendientes() {
+        modeloLista.clear();
+        java.util.List<Object[]> pendientes = pDAO.listarPrestamosPendientes();
+        
+        for (Object[] p : pendientes) {
+            modeloLista.addElement(p);
+        }
+        jList1.setModel(modeloLista);
+        
+        // Darle formato para que se lea bonito
+        jList1.setCellRenderer(new javax.swing.DefaultListCellRenderer() {
+            @Override
+            public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Object[]) {
+                    Object[] p = (Object[]) value;
+                    // Muestra: ID - Persona - Material (Cantidad)
+                    setText("ID: " + p[0] + " | " + p[1] + " tiene: " + p[2] + " (Cant: " + p[3] + ")");
+                }
+                return this;
+            }
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,14 +55,25 @@ public class devoluciones extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Aceptar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Devoluciones");
@@ -48,6 +83,8 @@ public class devoluciones extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Listado de devoluciones");
+
+        jScrollPane2.setViewportView(jList1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,26 +102,28 @@ public class devoluciones extends javax.swing.JDialog {
                             .addComponent(jLabel1)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(134, 134, 134))
+                            .addComponent(jScrollPane2))))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel1)
-                        .addGap(45, 45, 45)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel2)))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -93,6 +132,41 @@ public class devoluciones extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Object[] seleccionado = (Object[]) jList1.getSelectedValue();
+        int idPrestamo = -1;
+
+        // Comprobamos si seleccionó algo en la lista o si lo escribió a mano en el campo de texto
+        if (seleccionado != null) {
+            idPrestamo = (int) seleccionado[0];
+        } else {
+            try {
+                idPrestamo = Integer.parseInt(jTextField1.getText().trim());
+            } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Selecciona un préstamo de la lista o escribe un ID válido.");
+                return;
+            }
+        }
+
+        // Criterio: Actualiza estado o stock Y Evita devoluciones duplicadas
+        if (pDAO.registrarDevolucion(idPrestamo)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Devolución registrada! El stock ha vuelto al inventario.");
+            jTextField1.setText(""); 
+            jList1.clearSelection();
+            cargarPrestamosPendientes(); // Refrescamos la lista para que desaparezca el devuelto
+        } else {
+            // El DAO devuelve false si no encuentra el ID o si ya estaba con estado 'DEVUELTO'
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: El préstamo no existe o ya fue devuelto.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,7 +215,8 @@ public class devoluciones extends javax.swing.JDialog {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList jList1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
