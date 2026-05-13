@@ -271,9 +271,9 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
         int cantidad = (int) selectorCantidad.getValue();
         Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
         Ubicacion ubi = (Ubicacion) desplegableUbicacion.getSelectedItem();
-        String estado = (String) desplegableEstado.getSelectedItem();
+        Estado estado = (Estado) desplegableEstado.getSelectedItem();
         
-        Material nuevoMaterial = new Material(nombre,descripcion,cantidad, estado,cat.getId_categoria(),ubi.getId_ubicacion());
+        Material nuevoMaterial = new Material(nombre,descripcion,cantidad, estado.getId_estado(),cat.getId_categoria(),ubi.getId_ubicacion());
         MaterialDAO dao = new MaterialDAO();
         dao.insertarMaterial(nuevoMaterial);
         javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");

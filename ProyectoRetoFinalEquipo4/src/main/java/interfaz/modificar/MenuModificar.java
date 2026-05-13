@@ -6,6 +6,7 @@ package interfaz.modificar;
 
 import daoClasesSQL.MaterialDAO;
 import modelClasesTablas.Categoria;
+import modelClasesTablas.Estado;
 import modelClasesTablas.Material;
 import modelClasesTablas.Ubicacion;
 
@@ -265,11 +266,11 @@ public class MenuModificar extends javax.swing.JDialog {
 
         Categoria cat = (Categoria) selectCategoria.getSelectedItem();
         Ubicacion ubi = (Ubicacion) selectUbicacion.getSelectedItem();
-        String estado = (String) selectEstado.getSelectedItem();
+        Estado estado = (Estado) selectEstado.getSelectedItem();
 
         materialActual.setId_categoria(cat.getId_categoria());
         materialActual.setId_ubicacion(ubi.getId_ubicacion());
-        materialActual.setEstado(estado);
+        materialActual.setId_estado(estado.getId_estado());
 
         MaterialDAO dao = new MaterialDAO();
         dao.modificarMaterial(materialActual);
