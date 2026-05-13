@@ -4,11 +4,17 @@ D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoReto
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\CSV\LeerCSV.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\CategoriaDAO.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\MaterialDAO.java
+<<<<<<< HEAD
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\PrestamoDAO.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\UbicacionDAO.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\UsuarioDAO.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\devolucionesYPrestamos\devoluciones.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\devolucionesYPrestamos\prestamos.java
+=======
+D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\UbicacionDAO.java
+D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\daoClasesSQL\UsuarioDAO.java
+D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\devoluciones\devoluciones.java
+>>>>>>> main
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\interfaz\login.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\interfaz\mainInterfaz.java
 D:\Usuarios\dam114.IESMHP\Documents\GitHub\ProyectoRetoFinalEquipo4\ProyectoRetoFinalEquipo4\src\main\java\interfaz\menuPrincipal\MenuPrincipalAdmin.java

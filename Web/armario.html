@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Armario 3D - ¡Vuelve a la vida!</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #333; }
+        #instrucciones {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: sans-serif;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="fundido" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; opacity: 1; pointer-events: none; z-index: 999;"></div>
+    <div id="instrucciones">
+        Arrastra para rotar | Rueda para Zoom<br>
+        La puerta se abre automáticamente
+    </div>
+
+    <div id="panel-info" style="display: none; position: absolute; bottom: 20px; right: 20px; z-index: 100; background: rgba(26, 42, 58, 0.9); color: white; padding: 20px; border-radius: 8px; border: 2px solid #4CAF50; font-family: sans-serif; pointer-events: none; min-width: 250px;">
+        <h2 id="info-titulo" style="margin-top: 0; color: #4CAF50;">Título</h2>
+        <p id="info-id" style="margin-top: 0;">Id: </p>
+        <p id="info-fecha" style="margin-top: 0;">Fecha: </p>
+        <p id="info-cantidad" style="margin-top: 0">Cantidad:</p>
+        <p id="info-desc" style="margin-bottom: 0;">Descripción...</p>
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+
+
+        const COLOR_FONDO = 0xDBDBDB
+        const COLOR_ARMARIO =0x945637
+        const COLOR_FONDOARMARIO =0xA36546
+        const COLOR_SUELO =0x969696
+
+        
+
+       
+
+
+        // 1. CONFIGURACIÓN BÁSICA
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(COLOR_FONDO);
+
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(2, 2, 4);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        // --- ACTIVAR SOMBRAS ---
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+        
+
+        // 2. LUCES
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const luz = new THREE.DirectionalLight(0xffffff, 0.8);
+        const luzPrincipal = new THREE.DirectionalLight(0xffffff, 1.2);
+        luzPrincipal.position.set(5, 10, 7);
+
+        // --- ACTIVAR SOMBRAS EN LA LUZ ---
+        luzPrincipal.castShadow = true;
+
+        // Opcional: Ajustar la calidad y el alcance (para que no se corten)
+        luzPrincipal.shadow.mapSize.width = 1024; // Resolución
+        luzPrincipal.shadow.mapSize.height = 1024;
+        luzPrincipal.shadow.camera.near = 0.5;
+        luzPrincipal.shadow.camera.far = 20;
+        luzPrincipal.shadow.camera.left = -5;
+        luzPrincipal.shadow.camera.right = 5;
+        luzPrincipal.shadow.camera.top = 5;
+        luzPrincipal.shadow.camera.bottom = -5;
+
+        scene.add(luzPrincipal);
+        // 3. MATERIALES
+        const matMaderaOscura = new THREE.MeshStandardMaterial({ color: COLOR_ARMARIO });
+        const matMetal = new THREE.MeshStandardMaterial({ color: COLOR_FONDOARMARIO, metalness: 0.8, roughness: 0.2 });
+
+
+        const groundGeometry = new THREE.PlaneGeometry(20, 20);
+        const groundMaterial = new THREE.MeshStandardMaterial({ color: COLOR_SUELO });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2; // Ponerlo horizontal
+        ground.position.y = -0.3; 
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+       
+
+        
+        const bloquesInteractivos = [];
+
+        
+                
+       
+
+        
+        const fondo = new THREE.Mesh(new THREE.BoxGeometry(4.5, 2, 0.02), matMetal);
+        fondo.position.set(0, 0.5, -0.24);
+        //grupoArmario.add(fondo);
+        const tabla = new THREE.Mesh(new THREE.BoxGeometry(4.5,0.05,0.5),matMaderaOscura)
+        tabla.castShadow = true;
+        tabla.receiveShadow = true;
+
+
+        const cajon1 = crearCajon(0.5,0.5,0.5); 
+        const cajon2 = crearCajon(1,0.25,0.5);
+        const cajon3 = crearCajon(1,0.25,0.5);
+        const cajon4 = crearCajon(1,0.25,0.5);
+        const cajon5 = crearCajon(1,0.25,0.5);
+        
+        const cajon6 = crearCajon(1,0.5,0.5)
+        const cajon7 = crearCajon(0.5,0.5,0.5)
+        const cajon8 = crearCajon(1,0.5,0.5)
+        const cajon9 = crearCajon(1,0.5,0.5)
+        const cajon10 = crearCajon(0.5,0.5,0.5)
+        const cajon11 = crearCajon(1,0.5,0.5)
+        const cajon12 = crearCajon(1,0.5,0.5)
+        const cajon13 = crearCajon(0.5,0.5,0.5) 
+        const cajon14 = crearCajon(1,0.5,0.5)
+        
+        
+        const armario1 = armario(0.5,0.3333,0.5)
+        const armario2 = armario(0.5,0.3333,0.5)
+
+        
+
+
+       
+
+        
+        cajon2.position.x = 0.75;
+        cajon2.position.y = -0.12;
+
+        cajon3.position.x = 0.75;
+        cajon3.position.y = +0.12;
+
+        cajon4.position.x = -0.75;
+        cajon4.position.y = -0.12;
+
+        cajon5.position.x = -0.75;
+        cajon5.position.y = +0.12;
+
+        cajon6.position.x = -0.75;
+        cajon6.position.y = 0.5;
+
+        cajon7.position.y = 0.5;
+
+        cajon8.position.y = 0.5;
+        cajon8.position.x = 0.75;
+
+        cajon9.position.x = -0.75;
+        cajon9.position.y = 1;
+
+        cajon10.position.y = 1;
+
+        cajon11.position.y = 1;
+        cajon11.position.x = 0.75;
+
+
+        cajon12.position.y = 1.5;
+        cajon12.position.x = -0.75;
+
+        cajon13.position.y = 1.5;
+        cajon13.position.x = 0;
+
+
+        cajon14.position.y = 1.5;
+        cajon14.position.x = 0.75;
+
+        armario1.position.x = -0;
+        armario2.position.x = 3.5;
+
+        tabla.position.y = 1.75;
+
+        fondo.position.y = 0.75;
+        
+        
+
+        //ITEMS DE LOS ARMARIOS Y ESPECIFICACIONES
+
+       
+
+
+
+
+        scene.add(cajon1);
+        scene.add(cajon2);
+        scene.add(cajon3);
+        scene.add(cajon4);
+        scene.add(cajon5);
+        scene.add(cajon6);
+        scene.add(cajon7);
+        scene.add(cajon8);
+        scene.add(cajon9);
+        scene.add(cajon10);
+        scene.add(cajon11);
+        scene.add(cajon12);
+        scene.add(cajon13);
+        scene.add(cajon14);
+        scene.add(armario1);
+        scene.add(armario2);
+        scene.add(tabla);
+        scene.add(fondo);
+
+
+        
+        
+       
+
+        
+
+
+
+
+
+
+
+       // 5. CONTROL DE CÁMARA Y SISTEMA DE CLICKS
+        let drag = false, lastX = 0, lastY = 0;
+        let rotY = 0.5, rotX = 0.2, radius = 5;
+        let mouseMovido = false; // Variable para saber si arrastramos o hicimos click limpio
+
+        // Configuración del Raycaster
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function updateCamera() {
+            camera.position.x = radius * Math.sin(rotY) * Math.cos(rotX);
+            camera.position.y = radius * Math.sin(rotX) + 0.5;
+            camera.position.z = radius * Math.cos(rotY) * Math.cos(rotX);
+            camera.lookAt(0, 0.5, 0);
+        }
+
+        window.addEventListener('mousedown', e => { 
+            drag = true; 
+            mouseMovido = false; // Reseteamos al hacer click
+            lastX = e.clientX; 
+            lastY = e.clientY; 
+        });
+
+        window.addEventListener('mousemove', e => {
+            if (!drag) return;
+            mouseMovido = true; // Si movemos el ratón mientras pulsamos, es un arrastre
+            rotY += (e.clientX - lastX) * 0.005;
+            rotX -= (e.clientY - lastY) * 0.005;
+            rotX = Math.max(-1.2, Math.min(1.2, rotX));
+            lastX = e.clientX; 
+            lastY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', e => { 
+            drag = false; 
+            
+            // SI NO MOVIMOS EL RATÓN, ES UN CLICK VÁLIDO PARA LEER INFORMACIÓN
+            if (!mouseMovido) {
+                // Calcular coordenadas normalizadas del ratón
+                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+                raycaster.setFromCamera(mouse, camera);
+
+                // Buscar qué bloque hemos tocado
+                const intersects = raycaster.intersectObjects(bloquesInteractivos);
+
+                if (intersects.length > 0) {
+                    const bloqueTocado = intersects[0].object;
+                    mostrarInformacion(bloqueTocado.userData);
+                } else {
+                    // Si hacemos click fuera de un bloque, ocultamos el panel
+                    document.getElementById('panel-info').style.display = 'none';
+                }
+            }
+        });
+
+        window.addEventListener('wheel', e => {
+            radius = Math.max(2, Math.min(10, radius + e.deltaY * 0.01));
+        });
+
+        // 6. BUCLE DE ANIMACIÓN
+        function animate() {
+            requestAnimationFrame(animate);
+
+           
+
+            updateCamera();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+
+
+
+    
+
+    function mostrarInformacion(datos) {
+            const panel = document.getElementById('panel-info');
+            const tituloDiv = document.getElementById('info-titulo');
+            const descDiv = document.getElementById('info-desc');
+            const cantidad = document.getElementById('info-cantidad');
+            const  id = document.getElementById("info-id");
+            const  fecha = document.getElementById("info-fecha");
+
+            tituloDiv.innerText = datos.titulo;
+            id.innerText = "Id: "+datos.id;
+            fecha.innerText = "Fecha: "+datos.fecha;
+            descDiv.innerText = "Especificaciones: "+datos.descripcion;
+            cantidad.innerText = "Cantidad: "+datos.cantidad;
+
+
+            panel.style.display = 'block'; // Hacerlo visible
+        }
+
+    function crearCajon(ancho, alto, profundo) {
+        const grupoCajon = new THREE.Group();
+
+        // Material para el cajón
+        const matCajon = new THREE.MeshStandardMaterial({ color: COLOR_ARMARIO });
+
+        
+        
+        // Base del cajón
+        const baseCajon = new THREE.Mesh(new THREE.BoxGeometry(ancho, 0.03, profundo), matCajon);
+        baseCajon.position.y = -alto/2;
+        grupoCajon.add(baseCajon);
+
+        baseCajon.castShadow = true; // <--- Sombra
+        baseCajon.receiveShadow = true;
+
+        const geoVertical = new THREE.BoxGeometry(0.03, alto, profundo);
+        const pIzq = new THREE.Mesh(geoVertical, matCajon);
+        pIzq.position.set(-ancho/2, -0.015, 0);
+        grupoCajon.add(pIzq);
+        pIzq.castShadow = true;
+        pIzq.receiveShadow =true;
+        
+        const pDer = new THREE.Mesh(geoVertical, matCajon);
+        pDer.position.set(ancho/2, -0.015, 0);
+        grupoCajon.add(pDer);
+        pDer.castShadow = true;
+        pDer.receiveShadow =true;
+
+
+
+        
+
+        return grupoCajon; 
+    }
+
+    // Añadimos 'id' y 'fecha' al final de los paréntesis
+    function crearBloque(ancho, altura, x, y, z, titulo, descripcion, cantidad, id, fecha) {
+        const geoBloque = new THREE.BoxGeometry(ancho, altura, 0.4);
+        let matBloque; 
+
+        if (cantidad === 0) {
+            matBloque = new THREE.MeshStandardMaterial({ color: 0x888888, transparent: true, opacity: 0.3 });
+        } else if (cantidad < 5) {
+            matBloque = new THREE.MeshStandardMaterial({ color: 0x4CAF50, transparent: true, opacity: 0.8 });
+        } else if (cantidad < 20) {
+            matBloque = new THREE.MeshStandardMaterial({ color: 0xFFC107, transparent: true, opacity: 0.8 });
+        } else {
+            matBloque = new THREE.MeshStandardMaterial({ color: 0xF44336, transparent: true, opacity: 0.8 });
+        }
+
+        const bloque = new THREE.Mesh(geoBloque, matBloque);
+
+        bloque.position.set(x, y, z);
+        bloque.castShadow = true;
+        bloque.receiveShadow = true;
+        
+        // Guardamos todos los datos limpios en el bloque
+        bloque.userData = {
+            id: id,
+            titulo: titulo,
+            fecha: fecha,
+            descripcion: descripcion,
+            cantidad: cantidad
+        };
+        
+        scene.add(bloque);
+        bloquesInteractivos.push(bloque);
+    }
+
+
+    function crearCajonLargoDoble(ancho, alto, profundo) {
+       
+        const grupocajones = new THREE.Group();
+        
+        
+        const cajon1 = crearCajon(ancho,alto,profundo);
+        const cajon2 = crearCajon(ancho,alto,profundo);
+        
+        
+        cajon1.position.x = 0.5;
+        grupocajones.add(cajon1);
+        grupocajones.add(cajon2);
+
+
+        
+
+        return grupocajones; 
+    }
+
+    function apilarCajones(ancho, alto, profundo){
+
+
+            const grupoAltura = new THREE.Group();
+
+
+            const cajonAbajo = crearCajonLargoDoble(ancho,alto,profundo);
+            const cajonArriba = crearCajonLargoDoble(ancho,alto,profundo);
+
+            cajonArriba.position.y = alto;
+
+            
+            grupoAltura.add(cajonAbajo);
+            grupoAltura.add(cajonArriba);
+
+
+            return grupoAltura;
+
+
+
+    }
+
+
+    function armario(ancho, alto, profundo){
+
+
+            const grupoArmario = new THREE.Group();
+
+            
+
+
+            const cajonlargoApiladp1 = apilarCajones(ancho,alto,profundo);
+            const cajonlargoApiladp2 = apilarCajones(ancho,alto,profundo);
+            const cajonlargoApiladp3 = apilarCajones(ancho,alto,profundo);
+
+            cajonlargoApiladp1.position.x = -2;
+            cajonlargoApiladp1.position.y = -0.08;
+
+            cajonlargoApiladp2.position.x = -2;
+            cajonlargoApiladp2.position.y = .58;
+
+            cajonlargoApiladp3.position.x = -2;
+            cajonlargoApiladp3.position.y = 1.25;
+
+            
+
+            
+            grupoArmario.add(cajonlargoApiladp1);
+            grupoArmario.add(cajonlargoApiladp2);
+            grupoArmario.add(cajonlargoApiladp3);
+
+
+            return grupoArmario;
+
+
+
+    }
+
+    // Creamos una lista con los "huecos" libres en tu armario (x, y, z)
+// He usado algunas de las coordenadas que ya tenías calculadas
+const huecosArmario = [
+    // --- CENTRO ---
+    { ancho: 0.35, alto: 0.20, x: 0, y: 0.35, z: 0 },
+    { ancho: 0.35, alto: 0.20, x: 0, y: -0.15, z: 0 },
+    { ancho: 0.35, alto: 0.20, x: 0, y: 0.88, z: 0 },
+    { ancho: 0.35, alto: 0.20, x: 0, y: 1.35, z: 0 },
+    
+    { ancho: 0.35, alto: 0.15, x: 0.5, y: 0.09, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: 1, y: 0.09, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: 1, y: -0.15, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: 0.5, y: -0.15, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: -0.5, y: -0.15, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: -0.5, y: 0.09, z: 0 },
+    { ancho: 0.35, alto: 0.15, x: -1, y: 0.09, z: 0 },
+    { ancho: 0.35, alto: 0.20, x: -1, y: -0.15, z: 0 },
+
+    // --- ALTOS IZQUIERDA ---
+    { ancho: 0.3, alto: 0.40, x: -1, y: 0.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: -0.5, y: 0.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: -0.5, y: 0.95, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: -1, y: 0.95, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: -0.5, y: 1.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: -1, y: 1.45, z: 0 },
+
+    // --- ALTOS DERECHA ---
+    { ancho: 0.3, alto: 0.40, x: 0.5, y: 0.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: 1, y: 0.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: 0.5, y: 0.95, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: 1, y: 0.95, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: 0.5, y: 1.45, z: 0 },
+    { ancho: 0.3, alto: 0.40, x: 1, y: 1.45, z: 0 },
+
+    // --- ESTANTERIA IZQUIERDA ---
+    { ancho: 0.3, alto: 0.20, x: -2, y: 1.51, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -2, y: 1.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -2, y: 0.85, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -2, y: 0.5, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -2, y: 0.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -2, y: -0.13, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: 1.51, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: 1.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: 0.85, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: 0.5, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: 0.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: -1.5, y: -0.13, z: 0 },
+
+    // --- ESTANTERIA DERECHA ---
+    { ancho: 0.3, alto: 0.20, x: 2, y: 1.51, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 2, y: 1.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 2, y: 0.85, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 2, y: 0.5, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 2, y: 0.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 2, y: -0.13, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: 1.51, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: 1.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: 0.85, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: 0.5, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: 0.2, z: 0 },
+    { ancho: 0.3, alto: 0.20, x: 1.5, y: -0.13, z: 0 }
+];
+
+        function pedirDatos() {
+    fetch('/api/inventario')
+        .then(respuesta => respuesta.json())
+        .then(datos => {
+            
+            huecosArmario.forEach((hueco, indice) => {
+                const fila = datos[indice];
+                let tituloBloque, descBloque, cantBloque, idBloque, fechaBloque;
+
+                if (fila) {
+                    
+                    idBloque = fila.id_inventario || "N/A";
+                    tituloBloque = fila.nombre || "Sin Nombre"; 
+                    fechaBloque = fila.fecha_registro || "Sin Fecha";
+                    descBloque = fila.descripcion || "Sin Descripción";
+                    cantBloque = fila.cantidad || 0; 
+                } else {
+                    idBloque = "-";
+                    tituloBloque = "Hueco Vacío";
+                    fechaBloque = "-";
+                    descBloque = "Disponible.";
+                    cantBloque = 0; 
+                }
+
+                crearBloque(
+                    hueco.ancho, hueco.alto,   
+                    hueco.x, hueco.y, hueco.z,  
+                    tituloBloque, 
+                    descBloque, 
+                    cantBloque,
+                    idBloque,
+                    fechaBloque
+                );
+            });
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+pedirDatos();
+
+    window.addEventListener('load', () => {
+    gsap.to("#fundido", { 
+        opacity: 0, 
+        duration: 1.5,
+        ease: "power2.out"
+    });
+});
+    
+    </script>
+</body>
+</html>
