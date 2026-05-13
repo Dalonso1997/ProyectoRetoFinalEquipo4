@@ -41,8 +41,12 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         ElejirEstado.addItem("TODOS");
 
         //Recorremos todos los valores del enum Estado y los añadimos al combobox en minusculas
-        for (Estado e : Estado.values()) {
-            ElejirEstado.addItem(e.name().toLowerCase());
+        // CÓDIGO NUEVO
+        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+        java.util.List<modelClasesTablas.Estado> listaEstados = estadoDAO.listarTodos();
+
+        for (modelClasesTablas.Estado e : listaEstados) {
+            ElejirEstado.addItem(e.getNombre());
         }
         //Limpiamos el combobox de ubicaciones y añadimos la opcion "TODAS" al principio
         ElejirUbicacion.removeAllItems();

@@ -39,11 +39,16 @@ public class MaterialDAO {
         //Consulta base que obtiene los datos del material junto con el nombre de la categoria y la ubicacion
         // Cambiamos u.armario por u.ubicacion (o el nombre nuevo que pusieras)
         sql.append("SELECT m.id_material, m.nombre, m.descripcion, c.nombre AS categoria, ")
-                .append("m.estado, CONCAT(u.ubicacion, ' - ', u.cajon) AS ubicacion, m.cantidad ")
+                .append("e.nombre AS estado, ")
+                .append("CASE ")
+                .append("  WHEN u.tipo = 'mesa' THEN u.nombre ")
+                .append("  ELSE CONCAT(u.nombre, ' - Cajón ', u.cajon) ")
+                .append("END AS ubicacion, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
-                .append("JOIN ubicacion u ON u.id_ubicacion = u.id_ubicacion ")
-                .append("WHERE 1=1 "); //El 1=1 es para poder añadir condiciones con AND sin comprobar si es la primera
+                .append("JOIN estado e ON m.id_estado = e.id_estado ") // Nueva relación con la tabla estado
+                .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ") // Corregido el ON (m.id_ubicacion)
+                .append("WHERE 1=1 ");
         //Lista para guardar los parametros que sustituiran a las ? en la consulta
         List<Object> parametros = new ArrayList<>();
         //Si el usuario introdujo texto, añadimos filtro por nombre o descripcion (LIKE)
@@ -155,7 +160,6 @@ public class MaterialDAO {
             ps.setInt(5, m.getId_categoria());
             ps.setInt(6, m.getId_ubicacion());
 
-            
             ps.setInt(7, m.getId_material());
 
             ps.executeUpdate();
@@ -206,7 +210,7 @@ public class MaterialDAO {
 
         return null;
     }
-    
+
     public boolean bajaMaterial(int idMaterial) {
         //Llamamos a la instancia de la conexion de la base de datos
         Connection con = ConexionBD.getInstancia().getConexion();
@@ -223,6 +227,5 @@ public class MaterialDAO {
             return false;
         }
     }
-
 
 }

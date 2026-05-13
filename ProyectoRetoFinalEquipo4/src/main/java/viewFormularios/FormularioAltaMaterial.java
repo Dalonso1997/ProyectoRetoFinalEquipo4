@@ -34,11 +34,13 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
     //Metodo creado para cargar los datos de los desplegables
     private void cargarDatosIniciales(){
         desplegableEstado.removeAllItems();
-        desplegableEstado.addItem("Seleccione el estado del producto.");
-        desplegableEstado.addItem("Disponible");
-        desplegableEstado.addItem("Prestado");
-        desplegableEstado.addItem("Reparacion");
-        desplegableEstado.addItem("Baja");
+        
+        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+        List<Estado> listaEstados = estadoDAO.listarTodos();
+        
+        for (Estado est : listaEstados) {
+            desplegableEstado.addItem(est);
+        }
         
         desplegableCategoria.removeAllItems();
         CategoriaDAO categorias = new CategoriaDAO();
@@ -116,7 +118,6 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
         etiquetaEstado.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaEstado.setText("Estado:");
 
-        desplegableEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         desplegableEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 desplegableEstadoActionPerformed(evt);
@@ -328,7 +329,7 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
     private javax.swing.JTextField campoDescripcion;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JComboBox<Categoria> desplegableCategoria;
-    private javax.swing.JComboBox<String> desplegableEstado;
+    private javax.swing.JComboBox<Estado> desplegableEstado;
     private javax.swing.JComboBox<Ubicacion> desplegableUbicacion;
     private javax.swing.JLabel etiquetaCantidad;
     private javax.swing.JLabel etiquetaCategoria;

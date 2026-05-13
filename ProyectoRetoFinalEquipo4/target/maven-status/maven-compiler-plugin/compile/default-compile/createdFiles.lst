@@ -5,6 +5,7 @@ interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 pruebas\Pruebas.class
 CSV\GenerarCSV.class
+daoClasesSQL\EstadoDAO.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$5.class
 interfaz\modificar\MenuModificar$2.class
