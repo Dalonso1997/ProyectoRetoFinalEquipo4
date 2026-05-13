@@ -270,6 +270,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
+//Variables añadidas para un push
+            
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
@@ -360,6 +362,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
