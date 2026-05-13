@@ -59,14 +59,14 @@ public class MenuModificar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(76, 76, 76));
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
         titulo.setText("Modificar datos");
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setBackground(new java.awt.Color(76, 76, 76));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
 
         lblNuevo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNuevo.setForeground(new java.awt.Color(255, 255, 255));

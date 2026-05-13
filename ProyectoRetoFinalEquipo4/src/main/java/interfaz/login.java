@@ -54,9 +54,10 @@ public class login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(76, 76, 76));
 
-        Titulo.setBackground(new java.awt.Color(51, 51, 51));
+        Titulo.setBackground(new java.awt.Color(76, 76, 76));
+        Titulo.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -67,18 +68,21 @@ public class login extends javax.swing.JFrame {
         Titulo.setLayout(TituloLayout);
         TituloLayout.setHorizontalGroup(
             TituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TituloLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TituloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(146, 146, 146))
         );
         TituloLayout.setVerticalGroup(
             TituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TituloLayout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
         );
 
-        panelLogin.setBackground(new java.awt.Color(153, 153, 153));
+        panelLogin.setBackground(new java.awt.Color(76, 76, 76));
+        panelLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
 
         contraseña.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         contraseña.setForeground(new java.awt.Color(255, 255, 255));

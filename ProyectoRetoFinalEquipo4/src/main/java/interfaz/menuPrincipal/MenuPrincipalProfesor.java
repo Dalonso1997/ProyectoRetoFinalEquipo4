@@ -40,12 +40,13 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(76, 76, 76));
 
-        jPanel2.setBackground(new java.awt.Color(128, 128, 128));
+        jPanel2.setBackground(new java.awt.Color(76, 76, 76));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 204, 204), null));
 
         botonConsulta.setBackground(new java.awt.Color(51, 51, 51));
-        botonConsulta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonConsulta.setForeground(new java.awt.Color(255, 255, 255));
         botonConsulta.setText("Consulta");
         botonConsulta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -56,7 +57,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         });
 
         botonLocalizacion.setBackground(new java.awt.Color(51, 51, 51));
-        botonLocalizacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonLocalizacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonLocalizacion.setForeground(new java.awt.Color(255, 255, 255));
         botonLocalizacion.setText("Localización");
         botonLocalizacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -67,7 +68,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         });
 
         botonPrestamos.setBackground(new java.awt.Color(51, 51, 51));
-        botonPrestamos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonPrestamos.setForeground(new java.awt.Color(255, 255, 255));
         botonPrestamos.setText("Préstamos");
         botonPrestamos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -78,7 +79,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         });
 
         botonDevoluciones.setBackground(new java.awt.Color(51, 51, 51));
-        botonDevoluciones.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonDevoluciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonDevoluciones.setForeground(new java.awt.Color(255, 255, 255));
         botonDevoluciones.setText("Devoluciones");
         botonDevoluciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -119,14 +120,14 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Profesor");
 
-        panelDerecha.setBackground(new java.awt.Color(153, 153, 153));
+        panelDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
