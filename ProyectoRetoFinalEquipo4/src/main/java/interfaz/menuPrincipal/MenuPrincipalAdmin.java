@@ -278,6 +278,12 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
         
+        prestamos prestamo = new prestamos(this,true);
+        prestamo.setVisible(true);
+        
+        panelDerecha.revalidate();
+        panelDerecha.repaint();
+        
     }//GEN-LAST:event_botonPrestamosActionPerformed
 
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
