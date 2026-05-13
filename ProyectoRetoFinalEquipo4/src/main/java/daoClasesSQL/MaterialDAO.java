@@ -70,9 +70,9 @@ public class MaterialDAO {
             parametros.add(estado.trim().toLowerCase());
         }
 
-        //Si el usuario selecciono una ubicacion, añadimos filtro por armario y balda
+        //Si el usuario selecciono una ubicacion, añadimos filtro por armario y cajon
         if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
-            //Dividimos el string "Armario - Balda" en dos partes
+            //Dividimos el string "Armario - Cajon" en dos partes
             String[] partes = ubicacionStr.split(" - ");
             sql.append("AND u.ubicacion = ? AND u.cajon = ? ");
             parametros.add(partes[0].trim());
