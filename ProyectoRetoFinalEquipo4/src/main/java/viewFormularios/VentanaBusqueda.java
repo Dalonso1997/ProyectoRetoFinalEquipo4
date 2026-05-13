@@ -7,7 +7,9 @@ package viewFormularios;
 import daoClasesSQL.CategoriaDAO;
 import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
+import java.awt.Desktop;
 import java.io.File;
+import java.net.URI;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -287,6 +289,18 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                 MensageMaterialesEncontrados.setText("1 material encontrado");
             } else {
                 MensageMaterialesEncontrados.setText(lista.size() + " materiales encontrados");
+            }
+            if (!lista.isEmpty()) {
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(
+                                new URI("http://3.224.141.230/")
+                        );
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo abrir la página web");
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
