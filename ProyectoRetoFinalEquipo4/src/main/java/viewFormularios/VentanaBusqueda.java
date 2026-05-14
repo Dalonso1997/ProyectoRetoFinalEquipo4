@@ -28,39 +28,37 @@ public class VentanaBusqueda extends javax.swing.JDialog {
      * Creates new form VentanaBusqueda
      */
     public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        this.setTitle("Busqueda Componentes");
-        this.setLocationRelativeTo(null);
+    super(parent, modal);
+    initComponents();
+    this.setTitle("Búsqueda Componentes");
+    this.setLocationRelativeTo(null);
 
-        //Recorremos todas las categorias de la base de datos y las añadimos al combobox
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
-        for (Categoria c : categoriaDAO.listarTodos()) {
-            ElejirCategoria.addItem(c.getNombre());
-        }
-        //Limpiamos el combobox de estados y añadimos la opcion "TODOS" al principio
-        ElejirEstado.removeAllItems();
-        ElejirEstado.addItem("TODOS");
-
-        //Recorremos todos los valores del enum Estado y los añadimos al combobox en minusculas
-        // CÓDIGO NUEVO
-        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
-        java.util.List<modelClasesTablas.Estado> listaEstados = estadoDAO.listarTodos();
-
-        for (modelClasesTablas.Estado e : listaEstados) {
-            ElejirEstado.addItem(e.getNombre());
-        }
-        //Limpiamos el combobox de ubicaciones y añadimos la opcion "TODAS" al principio
-        ElejirUbicacion.removeAllItems();
-        ElejirUbicacion.addItem("TODAS");
-
-        //Recorremos todas las ubicaciones de la base de datos y las añadimos al combobox con formato "Armario - Balda"
-        UbicacionDAO ubicacionDAO = new UbicacionDAO();
-        for (Ubicacion u : ubicacionDAO.listarTodos()) {
-            ElejirUbicacion.addItem(u.getUbicacion() + " - " + u.getCajon());
-        }
-
+    // 1. Categorías: Añadir "TODAS" al principio
+    ElejirCategoria.removeAllItems();
+    ElejirCategoria.addItem("TODAS");
+    CategoriaDAO categoriaDAO = new CategoriaDAO();
+    for (Categoria c : categoriaDAO.listarTodos()) {
+        ElejirCategoria.addItem(c.getNombre());
     }
+
+    // 2. Estados: Ya lo tienes bien encaminado
+    ElejirEstado.removeAllItems();
+    ElejirEstado.addItem("TODOS");
+    daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+    for (modelClasesTablas.Estado e : estadoDAO.listarTodos()) {
+        ElejirEstado.addItem(e.getNombre());
+    }
+
+    // 3. Ubicaciones: Corregir getUbicacion() por getNombre()
+    ElejirUbicacion.removeAllItems();
+    ElejirUbicacion.addItem("TODAS");
+    UbicacionDAO ubicacionDAO = new UbicacionDAO();
+    for (Ubicacion u : ubicacionDAO.listarTodos()) {
+        // Lógica para no mostrar "null" si es una mesa
+        String detalle = (u.getCajon() != null) ? " - Cajón " + u.getCajon() : "";
+        ElejirUbicacion.addItem(u.getUbicacion() + detalle);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
