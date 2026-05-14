@@ -50,6 +50,7 @@ public class prestamos extends javax.swing.JDialog {
             this.material = material;
             this.cantidad = cantidad;
             this.fecha = fecha;
+            
         }
     }
     /**
@@ -60,6 +61,7 @@ public class prestamos extends javax.swing.JDialog {
         initComponents();
         inicializarDatos();
         configurarEventos();
+        cargarMateriales();
     }
 
     private void inicializarDatos() {
