@@ -321,12 +321,15 @@ La web contiene:
 
 ---
 
-### Vista 3D
 <details>
-📄 [Inventario 3D](Web/inventario_3d.html)
 
----
+<summary>📄 Vista 3D</summary>
+
+📄 [Abrir Inventario 3D](Web/inventario_3d.html)
+
 </details>
+
+
 # 💻 Aplicación Java
 
 ## 📖 Descripción
