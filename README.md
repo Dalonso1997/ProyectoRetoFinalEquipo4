@@ -26,6 +26,7 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 🛠️ Tecnologías Utilizadas
 <details>
 <summary>Programación</summary>
+  
 Java
 Swing
 JDBC
@@ -33,11 +34,13 @@ NetBeans
 </details>
 <details>
 <summary>Base de Datos</summary>
+  
 MySQL
 MySQL Workbench
 </details>
 <details>
 <summary>Web</summary>
+  
 HTML5
 CSS3
 JavaScript
@@ -45,6 +48,7 @@ Infraestructura
 </details>
 <details>
 <summary>AWS Academy</summary>
+  
 EC2
 VPC
 Elastic IP
@@ -53,7 +57,8 @@ Apache/Nginx
 OpenSSH
 </details>
 <details>
-Herramientas colaborativas
+<summary>Herramientas colaborativas</summary>
+  
 Git
 GitHub
 GitHub Projects
@@ -61,6 +66,7 @@ Teams
 Visual Studio Code
 Diagrams.net
 </details>  
+
 🗄️ Base de Datos
 Descripción
 
