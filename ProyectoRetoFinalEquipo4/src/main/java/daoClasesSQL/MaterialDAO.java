@@ -181,7 +181,7 @@ public class MaterialDAO {
         Connection con = ConexionBD.getInstancia().getConexion();
 
         //cambiamos el estado a baja
-        String sql = "UPDATE materiales SET estado = 'baja' WHERE id_material=?";
+        String sql = "UPDATE materiales SET id_estado = 4 WHERE id_material=?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idMaterial);
