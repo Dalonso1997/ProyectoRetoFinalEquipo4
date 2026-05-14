@@ -107,10 +107,10 @@ Se registran:
 
 ![Modelo Relacional](Documentaciones/Base%20Datos/BD-03%20-%20Convertir%20el%20E_R%20en%20modelo%20relacional.drawio.png)
 
-</details>
+
 
 ---
-
+</details>
 ## 📄 Script SQL
 
 El script SQL de creación de la base de datos se encuentra en:
