@@ -65,7 +65,7 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 
 ## 🤝 Herramientas colaborativas
 
-- GitHUb 
+- GitHub 
 - GitHub Desktop
 - GitHub Projects
 - Teams
