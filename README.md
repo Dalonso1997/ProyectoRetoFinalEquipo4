@@ -95,7 +95,7 @@ Se registran:
 
 ## 📌 Diagrama Entidad/Relación
 
-![Diagrama ER](ruta/diagrama-er.png)
+![Diagrama ER](Documentaciones/BaseDatos/diagrama-er.png)
 
 ---
 
