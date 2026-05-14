@@ -16,6 +16,10 @@ public class Prestamo {
     private LocalDateTime fecha;
     private String observaciones;
 
+    // Dentro de la clase Prestamo.java
+    public Prestamo() {
+        // Constructor vacío para que Java no proteste
+    }
     // Constructor COMPLETO (para cuando lees de la Base de Datos)
     public Prestamo(int id_prestamo, int id_material, String nombre, String descripcion, Estado estado, int cantidad, LocalDateTime fecha, String observaciones) {
         this.id_prestamo = id_prestamo;

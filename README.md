@@ -65,12 +65,12 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 
 ## 🤝 Herramientas colaborativas
 
-- Git
-- GitHub
+- GitHub 
+- GitHub Desktop
 - GitHub Projects
 - Teams
 - Visual Studio Code
-- Diagrams.net
+- Drawio.com
 
 ---
 
@@ -97,9 +97,9 @@ Se registran:
 
 <details>
 
-<summary>📌 Modelo Relacional</summary>
+<summary>📌 Diagrama E/R</summary>
 
-![Modelo Relacional](Documentaciones/Base%20Datos/BD-03%20-%20Convertir%20el%20E_R%20en%20modelo%20relacional.drawio.png)
+![Diagrama E/R](Documentaciones/Base%20Datos/Diagrama%20E_R.jpg)
 </details>
 <details>
 
@@ -123,13 +123,24 @@ El script SQL de creación de la base de datos se encuentra en:
 
 ## ⚡ Triggers Implementados
 
-### Trigger de control de préstamos
+### 🔒 Trigger de control de préstamos
 
-Descripción breve.
+Este trigger evita que se puedan realizar operaciones de préstamo si no hay suficiente stock disponible en el inventario.  
+En caso de intentar reducir la cantidad por debajo de 0, la base de datos lanza un error y bloquea la operación.
 
-### Trigger de actualización de stock
+---
 
-Descripción breve.
+### 📦 Trigger de actualización de stock
+
+Este trigger registra automáticamente todos los cambios de cantidad en el inventario.  
+Cada vez que se modifica la cantidad de un material, se guarda un histórico con:
+
+- Cantidad anterior  
+- Cantidad nueva  
+- Fecha del movimiento  
+- Identificador del material afectado  
+
+Esto permite llevar un control completo de los movimientos del almacén.
 
 
 
@@ -310,13 +321,16 @@ La web contiene:
 
 ---
 
-### Vista 3D
+<details>
 
-![Vista 3D](ruta/vista3d.png)
+<summary>📄 Vista 3D</summary>
 
----
+📄 [Abrir Inventario 3D](Web/inventario_3d.html)
 
-# ☕ Aplicación Java
+</details>
+
+
+# 💻 Aplicación Java
 
 ## 📖 Descripción
 
@@ -401,7 +415,7 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 ---
 
-## 🖥️ EC2-1 — Servidor de Datos
+## ⚙️ EC2-1 — Servidor de Datos
 
 - Ubuntu Server
 - MySQL
@@ -426,25 +440,27 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 ---
 
-# 📘 Guía de Despliegue
+<details>
+
+<summary>📘 Guía de Despliegue</summary>
 
 La guía completa se encuentra en:
 
-```text
-/Documentaciones/Guia-despliegue-Equipo4.pdf
-```
+
+📄 [Ver Guía de Despliegue](Documentaciones/Sistemas/Guia-despliegue-Equipo4.docx)
+
 
 ---
-
-# 📗 Manual de Usuario
+</details>
+<details>
+<summary>📗 Manual de Usuario</summary>
 
 El manual de usuario se encuentra en:
 
-```text
-/Documentaciones/Manual-usuario-Equipo4.pdf
-```
+📄 [Abrir Manual de Usuario](Documentaciones/Sistemas/Manual-usuario-Equipo4.docx)
 
 ---
+</details>
 
 # 🚀 Resultados Obtenidos
 
@@ -456,14 +472,6 @@ El manual de usuario se encuentra en:
 
 ---
 
-# 🔮 Mejoras Futuras
-
-- Integración con códigos QR
-- Panel web dinámico
-- Sistema de notificaciones
-- Gestión avanzada de usuarios
-
----
 
 # 📜 Licencia
 
