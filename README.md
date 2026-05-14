@@ -440,7 +440,9 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 ---
 
-# 📘 Guía de Despliegue
+<details>
+
+<summary>📘 Guía de Despliegue</summary>
 
 La guía completa se encuentra en:
 
@@ -449,16 +451,16 @@ La guía completa se encuentra en:
 
 
 ---
-
-# 📗 Manual de Usuario
+</details>
+<details>
+<summary>📗 Manual de Usuario</summary>
 
 El manual de usuario se encuentra en:
 
-```text
-/Documentaciones/Manual-usuario-Equipo4.pdf
-```
+📄 [Abrir Manual de Usuario](Documentaciones/Sistemas/Manual-usuario-Equipo4.docx)
 
 ---
+</details>
 
 # 🚀 Resultados Obtenidos
 
