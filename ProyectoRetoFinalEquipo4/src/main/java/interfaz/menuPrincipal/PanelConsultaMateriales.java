@@ -1,0 +1,123 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package interfaz.menuPrincipal;
+
+import daoClasesSQL.MaterialDAO;
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author DAM119
+ */
+public class PanelConsultaMateriales extends JPanel {
+
+    private JTable tabla;
+    private DefaultTableModel modelo;
+
+    public PanelConsultaMateriales() {
+
+        setLayout(new BorderLayout());
+
+        inicializarTabla();
+
+        cargarMateriales();
+    }
+
+    private void inicializarTabla() {
+
+        String[] columnas = {
+            "ID",
+            "Nombre",
+            "Descripción",
+            "Categoría",
+            "Estado",
+            "Ubicación",
+            "Cantidad"
+        };
+
+        modelo = new DefaultTableModel(columnas, 0) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        tabla = new JTable(modelo);
+
+        tabla.setRowHeight(25);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+
+        add(scroll, BorderLayout.CENTER);
+    }
+
+    private void cargarMateriales() {
+
+        MaterialDAO dao = new MaterialDAO();
+
+        List<Object[]> materiales = dao.buscar("", "", "", "");
+
+        System.out.println(materiales.size());
+
+        modelo.setRowCount(0);
+
+        if (materiales.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No hay materiales registrados.",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            return;
+        }
+
+        for (Object[] fila : materiales) {
+            modelo.addRow(fila);
+        }
+    }
+
+    //metodo que devuelve el id del matrial que el admin selecciona
+    public int getIdMaterialSeleccionado() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return -1;
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return (int) modelo.getValueAt(filaSeleccionada, 0);
+        }
+    }
+
+    //metodo que devuelve el id del material que se selecciona
+    public String getIdUbicacionSeleccionada() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return "";
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return modelo.getValueAt(filaSeleccionada, 5).toString();
+        }
+    }
+
+    //es un metodo para usar el metodo de cargar materiales
+    //para ver actualizada la tabla, porque el metodo es privado
+    public void refrescarListado() {
+        cargarMateriales();
+    }
+
+    public JTable getTabla() {
+        return this.tabla;
+    }
+}

@@ -2,380 +2,391 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inventario 3D - IES Miguel Herrero</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLano aereo</title>
+    
+    <style>
+        body {
+            margin: 0;
+            outline: none;
+            overflow: hidden;
+            /* Evita que salgan barras de scroll */
+        }
+
+        canvas {
+            display: block;
+            /* Elimina espacio extra debajo del canvas */
+        }
+    </style>
 </head>
 
 <body>
+    <div id="fundido" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; opacity: 0; pointer-events: none; z-index: 999;"></div>    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        //laser
+        const raycaster = new THREE.Raycaster();
+        //posicion del raton
+        const mouse = new THREE.Vector2();
+        let objetoActual = null;
 
-  <header>
-    <h1>Gestión de Taller - Equipo 4</h1>
-    <p>IES Miguel Herrero Pereda — Inventario 3D Interactivo</p>
-  </header>
+        // Escena y Fondo
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xDBDBDB);
+        // renderer.shadowMap.enabled=true;
+        // renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
-  <nav>
-    <ul>
-      <li><a href="index.html#inicio">Inicio</a></li>
-      <li><a href="index.html#plano">Plano del Taller</a></li>
-      <li><a href="index.html#inventario">Inventario</a></li>
-      <li><a href="inventario_3d.html" class="active">Inventario 3D</a></li>
-    </ul>
-  </nav>
 
-  <main class="main-3d">
-    <div id="toolbar">
-      <span>Vista:</span>
-      <button onclick="rot(-1)">← Rotar</button>
-      <button onclick="rot(1)">Rotar →</button>
-      <button onclick="tiltUp()">↑ Inclinar</button>
-      <button onclick="tiltDown()">↓ Inclinar</button>
-      <button onclick="zoomIn()">＋ Zoom</button>
-      <button onclick="zoomOut()">－ Zoom</button>
-      <button onclick="resetCam()">↺ Reiniciar vista</button>
-    </div>
+        // Cámara
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 20, 15);
+        camera.lookAt(0, 0, 0);
 
-    <div id="content">
-      <div id="canvas-wrap">
-        <canvas id="c"></canvas>
-        <div id="tooltip">
-          <b id="tip-name"></b>
-          <div class="tip-row"><span>Stock:</span><span id="tip-stock"></span></div>
-          <div class="tip-row"><span>Nivel:</span><span id="tip-pct"></span></div>
-          <div id="tip-bar">
-            <div id="tip-fill"></div>
-          </div>
-        </div>
-      </div>
 
-      <div id="panel">
-        <div class="panel-section">
-          <div class="section-title">Resumen general</div>
-          <div class="stat-grid">
-            <div class="stat">
-              <div class="stat-val" id="s-total">0</div>
-              <div class="stat-lbl">Huecos</div>
-            </div>
-            <div class="stat">
-              <div class="stat-val" id="s-units">0</div>
-              <div class="stat-lbl">Unidades</div>
-            </div>
-            <div class="stat">
-              <div class="stat-val" id="s-low" style="color:var(--warning)">0</div>
-              <div class="stat-lbl">Stock bajo</div>
-            </div>
-            <div class="stat">
-              <div class="stat-val" id="s-out" style="color:var(--danger)">0</div>
-              <div class="stat-lbl">Agotado</div>
-            </div>
-          </div>
-        </div>
-        <div class="panel-section" style="padding-bottom:6px">
-          <div class="section-title">Inventario</div>
-        </div>
-        <div id="item-list-wrap">
-          <div id="item-list"></div>
-        </div>
-      </div>
-    </div>
-  </main>
+        const posInicial = {
+            x: camera.position.x,
+            y: camera.position.y,
+            z: camera.position.z
+        };
 
-  <footer>
-    <p>&copy; 2026 Equipo 4 — CFGS Desarrollo de Aplicaciones Multiplataforma</p>
-  </footer>
+        // Renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    // ─── DATOS ─────────────────────────────────────────────────────────────────
-    const SLOTS = [
-      // Fila A — 4 huecos superiores
-      { id: 0, zone: 'A0', name: 'Archivadores', qty: 12, max: 15, color: 0x4A9EFF },
-      { id: 1, zone: 'A1', name: 'Carpetas', qty: 8, max: 15, color: 0x4A9EFF },
-      { id: 2, zone: 'A2', name: 'Revistas', qty: 3, max: 15, color: 0xFF9A4A },
-      { id: 3, zone: 'A3', name: 'Catálogos', qty: 15, max: 15, color: 0x4ADF8A },
-      // Fila B — 4 huecos
-      { id: 4, zone: 'B0', name: 'Cajas A4', qty: 0, max: 10, color: 0xFF4A4A },
-      { id: 5, zone: 'B1', name: 'Toners', qty: 4, max: 10, color: 0xFF9A4A },
-      { id: 6, zone: 'B2', name: 'Papel bond', qty: 10, max: 10, color: 0x4ADF8A },
-      { id: 7, zone: 'B3', name: 'Sobres', qty: 2, max: 10, color: 0xFF9A4A },
-      // Fila C izq — hueco alto
-      { id: 8, zone: 'CL', name: 'Paraguas/Abrigos', qty: 3, max: 5, color: 0xA78BFF },
-      // Fila C centro/der — 8 huecos (4 filas × 2 col)
-      { id: 9, zone: 'C00', name: 'Herramientas', qty: 6, max: 8, color: 0x4ADF8A },
-      { id: 10, zone: 'C01', name: 'Materiales', qty: 2, max: 8, color: 0xFF9A4A },
-      { id: 11, zone: 'C10', name: 'Tornillería', qty: 8, max: 8, color: 0x4ADF8A },
-      { id: 12, zone: 'C11', name: 'Fijaciones', qty: 0, max: 8, color: 0xFF4A4A },
-      { id: 13, zone: 'C20', name: 'Pinturas', qty: 5, max: 8, color: 0x4A9EFF },
-      { id: 14, zone: 'C21', name: 'Disolventes', qty: 1, max: 8, color: 0xFF9A4A },
-      { id: 15, zone: 'C30', name: 'Limpieza', qty: 7, max: 8, color: 0x4ADF8A },
-      { id: 16, zone: 'C31', name: 'Consumibles', qty: 4, max: 8, color: 0x4A9EFF },
-    ];
+        // LUCES (El "interruptor")
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(5, 10, 7);
+        scene.add(directionalLight);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -15;
+        directionalLight.shadow.camera.right = 15;
+        directionalLight.shadow.camera.top = 15;
+        directionalLight.shadow.camera.bottom = -15;
 
-    function stColor(s) {
-      if (s.qty === 0) return 0xFF3333;
-      if (s.qty / s.max < 0.25) return 0xFFAA22;
-      return 0x44CC88;
-    }
+        //suelo
+        const suelo = new THREE.Mesh(
+            new THREE.PlaneGeometry(20, 20),
+            new THREE.MeshStandardMaterial({ color: 0x969696 })
 
-    // ─── RENDERER ──────────────────────────────────────────────────────────────
-    const canvas = document.getElementById('c');
-    const wrap = document.getElementById('canvas-wrap');
+        );
+        suelo.receiveShadow = true;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        suelo.rotation.x = -Math.PI / 2;
+        scene.add(suelo);
+        
 
-    function resize() {
-      const W = wrap.clientWidth, H = wrap.clientHeight;
-      renderer.setSize(W, H);
-      camera.aspect = W / H;
-      camera.updateProjectionMatrix();
-    }
-    window.addEventListener('resize', resize);
+        //armarioA
+        const armarioA = crearArmario(10, 5, 1.5, "armarioA");
+        armarioA.position.x = 9.2;
+        armarioA.position.z = 5;
+        armarioA.position.y = 2.5;
+        armarioA.rotation.y = 4.72;
+        scene.add(armarioA);
 
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x080810);
-    scene.fog = new THREE.Fog(0x080810, 20, 40);
+        //mesaA
+        const mesaA = crearArmario(6, 0.5, 2.5, "mesaA");
+        mesaA.position.x = 2;
+        mesaA.position.y = 1;
+        mesaA.position.z = 8.8;
+        mesaA.rotation.y = 3.14;
+        scene.add(mesaA);
 
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    let theta = 0.18, phi = 1.05, radius = 14;
-    function camPos() {
-      camera.position.set(
-        radius * Math.sin(theta) * Math.sin(phi),
-        radius * Math.cos(phi) + 2,
-        radius * Math.cos(theta) * Math.sin(phi)
-      );
-      camera.lookAt(0, 2, 0);
-    }
-    camPos();
+        //mesaB
+        const mesaB = crearArmario(16, 0.5, 2.5, "mesaB");
+        mesaB.position.x = -8.5;
+        mesaB.position.y = 1;
+        mesaB.position.z = -0.;
+        mesaB.rotation.y = 1.58;
+        scene.add(mesaB);
 
-    // Lights
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const dl = new THREE.DirectionalLight(0xffffff, 0.9);
-    dl.position.set(6, 10, 8); dl.castShadow = true;
-    dl.shadow.mapSize.set(1024, 1024);
-    scene.add(dl);
-    const pl = new THREE.PointLight(0x3b82f6, 0.5, 30);
-    pl.position.set(-5, 8, 5);
-    scene.add(pl);
+        //mesaC
+        const mesaC = crearArmario(14, 0.5, 2.5, "mesaC");
+        mesaC.position.x = 0;
+        mesaC.position.y = 1;
+        mesaC.position.z = -10;
+        scene.add(mesaC);
 
-    // ─── MATERIALES ────────────────────────────────────────────────────────────
-    const WOOD = new THREE.MeshLambertMaterial({ color: 0x9C7A52 });
-    const DARK = new THREE.MeshLambertMaterial({ color: 0x5A3E22 });
-    const EDGE = new THREE.MeshLambertMaterial({ color: 0x7A5C34 });
+        //const armarioAday = construirArmarioCompi(armarioAday);
 
-    function plank(w, h, d, mat, x, y, z) {
-      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-      m.position.set(x, y, z);
-      m.castShadow = true; m.receiveShadow = true;
-      return m;
-    }
 
-    // ─── ESTRUCTURA DEL ARMARIO ────────────────────────────────────────────────
-    const AW = 8, AH = 7, AD = 1.2, TH = 0.08;
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    const rowC_h = 4.4, rowB_h = 1.25, rowA_h = 1.25;
-    const yFloor = 0;
-    const yC_bot = yFloor + TH;
-    const yC_top = yC_bot + rowC_h;
-    const yB_bot = yC_top + TH;
-    const yB_top = yB_bot + rowB_h;
-    const yA_bot = yB_top + TH;
-    const yA_top = yA_bot + rowA_h;
-    const totalH = yA_top + TH;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
 
-    const arm = new THREE.Group();
+            if (intersects.length > 0 && intersects[0].object !== suelo) {
+                const detectado = intersects[0].object;
 
-    // Caja exterior
-    arm.add(plank(AW + TH * 2, TH, AD, DARK, 0, yFloor, 0));
-    arm.add(plank(AW + TH * 2, TH, AD, DARK, 0, totalH, 0));
-    arm.add(plank(TH, totalH, AD, DARK, -(AW / 2 + TH / 2), totalH / 2, 0));
-    arm.add(plank(TH, totalH, AD, DARK, (AW / 2 + TH / 2), totalH / 2, 0));
-    arm.add(plank(AW + TH * 2, totalH, TH, DARK, 0, totalH / 2, -(AD / 2 - TH / 2)));
-
-    // Estantes horizontales (entre filas)
-    arm.add(plank(AW, TH, AD, WOOD, 0, yC_top + TH / 2, 0));
-    arm.add(plank(AW, TH, AD, WOOD, 0, yB_top + TH / 2, 0));
-
-    // Fila A — 4 divisores verticales
-    const colW = AW / 4;
-    for (let i = 1; i < 4; i++) arm.add(plank(TH, rowA_h, AD, EDGE, -AW / 2 + i * colW, yA_bot + rowA_h / 2, 0));
-    // Fila B
-    for (let i = 1; i < 4; i++) arm.add(plank(TH, rowB_h, AD, EDGE, -AW / 2 + i * colW, yB_bot + rowB_h / 2, 0));
-
-    // Fila C: columna izquierda + zona derecha subdividida
-    const cLeft_w = colW;
-    const cRight_w = AW - cLeft_w;
-    const cLeft_x = -AW / 2 + cLeft_w;
-    const cMid_x = cLeft_x + cRight_w / 2;
-    arm.add(plank(TH, rowC_h, AD, EDGE, cLeft_x, yC_bot + rowC_h / 2, 0));
-    arm.add(plank(TH, rowC_h, AD, EDGE, cMid_x, yC_bot + rowC_h / 2, 0));
-
-    const subRowH = rowC_h / 4;
-    for (let r = 1; r < 4; r++) {
-      arm.add(plank(cRight_w, TH, AD, EDGE, cLeft_x + cRight_w / 2, yC_bot + r * subRowH, 0));
-    }
-
-    scene.add(arm);
-
-    // Suelo
-    const floor = new THREE.Mesh(
-      new THREE.PlaneGeometry(40, 40),
-      new THREE.MeshLambertMaterial({ color: 0x0d0d1a })
-    );
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -0.05;
-    floor.receiveShadow = true;
-    scene.add(floor);
-
-    // ─── CAJAS DE INVENTARIO ────────────────────────────────────────────────────
-    const clickable = [], meshes = [];
-
-    function addBox(slot, cx, cy, w, h) {
-      const r = slot.qty / slot.max;
-      const bw = (w - 0.18) * Math.max(r, slot.qty > 0 ? 0.1 : 0);
-      const bh = (h - 0.16) * 0.70;
-      const mat = new THREE.MeshLambertMaterial({
-        color: slot.color, transparent: true,
-        opacity: slot.qty === 0 ? 0.12 : 0.88
-      });
-      const mesh = new THREE.Mesh(new THREE.BoxGeometry(bw, bh, AD * 0.58), mat);
-      mesh.position.set(cx, cy, 0);
-      mesh.castShadow = true;
-      mesh.userData = { slot };
-      scene.add(mesh);
-      clickable.push(mesh); meshes.push(mesh);
-
-      // LED de estado
-      const led = new THREE.Mesh(
-        new THREE.SphereGeometry(0.046, 8, 8),
-        new THREE.MeshBasicMaterial({ color: stColor(slot) })
-      );
-      led.position.set(cx + w * 0.41, cy - h * 0.30, AD * 0.52);
-      scene.add(led);
-    }
-
-    // Fila A
-    for (let i = 0; i < 4; i++) addBox(SLOTS[i], -AW / 2 + colW * i + colW / 2, yA_bot + rowA_h / 2, colW, rowA_h);
-    // Fila B
-    for (let i = 0; i < 4; i++) addBox(SLOTS[4 + i], -AW / 2 + colW * i + colW / 2, yB_bot + rowB_h / 2, colW, rowB_h);
-    // Fila C izq
-    addBox(SLOTS[8], -AW / 2 + cLeft_w / 2, yC_bot + rowC_h / 2, cLeft_w, rowC_h);
-    // Fila C der 4×2
-    const cCol_w = cRight_w / 2;
-    for (let row = 0; row < 4; row++) {
-      for (let col = 0; col < 2; col++) {
-        addBox(SLOTS[9 + row * 2 + col],
-          cLeft_x + cCol_w * col + cCol_w / 2,
-          yC_bot + subRowH * row + subRowH / 2,
-          cCol_w, subRowH);
-      }
-    }
-
-    // ─── UI PANEL ──────────────────────────────────────────────────────────────
-    document.getElementById('s-total').textContent = SLOTS.length;
-    document.getElementById('s-units').textContent = SLOTS.reduce((s, i) => s + i.qty, 0);
-    document.getElementById('s-low').textContent = SLOTS.filter(s => s.qty > 0 && s.qty / s.max < 0.25).length;
-    document.getElementById('s-out').textContent = SLOTS.filter(s => s.qty === 0).length;
-
-    const ilist = document.getElementById('item-list');
-    SLOTS.forEach((s, i) => {
-      const r = s.qty / s.max;
-      const st = s.qty === 0 ? 'out' : r < 0.25 ? 'low' : 'ok';
-      const lb = { ok: 'OK', low: 'Bajo', out: 'Agotado' };
-      const row = document.createElement('div');
-      row.className = 'item-row'; row.id = 'r' + i;
-      row.innerHTML = `<div class="item-dot" style="background:#${s.color.toString(16).padStart(6, '0')}"></div><span class="item-name">${s.name}</span><span class="badge badge-${st}">${lb[st]}</span><span class="item-qty">${s.qty}</span>`;
-      row.onclick = () => focus(i);
-      ilist.appendChild(row);
-    });
-
-    // ─── CONTROLES ─────────────────────────────────────────────────────────────
-    let drag = false, lx = 0, ly = 0;
-    canvas.addEventListener('mousedown', e => { drag = true; lx = e.clientX; ly = e.clientY; });
-    window.addEventListener('mouseup', () => drag = false);
-    window.addEventListener('mousemove', e => {
-      if (!drag) return;
-      theta -= (e.clientX - lx) * 0.007;
-      phi = Math.max(0.2, Math.min(1.45, phi - (e.clientY - ly) * 0.005));
-      lx = e.clientX; ly = e.clientY;
-      camPos();
-    });
-    canvas.addEventListener('wheel', e => { radius = Math.max(5, Math.min(22, radius + e.deltaY * 0.012)); camPos(); });
-
-    function rot(d) { theta += d * 0.2; camPos(); }
-    function tiltUp() { phi = Math.max(0.2, phi - 0.12); camPos(); }
-    function tiltDown() { phi = Math.min(1.45, phi + 0.12); camPos(); }
-    function zoomIn() { radius = Math.max(5, radius - 1); camPos(); }
-    function zoomOut() { radius = Math.min(22, radius + 1); camPos(); }
-    function resetCam() { theta = 0.18; phi = 1.05; radius = 14; camPos(); }
-
-    // ─── TOOLTIP & RAYCAST ─────────────────────────────────────────────────────
-    const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
-    const tip = document.getElementById('tooltip');
-
-    canvas.addEventListener('mousemove', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      ray.setFromCamera(mouse, camera);
-      const hits = ray.intersectObjects(clickable);
-      if (hits.length) {
-        const s = hits[0].object.userData.slot;
-        const pct = Math.round(s.qty / s.max * 100);
-        tip.style.display = 'block';
-        tip.style.left = (e.clientX - wrap.getBoundingClientRect().left + 14) + 'px';
-        tip.style.top = (e.clientY - wrap.getBoundingClientRect().top - 10) + 'px';
-        document.getElementById('tip-name').textContent = s.name;
-        document.getElementById('tip-stock').textContent = `${s.qty} / ${s.max}`;
-        document.getElementById('tip-pct').textContent = pct + '%';
-        const fill = document.getElementById('tip-fill');
-        fill.style.width = pct + '%';
-        fill.style.background = s.qty === 0 ? '#ef4444' : pct < 25 ? '#f59e0b' : '#22c55e';
-      } else {
-        tip.style.display = 'none';
-      }
-    });
-
-    canvas.addEventListener('click', e => {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      ray.setFromCamera(mouse, camera);
-      const hits = ray.intersectObjects(clickable);
-      if (hits.length) focus(hits[0].object.userData.slot.id);
-    });
-
-    function focus(i) {
-      document.querySelectorAll('.item-row').forEach(r => r.classList.remove('active'));
-      document.getElementById('r' + i)?.classList.add('active');
-      document.getElementById('r' + i)?.scrollIntoView({ block: 'nearest' });
-      meshes.forEach((m, j) => {
-        m.material.opacity = j === i ? 1.0 : 0.12;
-        m.material.emissive = new THREE.Color(j === i ? 0x1a2a44 : 0x000000);
-      });
-      setTimeout(() => {
-        meshes.forEach((m, j) => {
-          m.material.opacity = SLOTS[j].qty === 0 ? 0.12 : 0.88;
-          m.material.emissive = new THREE.Color(0x000000);
+                if (objetoActual !== detectado) {
+                    objetoActual = detectado;
+                    gsap.to(objetoActual.material.color, { r: 0.76, g: 0.47, b: 0.31, duration: 0.3 });
+                }
+            } else {
+                if (objetoActual) {
+                    // Resetear color original y cursor
+                    gsap.to(objetoActual.material.color, { r: 0.58, g: 0.33, b: 0.21, duration: 0.3 });
+                    objetoActual = null;
+                    document.body.style.cursor = 'default';
+                }
+            }
         });
-        document.querySelectorAll('.item-row').forEach(r => r.classList.remove('active'));
-      }, 2000);
-    }
 
-    // ─── RENDER LOOP ───────────────────────────────────────────────────────────
-    let t = 0;
-    (function animate() {
-      requestAnimationFrame(animate);
-      t += 0.01;
-      meshes.forEach((m, i) => { m.position.y += Math.sin(t + i * 0.9) * 0.0003; });
-      renderer.render(scene, camera);
-    })();
+        window.addEventListener('click', () => {
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
 
-    setTimeout(resize, 50);
-  </script>
+            if (intersects.length > 0) {
+                const obj = intersects[0].object;
+                if (obj !== suelo) {
+                    enfocarArmario(obj);
+                }
+            }
+        });
+
+
+        function crearArmario(ancho, alto, largo, nombre) {
+            const geo = new THREE.BoxGeometry(ancho, alto, largo);
+            const mat = new THREE.MeshStandardMaterial({
+                color: 0x945637,
+                roughness: 0.7
+            });
+            const armario = new THREE.Mesh(geo, mat);
+            armario.name = nombre;
+            armario.castShadow = true;
+            return armario;
+        }
+
+       function enfocarArmario(armarioClicado) {
+            const distancia = 8;
+            const offsetZ = Math.cos(armarioClicado.rotation.y) * distancia;
+            const offsetX = Math.sin(armarioClicado.rotation.y) * distancia;
+
+            // 1. Zoom de cámara
+            gsap.to(camera.position, {
+                x: armarioClicado.position.x + offsetX,
+                y: 2,
+                z: armarioClicado.position.z + offsetZ,
+                duration: 1.5,
+                ease: "power2.inOut",
+                onUpdate: () => camera.lookAt(armarioClicado.position.x, 1, armarioClicado.position.z)
+            });
+
+            // 2. Fundido a negro y REDIRECCIÓN
+            gsap.to("#fundido", {
+                opacity: 1,
+                duration: 0.8,
+                delay: 0.7, 
+                onComplete: () => {
+                    // Si es el armario A, saltamos al archivo index.html
+                    if (armarioClicado.name === "armarioA") {
+                        window.location.href = "armario.html"; 
+                    }
+                }
+            });
+        }
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+        function construirArmarioCompi(nombreUnico) {
+            // Creamos el contenedor principal donde irá todo el armario
+            const grupoArmario = new THREE.Group();
+            grupoArmario.name = nombreUnico;
+
+            // Array para guardar los bloques de ropa (por si luego quieres hacer el panel de info)
+            grupoArmario.userData.bloquesDeRopa = [];
+
+            // --- MATERIALES ---
+            const COLOR_ARMARIO = 0x945637;
+            const COLOR_FONDOARMARIO = 0xA36546;
+            const matMaderaOscura = new THREE.MeshStandardMaterial({ color: COLOR_ARMARIO });
+            const matMetal = new THREE.MeshStandardMaterial({ color: COLOR_FONDOARMARIO, metalness: 0.8, roughness: 0.2 });
+
+            // --- ESTRUCTURA PRINCIPAL ---
+            const fondo = new THREE.Mesh(new THREE.BoxGeometry(4.5, 2, 0.02), matMetal);
+            fondo.position.set(0, 1.25, -0.24); // Ajustada la altura (0.5 + 0.75)
+            grupoArmario.add(fondo);
+
+            const tabla = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.05, 0.5), matMaderaOscura);
+            tabla.position.y = 1.75;
+            tabla.castShadow = true;
+            tabla.receiveShadow = true;
+            grupoArmario.add(tabla);
+
+            // --- FUNCIONES AUXILIARES (Internas) ---
+            function crearCajonInterno(ancho, alto, profundo) {
+                const grupoCajon = new THREE.Group();
+                const baseCajon = new THREE.Mesh(new THREE.BoxGeometry(ancho, 0.03, profundo), matMaderaOscura);
+                baseCajon.position.y = -alto / 2;
+                baseCajon.castShadow = true; baseCajon.receiveShadow = true;
+                grupoCajon.add(baseCajon);
+
+                const geoVertical = new THREE.BoxGeometry(0.03, alto, profundo);
+                const pIzq = new THREE.Mesh(geoVertical, matMaderaOscura);
+                pIzq.position.set(-ancho / 2, -0.015, 0);
+                pIzq.castShadow = true; pIzq.receiveShadow = true;
+                grupoCajon.add(pIzq);
+
+                const pDer = new THREE.Mesh(geoVertical, matMaderaOscura);
+                pDer.position.set(ancho / 2, -0.015, 0);
+                pDer.castShadow = true; pDer.receiveShadow = true;
+                grupoCajon.add(pDer);
+
+                return grupoCajon;
+            }
+
+            function crearCajonLargoDobleInterno(ancho, alto, profundo) {
+                const grupocajones = new THREE.Group();
+                const c1 = crearCajonInterno(ancho, alto, profundo);
+                const c2 = crearCajonInterno(ancho, alto, profundo);
+                c1.position.x = 0.5;
+                grupocajones.add(c1, c2);
+                return grupocajones;
+            }
+
+            function apilarCajonesInterno(ancho, alto, profundo) {
+                const grupoAltura = new THREE.Group();
+                const cAbajo = crearCajonLargoDobleInterno(ancho, alto, profundo);
+                const cArriba = crearCajonLargoDobleInterno(ancho, alto, profundo);
+                cArriba.position.y = alto;
+                grupoAltura.add(cAbajo, cArriba);
+                return grupoAltura;
+            }
+
+            function armarCajoneras(ancho, alto, profundo) {
+                const grupo = new THREE.Group();
+                const p1 = apilarCajonesInterno(ancho, alto, profundo);
+                const p2 = apilarCajonesInterno(ancho, alto, profundo);
+                const p3 = apilarCajonesInterno(ancho, alto, profundo);
+                p1.position.set(-2, -0.08, 0);
+                p2.position.set(-2, 0.58, 0);
+                p3.position.set(-2, 1.25, 0);
+                grupo.add(p1, p2, p3);
+                return grupo;
+            }
+
+            function agregarBloqueRopa(ancho, altura, x, y, z, titulo, descripcion, cantidad) {
+                const geoBloque = new THREE.BoxGeometry(ancho, altura, 0.4);
+                let matBloque;
+
+                if (cantidad === 0) matBloque = new THREE.MeshStandardMaterial({ color: 0x888888, transparent: true, opacity: 0.3 });
+                else if (cantidad < 5) matBloque = new THREE.MeshStandardMaterial({ color: 0x4CAF50, transparent: true, opacity: 0.8 });
+                else if (cantidad < 20) matBloque = new THREE.MeshStandardMaterial({ color: 0xFFC107, transparent: true, opacity: 0.8 });
+                else matBloque = new THREE.MeshStandardMaterial({ color: 0xF44336, transparent: true, opacity: 0.8 });
+
+                const bloque = new THREE.Mesh(geoBloque, matBloque);
+                bloque.position.set(x, y, z);
+                bloque.castShadow = true;
+                bloque.receiveShadow = true;
+
+                // Guardamos los datos
+                bloque.userData = { titulo, descripcion, cantidad };
+                // Le damos un nombre para identificar que es ropa
+                bloque.name = "item_ropa";
+
+                grupoArmario.add(bloque);
+                grupoArmario.userData.bloquesDeRopa.push(bloque);
+            }
+
+            // --- MONTAJE DE CAJONES SUELTOS ---
+            const cajones = [
+                crearCajonInterno(0.5, 0.5, 0.5), crearCajonInterno(1, 0.25, 0.5), crearCajonInterno(1, 0.25, 0.5),
+                crearCajonInterno(1, 0.25, 0.5), crearCajonInterno(1, 0.25, 0.5), crearCajonInterno(1, 0.5, 0.5),
+                crearCajonInterno(0.5, 0.5, 0.5), crearCajonInterno(1, 0.5, 0.5), crearCajonInterno(1, 0.5, 0.5),
+                crearCajonInterno(0.5, 0.5, 0.5), crearCajonInterno(1, 0.5, 0.5), crearCajonInterno(1, 0.5, 0.5),
+                crearCajonInterno(0.5, 0.5, 0.5), crearCajonInterno(1, 0.5, 0.5)
+            ];
+
+            cajones[1].position.set(0.75, -0.12, 0); cajones[2].position.set(0.75, 0.12, 0);
+            cajones[3].position.set(-0.75, -0.12, 0); cajones[4].position.set(-0.75, 0.12, 0);
+            cajones[5].position.set(-0.75, 0.5, 0); cajones[6].position.set(0, 0.5, 0);
+            cajones[7].position.set(0.75, 0.5, 0); cajones[8].position.set(-0.75, 1, 0);
+            cajones[9].position.set(0, 1, 0); cajones[10].position.set(0.75, 1, 0);
+            cajones[11].position.set(-0.75, 1.5, 0); cajones[12].position.set(0, 1.5, 0);
+            cajones[13].position.set(0.75, 1.5, 0);
+
+            cajones.forEach(c => grupoArmario.add(c));
+
+            // --- MONTAJE DE CAJONERAS LATERALES ---
+            const arm1 = armarCajoneras(0.5, 0.3333, 0.5);
+            const arm2 = armarCajoneras(0.5, 0.3333, 0.5);
+            arm1.position.x = 0;
+            arm2.position.x = 3.5;
+            grupoArmario.add(arm1, arm2);
+
+            // --- AÑADIR LA ROPA ---
+            agregarBloqueRopa(0.35, 0.20, 0, 0.35, 0, "Bloque Superior", "Camisetas de algodón 100%.", 0);
+            agregarBloqueRopa(0.35, 0.20, 0, -0.15, 0, "Bloque Superior", "Jerséis de lana merino.", 0);
+            agregarBloqueRopa(0.35, 0.200, 0, 0.88, 0, "Bloque Inferior", "Pantalones vaqueros rectos.", 0);
+            agregarBloqueRopa(0.35, 0.200, 0, 1.35, 0, "Bloque Inferior", "Pantalones chinos color beige.", 0);
+            agregarBloqueRopa(0.35, 0.15, 1.35, 0, "Bloque Inferior", "Cinturones de cuero negro.", 0);
+            agregarBloqueRopa(0.35, 0.15, 0.5, 0.09, 0, "Bloque Inferior", "Calcetines deportivos blancos.", 0);
+            agregarBloqueRopa(0.35, 0.15, 1, 0.09, 0, "Bloque Inferior", "Ropa interior, boxers oscuros.", 0);
+            agregarBloqueRopa(0.35, 0.15, 1, -0.15, 0, "Bloque Inferior", "Corbatas de seda estampadas.", 0);
+            agregarBloqueRopa(0.35, 0.15, 0.5, -0.15, 0, "Bloque Inferior", "Pajaritas y pañuelos de bolsillo.", 0);
+            agregarBloqueRopa(0.35, 0.15, -0.5, -0.15, 0, "Bloque Inferior", "Bufandas de invierno.", 0);
+            agregarBloqueRopa(0.35, 0.15, -0.5, 0.09, 0, "Bloque Inferior", "Guantes de piel sintética.", 0);
+            agregarBloqueRopa(0.35, 0.15, -1, 0.09, 0, "Bloque Inferior", "Pantalones cortos de deporte.", 0);
+            agregarBloqueRopa(0.35, 0.20, -1, -0.15, 0, "Bloque Inferior", "Camisetas de tirantes para gimnasio.", 0);
+
+            agregarBloqueRopa(0.3, 0.40, -1, 0.45, 0, "Bloque Inferior", "Chaquetas de entretiempo.", 0);
+            agregarBloqueRopa(0.3, 0.40, -0.5, 0.45, 0, "Bloque Inferior", "Abrigos largos de lana.", 0);
+            agregarBloqueRopa(0.3, 0.40, -0.5, 0.95, 0, "Bloque Inferior", "Trajes de chaqueta azul marino.", 0);
+            agregarBloqueRopa(0.3, 0.40, -1, 0.95, 0, "Bloque Inferior", "Trajes de chaqueta grises.", 0);
+            agregarBloqueRopa(0.3, 0.40, -0.5, 1.45, 0, "Bloque Inferior", "Camisas de vestir blancas.", 0);
+            agregarBloqueRopa(0.3, 0.40, -1, 1.45, 0, "Bloque Inferior", "Camisas de vestir celestes.", 0);
+
+            agregarBloqueRopa(0.3, 0.40, 0.5, 0.45, 0, "Bloque Inferior", "Chalecos acolchados.", 0);
+            agregarBloqueRopa(0.3, 0.40, 1, 0.45, 0, "Bloque Inferior", "Cazadoras vaqueras clásicas.", 0);
+            agregarBloqueRopa(0.3, 0.40, 0.5, 0.95, 0, "Bloque Inferior", "Sudaderas con capucha.", 0);
+            agregarBloqueRopa(0.3, 0.40, 1, 0.95, 0, "Bloque Inferior", "Polos de manga corta.", 0);
+            agregarBloqueRopa(0.3, 0.40, 0.5, 1.45, 0, "Bloque Inferior", "Chaquetas de cuero negro.", 0);
+            agregarBloqueRopa(0.3, 0.40, 1, 1.45, 0, "Bloque Inferior", "Gabardinas impermeables.", 0);
+
+            agregarBloqueRopa(0.3, 0.20, -2, 1.51, 0, "Bloque Inferior", "Zapatos de vestir negros.", 0);
+            agregarBloqueRopa(0.3, 0.20, -2, 1.2, 0, "Bloque Inferior", "Zapatos de vestir marrones.", 0);
+            agregarBloqueRopa(0.3, 0.20, -2, 0.85, 0, "Bloque Inferior", "Zapatillas deportivas de correr.", 0);
+            agregarBloqueRopa(0.3, 0.20, -2, 0.5, 0, "Bloque Inferior", "Botas de montaña impermeables.", 0);
+            agregarBloqueRopa(0.3, 0.20, -2, 0.2, 0, "Bloque Inferior", "Mocasines de ante.", 0);
+            agregarBloqueRopa(0.3, 0.20, -2, -0.13, 0, "Bloque Inferior", "Sandalias de verano.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, 1.51, 0, "Bloque Inferior", "Pijamas de invierno de franela.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, 1.2, 0, "Bloque Inferior", "Pijamas de verano ligeros.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, 0.85, 0, "Bloque Inferior", "Bañadores cortos estampados.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, 0.5, 0, "Bloque Inferior", "Toallas de baño de microfibra.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, 0.2, 0, "Bloque Inferior", "Mantas polares para sofá.", 0);
+            agregarBloqueRopa(0.3, 0.20, -1.5, -0.13, 0, "Bloque Inferior", "Juego de sábanas de algodón.", 0);
+
+            agregarBloqueRopa(0.3, 0.20, 2, 1.51, 0, "Bloque Inferior", "Gorros de lana de invierno.", 2);
+            agregarBloqueRopa(0.3, 0.20, 2, 1.2, 0, "Bloque Inferior", "Camisetas básicas negras.", 10);
+            agregarBloqueRopa(0.3, 0.20, 2, 0.85, 0, "Bloque Inferior", "Pantalones vaqueros talla 40.", 30);
+            agregarBloqueRopa(0.3, 0.20, 2, 0.5, 0, "Bloque Inferior", "Pantalones de chándal grises.", 0);
+            agregarBloqueRopa(0.3, 0.20, 2, 0.2, 0, "Bloque Inferior", "Camisas de lino para verano.", 0);
+            agregarBloqueRopa(0.3, 0.20, 2, -0.13, 0, "Bloque Inferior", "Cortavientos reflectantes.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, 1.51, 0, "Bloque Inferior", "Sombreros de paja para el sol.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, 1.2, 0, "Bloque Inferior", "Cinturones trenzados informales.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, 0.85, 0, "Bloque Inferior", "Calcetines de lana gruesa.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, 0.5, 0, "Bloque Inferior", "Mochilas de uso diario.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, 0.2, 0, "Bloque Inferior", "Bolsas de deporte para el gimnasio.", 0);
+            agregarBloqueRopa(0.3, 0.20, 1.5, -0.13, 0, "Bloque Inferior", "Zapatillas de andar por casa.", 0);
+
+            // Ajuste opcional para que quede centrado respecto a su punto de origen
+            grupoArmario.position.y = 0.5;
+
+            return grupoArmario;
+        }
+    </script>
 </body>
+
 </html>

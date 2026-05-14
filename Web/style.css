@@ -2,19 +2,19 @@
    VARIABLES GLOBALES (Estilo Inventario 3D)
    ========================================================================== */
 :root {
-  --navy-dark:   #0f172a;
-  --navy:        #1e293b;
-  --navy-mid:    #334155;
-  --blue:        #3b82f6;
-  --blue-light:  #60a5fa;
-  --blue-dim:    rgba(59,130,246,0.15);
+  --navy-dark:   #313131;
+  --navy:        #4e4e4e;
+  --navy-mid:    #2b2b2b;
+  --blue:        #60f0fa;
+  --blue-light:  #60f0fa;
+  --blue-dim:    rgba(58, 58, 58, 0.15);
   --success:     #22c55e;
   --warning:     #f59e0b;
   --danger:      #ef4444;
   --text:        #f1f5f9;
   --text-muted:  #94a3b8;
   --border:      rgba(255,255,255,0.08);
-  --panel-bg:    rgba(30,41,59,0.85);
+  --panel-bg:    rgba(34, 34, 34, 0.85);
   --radius:      10px;
 }
 
@@ -39,7 +39,7 @@ body {
    CABECERA, NAVEGACIÓN Y PIE DE PÁGINA (COMPARTIDOS)
    ========================================================================== */
 header, footer {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, #0e0e0e 0%, #60f0fa6c 100%);
   text-align: center;
   flex-shrink: 0;
 }
@@ -87,12 +87,12 @@ footer {
    ESTILOS ESPECÍFICOS PARA: index.html (Adaptados al Dark Theme)
    ========================================================================== */
 .main-index { 
-    flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; 
+    flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%;
 }
 
 .section-index {
     background: var(--panel-bg); border-radius: var(--radius); padding: 2rem;
-    margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-top: 4px solid var(--blue);
     border: 1px solid var(--border);
 }
@@ -138,11 +138,10 @@ footer {
 }
 
 /* Tamaños de las tablas */
-.armario[data-id="A1"] tr:nth-child(-n+2) td { height: 25px; width: 40px; }
-.armario[data-id="A1"] tr:nth-child(n+3) td { height: 45px; width: 40px; }
+.armario[data-id="A1"] tr:nth-child(-n+2) td { height: 45px; width: 100px; }
+.armario[data-id="A1"] tr:nth-child(n+3) td { height: 45px; width: 100px; }
 .armario[data-id="A1"] td[rowspan] { width: 50px; background: var(--navy-dark); }
-.cajonera td { height: 40px; width: 60px; }
-.taquilla td { height: 60px; width: 80px; }
+.Mesa td { height: 40px; width: 60px; }
 
 /* Panel de Inventario Inferior */
 .inventario-layout-unico { background: var(--navy); padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); }
@@ -153,7 +152,7 @@ footer {
     border-radius: 8px; border: 1px solid var(--border); position: relative;
     font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2); color: var(--text);
 }
-.lista-objetos li::before { content: '📦'; position: absolute; left: 15px; font-size: 1.2rem; }
+.lista-objetos li::before { content: '✔️'; position: absolute; left: 15px; bottom: 12.5px; font-size: 1.2rem; }
 
 .panel-vacio { color: var(--text-muted); text-align: center; padding: 40px 0; font-style: italic; }
 
@@ -164,9 +163,35 @@ footer {
 }
 
 
-/* ==========================================================================
-   ESTILOS ESPECÍFICOS PARA: inventario_3d.html
-   ========================================================================== */
+/* Layout dos columnas: plano izquierda, inventario derecha */
+.layout-dos-columnas {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.layout-dos-columnas #plano {
+    flex: 1.2;
+    min-width: 0;
+}
+
+.layout-dos-columnas #inventario {
+    flex: 1;
+    min-width: 280px;
+    position: sticky;
+    top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .layout-dos-columnas {
+        flex-direction: column;
+    }
+    .layout-dos-columnas #inventario {
+        position: static;
+    }
+}
+
+
 .main-3d {
   flex: 1;
   display: flex;
@@ -257,7 +282,6 @@ footer {
   font-size: 9px; padding: 2px 6px; border-radius: 8px;
   font-weight: 600; flex-shrink: 0; letter-spacing: 0.02em;
 }
-
 .badge-ok  { background: rgba(34,197,94,0.15);  color: var(--success); }
 .badge-low { background: rgba(245,158,11,0.15); color: var(--warning); }
 .badge-out { background: rgba(239,68,68,0.15);  color: var(--danger); }
