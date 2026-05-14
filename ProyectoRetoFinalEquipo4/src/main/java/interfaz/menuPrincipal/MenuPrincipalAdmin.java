@@ -4,13 +4,20 @@
  */
 package interfaz.menuPrincipal;
 
+import daoClasesSQL.MaterialDAO;
 import devolucionesYPrestamos.devoluciones;
 import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
 import java.awt.BorderLayout;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
-
 
 /**
  *
@@ -255,15 +262,15 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonLocalizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLocalizacionActionPerformed
         // TODO add your handling code here:
-        
+
         VentanaBusqueda buscar = new VentanaBusqueda(this, true);
         buscar.setVisible(true);
-        
+
         botonConsultaActionPerformed(null);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonLocalizacionActionPerformed
 
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
@@ -277,28 +284,114 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
-        
-        prestamos prestamo = new prestamos(this,true);
+
+        prestamos prestamo = new prestamos(this, true);
         prestamo.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonPrestamosActionPerformed
 
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
         // TODO add your handling code here:
-        
-        devoluciones devolucion = new devoluciones(this,true);
+
+        devoluciones devolucion = new devoluciones(this, true);
         devolucion.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
-        // TODO add your handling code here:
+        //Instanciamos MaterialDAO para poder usar su metodo buscar
+        MaterialDAO material = new MaterialDAO();
+        //Guardamos los datos recibidos al buscar en una lista de objetos
+        List<Object[]> datosInforme = material.buscar(null, null, null, null);
+
+        //Vamos a usar JFileChooser
+        //de esta manera cuando se vaya a crear un fichero de informe, el usuario podra elegir la ubicacion y el nombre del archivo
+        JFileChooser selector = new JFileChooser();
+        selector.setDialogTitle("Guardar informe de inventario");
+        selector.setSelectedFile(new File("Informe_inventario_completo.txt")); //Nombre por defecto
+
+        //Mostramos la ventana del JFileChoose y comprobamos si el usuario acepta
+        int respuesta = selector.showSaveDialog(this);
+
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            
+            File archivoDestino = selector.getSelectedFile();
+            String ruta = archivoDestino.getAbsolutePath();
+
+            //Revisamos que el archivo tenga la extension .txt
+            if (!ruta.toLowerCase().endsWith(".txt")) {
+                ruta += ".txt";
+            }
+
+            //Creamos dos variables de string para dar formato a la tabla que aparecera en el archivo.
+            String formato = "%-5s | %-30s | %-25s | %-15s | %-25s | %-6s";
+            String lineaDiv = "-----------------------------------------------------------------------------------------------------------------------";
+            try (BufferedWriter informe = new BufferedWriter(new FileWriter(ruta))) {
+
+                // Encabezado del archivo txt
+                informe.write("IES MIGUEL HERRERO PEREDA - INFORME DE INVENTARIO");
+                informe.newLine();
+                informe.write("Fecha de creacion: " + new java.util.Date());
+                informe.newLine();
+                informe.write(lineaDiv);
+                informe.newLine();
+
+                // Escribimos los títulos de las columnas usando el formato definido
+                informe.write(String.format(formato, "ID", "NOMBRE", "CATEGORIA", "ESTADO", "UBICACION", "CANT."));
+                informe.newLine();
+                informe.write(lineaDiv);
+                informe.newLine();
+
+                // Recorremos los registros de la lista creada uno a uno para gestionarlos y anadirlos al archivo de text
+                for (Object[] fila : datosInforme) {
+                    // Limpiamos y limitamos la longitud de los textos para no desalinear las columnas
+                    String nombre = (fila[1] != null) ? fila[1].toString() : "";
+                    if (nombre.length() > 30) {
+                        nombre = nombre.substring(0, 27) + "...";
+                    }
+
+                    String categoria = (fila[3] != null) ? fila[3].toString() : "";
+                    if (categoria.length() > 25) {
+                        categoria = categoria.substring(0, 22) + "...";
+                    }
+
+                    String ubicacion = (fila[5] != null) ? fila[5].toString() : "";
+                    if (ubicacion.length() > 25) {
+                        ubicacion = ubicacion.substring(0, 22) + "...";
+                    }
+
+                    // Escribimos la fila con el formato idéntico a la cabecera
+                    informe.write(String.format(formato,
+                            fila[0].toString(), // ID
+                            nombre, // Nombre
+                            categoria, // Categoría
+                            fila[4].toString(), // Estado
+                            ubicacion, // Ubicación
+                            fila[6].toString() // Cantidad
+                    ));
+                    informe.newLine();
+                }
+
+                // 6. Cierre del informe
+                informe.write(lineaDiv);
+                informe.newLine();
+                informe.write("Fin del informe. Total de registros: " + datosInforme.size());
+                
+                //Mostramos al usuario una ventana informando de que se ha generado el archivo correctamente.
+                JOptionPane.showMessageDialog(this, "Informe generado con éxito en: " + ruta);
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al escribir el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
     }//GEN-LAST:event_botonInformesActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
@@ -318,32 +411,32 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
         //cogemos lo que ve el usuario en el panel
         java.awt.Component componenteActual = panelDerecha.getViewport().getView();
-        
+
         //comprobamos si esta viendo la consulta de materiales
         if (componenteActual instanceof PanelConsultaMateriales) {
             PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
-            
+
             //cogemos el id de lo que selecciona
             int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
-            
+
             //Si es -1 significa que no selecciona nada
             if (idSeleccionado == -1) {
-                javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Selecciona primero un material de la tabla para darlo de baja.", 
-                    "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Selecciona primero un material de la tabla para darlo de baja.",
+                        "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            
+
             //pedimos confirmacion antes de dar de baja
-            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, 
-                "Estas seguro de que deseas dar de baja el material con ID: " + idSeleccionado, 
-                "Confirmar Baja", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
-                
+            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Estas seguro de que deseas dar de baja el material con ID: " + idSeleccionado,
+                    "Confirmar Baja", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
+
             if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
                 //si da a si llamamos al metodo para cmabiar el estado a baja
                 daoClasesSQL.MaterialDAO dao = new daoClasesSQL.MaterialDAO();
                 boolean exito = dao.bajaMaterial(idSeleccionado);
-                
+
                 if (exito) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Material dado de baja correctamente.");
                     //actualizamos la tabla
@@ -353,9 +446,9 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 }
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Abre primero la pantalla de 'Consulta' y selecciona un material.", 
-                "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Abre primero la pantalla de 'Consulta' y selecciona un material.",
+                    "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBajaActionPerformed
 
