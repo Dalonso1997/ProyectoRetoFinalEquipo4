@@ -13,7 +13,7 @@ import java.util.Properties;
 
 /**
  *
- * @author DAM126
+ * @author David Alonso, Alberto Gonzalez
  */
 public class ConexionBD {
     
@@ -25,7 +25,7 @@ public class ConexionBD {
     
     private ConexionBD(){
         
-        // Objeto para leer el archivo de configuración externo
+        // Objeto para leer el archivo de configuración creado de manera externa con las propiedades para la conexion
         Properties props = new Properties();
         
         try (FileInputStream fis = new FileInputStream("config.properties")) {
@@ -37,13 +37,15 @@ public class ConexionBD {
             String entorno = props.getProperty("entorno");
             String url, user, pass;
             
-            // Elegimos las credenciales según el entorno
+            //Si el entorno enconrado es igual a "aws"
             if ("aws".equalsIgnoreCase(entorno)) {
+                //Recogemos la url, el usuario y la contrasena ubicadas en el archivo properties
                 url = props.getProperty("aws.url");
                 user = props.getProperty("aws.user");
                 pass = props.getProperty("aws.pass");
                 System.out.println("Iniciando conexión a AWS...");
             } else {
+                //En caso contrario recogemos los datos para la conexion local
                 url = props.getProperty("local.url");
                 user = props.getProperty("local.user");
                 pass = props.getProperty("local.pass");
@@ -62,7 +64,8 @@ public class ConexionBD {
         
     }
     
-    // Metodo static que devuelve la instancia
+    // Aqui reside el metodo singleton, este sirve para que exista unica y exclusivamente una instancia de la conexion
+    //De esta manera aseguramos que el canal por el que se conecta a la base de datos sera unico y seguro
     public static ConexionBD getInstancia(){
         if (instancia == null){
             instancia = new ConexionBD();
@@ -70,6 +73,7 @@ public class ConexionBD {
         return instancia;
     }
     
+    //Devuelve la conexion activa para poder ser usada por los DAOs
     public Connection getConexion(){
         return this.conexion;
     } 
