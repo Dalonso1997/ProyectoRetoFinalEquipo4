@@ -26,61 +26,71 @@
     <main class="main-index">
         <section id="inicio" class="section-index">
             <h2>Información del Taller</h2>
-            <p>Visualización semántica de la distribución física: armarios, baldas y ubicación de material.</p>
+            <p>Visualización de la distribución física: armario y mesas.</p>
         </section>
 
-        <section id="plano" class="section-index">
-            <h2>Plano Visual del Taller</h2>
-            <div class="contenedor-plano">
-                
-                <div class="armario" data-id="A1">
-                    <div class="etiqueta-armario">Armario A1</div>
-                    <table class="tabla-forma">
-                        <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
-                        <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
-                        <tr>
-                            <td rowspan="6">Lateral Izq</td>
-                            <td>9</td><td>10</td>
-                            <td rowspan="6">Lateral Der</td>
-                        </tr>
-                        <tr><td>11</td><td>12</td></tr>
-                        <tr><td>13</td><td>14</td></tr>
-                        <tr><td>15</td><td>16</td></tr>
-                        <tr><td>17</td><td>18</td></tr>
-                        <tr><td>19</td><td>20</td></tr>
-                    </table>
-                </div>
+        <div class="layout-dos-columnas">
+            <section id="plano" class="section-index">
+                <h2>Plano Visual del Taller</h2>
+                <div class="contenedor-plano">
+                    
+                    <div class="armario" data-id="A1">
+                        <div class="etiqueta-armario">Armario A1</div>
+                        <table class="tabla-forma">
+                            <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+                            <tr><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+                            <tr>
+                                <td rowspan="6">Lateral Izq</td>
+                                <td>9</td><td>10</td>
+                                <td rowspan="6">Lateral Der</td>
+                            </tr>
+                            <tr><td>11</td><td>12</td></tr>
+                            <tr><td>13</td><td>14</td></tr>
+                            <tr><td>15</td><td>16</td></tr>
+                            <tr><td>17</td><td>18</td></tr>
+                            <tr><td>19</td><td>20</td></tr>
+                        </table>
+                    </div>
 
-                <div class="armario" data-id="A2">
-                    <div class="etiqueta-armario">Cajonera A2</div>
-                    <table class="tabla-forma cajonera">
-                        <tr><td>1</td><td>2</td></tr>
-                        <tr><td>3</td><td>4</td></tr>
-                        <tr><td colspan="2">5 (Cajón grande)</td></tr>
-                    </table>
-                </div>
+                    <div class="armario" data-id="A2">
+                        <div class="etiqueta-armario">Mesa 1</div>
+                        <table class="tabla-forma Mesa">
+                            <tr><td>1</td><td>2</td></tr>
+                            <tr><td>3</td><td>4</td></tr>
+                            <tr><td>5</td><td>6</td></tr>
+                        </table>
+                    </div>
 
-                <div class="armario" data-id="A3">
-                    <div class="etiqueta-armario">Taquilla A3</div>
-                    <table class="tabla-forma taquilla">
-                        <tr><td>1</td></tr>
-                        <tr><td>2</td></tr>
-                        <tr><td>3</td></tr>
-                        <tr><td>4</td></tr>
-                    </table>
-                </div>
-            </div>
-        </section>
+                    <div class="armario" data-id="A2">
+                        <div class="etiqueta-armario">Mesa 2</div>
+                        <table class="tabla-forma Mesa">
+                            <tr><td>1</td><td>2</td></tr>
+                            <tr><td>3</td><td>4</td></tr>
+                            <tr><td>5</td><td>6</td></tr>
+                        </table>
+                    </div>
 
-        <section id="inventario" class="section-index">
-            <h2>Detalles de Ubicación: <span id="id-balda-titulo" style="color:var(--text);">Ninguna</span></h2>
-            <div class="inventario-layout-unico">
-                <div id="panel-objetos" class="panel-vacio">
-                    Haz clic en una balda o sección de los armarios de arriba para ver su contenido.
+                    <div class="armario" data-id="A2">
+                        <div class="etiqueta-armario">Mesa 3</div>
+                        <table class="tabla-forma Mesa">
+                            <tr><td>1</td><td>2</td></tr>
+                            <tr><td>3</td><td>4</td></tr>
+                            <tr><td>5</td><td>6</td></tr>
+                        </table>
+                    </div>
                 </div>
-                <div id="resumen-total" class="resumen-footer" style="display: none;"></div>
-            </div>
-        </section>
+            </section>
+
+            <section id="inventario" class="section-index">
+                <h2>Detalles de Ubicación: <span id="id-balda-titulo" style="color:var(--text);">Ninguna</span></h2>
+                <div class="inventario-layout-unico">
+                    <div id="panel-objetos" class="panel-vacio">
+                        Haz clic en una balda o sección de los armarios de arriba para ver su contenido.
+                    </div>
+                    <div id="resumen-total" class="resumen-footer" style="display: none;"></div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -122,7 +132,8 @@
                 const idArmario = this.closest('.armario').getAttribute('data-id');
                 const idBalda = this.innerText.trim();
 
-                tituloBalda.innerText = `Armario ${idArmario} - Espacio [${idBalda}]`;
+                tituloBalda.innerText = `
+                ${idArmario} - Espacio [${idBalda}]`;
                 
                 const objetos = dbTaller[idArmario] ? dbTaller[idArmario][idBalda] : null;
 
