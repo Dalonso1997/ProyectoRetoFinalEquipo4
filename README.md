@@ -27,10 +27,10 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 <details>
 <summary>Programación</summary>
   
-Java
-Swing
-JDBC
-NetBeans
+*Java
+*Swing
+*JDBC
+*NetBeans
 
 </details>
 <details>
