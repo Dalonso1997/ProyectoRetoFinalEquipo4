@@ -1,5 +1,6 @@
 devolucionesYPrestamos\prestamos$Material.class
 viewFormularios\FormularioAltaMaterial$1.class
+viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
@@ -39,6 +40,7 @@ devolucionesYPrestamos\prestamos$3$1.class
 devolucionesYPrestamos\devoluciones$3.class
 interfaz\login$3.class
 viewFormularios\VentanaBusqueda$2.class
+viewFormularios\VentanaBusqueda$5$1.class
 devolucionesYPrestamos\devoluciones$1.class
 viewFormularios\FormularioAltaMaterial$5$1.class
 interfaz\login$2.class
@@ -72,7 +74,6 @@ viewFormularios\FormularioAltaMaterial$5.class
 interfaz\login$1.class
 devolucionesYPrestamos\prestamos.class
 interfaz\modificar\MenuModificar.class
-viewFormularios\VentanaBusqueda$4$1.class
 devolucionesYPrestamos\prestamos$2.class
 modelClasesTablas\Usuario.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
