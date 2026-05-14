@@ -95,7 +95,7 @@ Se registran:
 
 ## 📌 Diagrama Entidad/Relación
 
-![Diagrama ER](Documentaciones/Base Datos/BD-03 - Convertir el E_R en modelo relacional.drawio)
+![Diagrama ER](ruta/BD-03 - Convertir el E_R en modelo relacional.png)
 
 ---
 
