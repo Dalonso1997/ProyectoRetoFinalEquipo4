@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import modelClasesTablas.Prestamo;
 
 /**
  *
@@ -81,101 +82,112 @@ public class prestamos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(76, 76, 76));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Préstamos");
+        jLabel1.setText("Prestamos");
 
         jScrollPane1.setViewportView(jList1);
 
         jButton1.setText("Solicitar prestamo");
 
-        jButton2.setText("Aceptar");
+        jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Cancelar");
+        jLabel2.setText("Nombre");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nombre :");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
-        jSeparator1.setForeground(new java.awt.Color(167, 167, 167));
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jLabel3.setText("Observaciones");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
+        jLabel4.setText("Cantidad");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(74, 74, 74))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(22, 22, 22))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cargarMateriales() {
         modeloLista.clear();
@@ -217,71 +229,57 @@ public class prestamos extends javax.swing.JDialog {
 
     // --- 3. LÓGICA DEL PRÉSTAMO CON BASE DE DATOS ---
     private void realizarPrestamo() {
-        String nombrePersona = jTextField1.getText().trim();
-        
-        // Ahora la lista devuelve un array de objetos con los datos de la BD
         Object[] seleccionado = (Object[]) jList1.getSelectedValue();
 
-        // Validaciones básicas
-        if (nombrePersona.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         if (seleccionado == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un material de la lista.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Selecciona un material.");
             return;
         }
 
-        // Extraemos los datos del array seleccionado (según el orden de tu MaterialDAO)
-        int idMaterial = (int) seleccionado[0];
-        String nombreMaterial = (String) seleccionado[1];
-        String estadoMaterial = (String) seleccionado[4];
-        int stockActual = (int) seleccionado[6];
+        // MAPEO CORRECTO DE TUS TEXTFIELDS:
+        String nombreUser = jTextField1.getText().trim();  // Nombre
+        String cantTexto  = jTextField2.getText().trim();  // Cantidad (DEBE SER NÚMERO)
+        String obsTexto   = jTextField3.getText().trim();  // Observaciones (TEXTO LIBRE)
 
-        // Validar que el material se pueda prestar (Estado 'disponible')
-        if (!estadoMaterial.equalsIgnoreCase("disponible")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Este material no está habilitado para préstamos (Estado: " + estadoMaterial + ").", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+        if (nombreUser.isEmpty() || cantTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nombre y Cantidad son obligatorios.");
             return;
         }
 
-        // Validar stock (Criterio: Actualiza estado o stock)
-        if (stockActual <= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No hay stock disponible para este material.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        try {
+            int idMat = (int) seleccionado[0];
+            int stock = (int) seleccionado[6];
+            int cantPedida = Integer.parseInt(cantTexto);
 
-        // Lógica de cantidad (Asumimos 1 por defecto)
-        int cantidadSolicitada = 1;
+            if (cantPedida > stock) {
+                JOptionPane.showMessageDialog(this, "No hay stock suficiente.");
+                return;
+            }
 
-        // Crear el objeto Préstamo usando TU constructor
-        // OJO: He puesto 'null' en el Estado. Si tu Enum requiere un valor, ponlo aquí (ej. Estado.PRESTADO)
-        modelClasesTablas.Prestamo nuevoPrestamo = new modelClasesTablas.Prestamo(
-                idMaterial, 
-                nombrePersona, 
-                "Préstamo de " + nombreMaterial, 
-                null, // <--- Tu clase Estado
-                cantidadSolicitada, 
-                "Sin observaciones"
-        );
+            // Creamos el objeto con los datos capturados
+            // Nota: El constructor de 6 parámetros: (idMat, nombre, desc, null, cant, obs)
+            modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
+                    idMat, 
+                    nombreUser, 
+                    "Préstamo", 
+                    null, 
+                    cantPedida, 
+                    obsTexto
+            );
 
-        // Guardar en la Base de Datos
-        daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
+            daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
 
-        if (pDAO.registrarPrestamo(nuevoPrestamo)) {
-            // Confirmación
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Préstamo registrado con éxito a " + nombrePersona + "\nMaterial: " + nombreMaterial, 
-                    "Éxito", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            
-            // Limpiar formulario
-            jTextField1.setText("");
-            jList1.clearSelection();
-            
-            // ¡IMPORTANTE! Refrescamos la lista llamando a la BD para ver el stock actualizado
-            cargarMateriales(); 
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el préstamo en la base de datos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            // Si tu tabla 'prestamos' tiene id_usuario como INT, pasa un 1 de prueba.
+            // Si 'id_usuario' fuera VARCHAR (para el nombre), tendrías que cambiar el DAO.
+            if (pDAO.registrarPrestamo(p, 1)) {
+                JOptionPane.showMessageDialog(this, "¡Éxito!");
+                cargarMateriales();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar. Revisa la consola.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número.");
         }
     }
 
@@ -303,15 +301,16 @@ public class prestamos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JList jList1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
 
