@@ -97,9 +97,9 @@ Se registran:
 
 <details>
 
-<summary>📌 Modelo Relacional</summary>
+<summary>📌 Diagrama E/R</summary>
 
-![Modelo Relacional](Documentaciones/Base%20Datos/BD-03%20-%20Convertir%20el%20E_R%20en%20modelo%20relacional.drawio.png)
+![Diagrama E/R](Documentaciones/Base%20Datos/Diagrama%20E_R.jpg)
 </details>
 <details>
 
