@@ -17,9 +17,6 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author DAM119
  */
-
-
-
 public class PanelConsultaMateriales extends JPanel {
 
     private JTable tabla;
@@ -67,9 +64,8 @@ public class PanelConsultaMateriales extends JPanel {
 
         MaterialDAO dao = new MaterialDAO();
 
-        
         List<Object[]> materiales = dao.buscar("", "", "", "");
-        
+
         System.out.println(materiales.size());
 
         modelo.setRowCount(0);
@@ -90,22 +86,38 @@ public class PanelConsultaMateriales extends JPanel {
             modelo.addRow(fila);
         }
     }
-    
-        //metodo que devuelve el id del matrial que el admin selecciona
+
+    //metodo que devuelve el id del matrial que el admin selecciona
     public int getIdMaterialSeleccionado() {
         //si es -1 significa que no has seleccionado ninguna
         int filaSeleccionada = tabla.getSelectedRow();
-        if (filaSeleccionada==-1) {
+        if (filaSeleccionada == -1) {
             return -1;
         } else {
             //devolvemos el id del seleccionado, que esta en la columna 0
             return (int) modelo.getValueAt(filaSeleccionada, 0);
         }
     }
-    
+
+    //metodo que devuelve el id del material que se selecciona
+    public String getIdUbicacionSeleccionada() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return "";
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return modelo.getValueAt(filaSeleccionada, 5).toString();
+        }
+    }
+
     //es un metodo para usar el metodo de cargar materiales
     //para ver actualizada la tabla, porque el metodo es privado
-    public void refrescarLsitado() {
+    public void refrescarListado() {
         cargarMateriales();
+    }
+
+    public JTable getTabla() {
+        return this.tabla;
     }
 }

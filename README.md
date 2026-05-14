@@ -65,7 +65,7 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 
 ## 🤝 Herramientas colaborativas
 
-- GitHUb 
+- GitHub 
 - GitHub Desktop
 - GitHub Projects
 - Teams
@@ -97,9 +97,9 @@ Se registran:
 
 <details>
 
-<summary>📌 Modelo Relacional</summary>
+<summary>📌 Diagrama E/R</summary>
 
-![Modelo Relacional](Documentaciones/Base%20Datos/BD-03%20-%20Convertir%20el%20E_R%20en%20modelo%20relacional.drawio.png)
+![Diagrama E/R](Documentaciones/Base%20Datos/Diagrama%20E_R.jpg)
 </details>
 <details>
 
@@ -440,25 +440,27 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 ---
 
-# 📘 Guía de Despliegue
+<details>
+
+<summary>📘 Guía de Despliegue</summary>
 
 La guía completa se encuentra en:
 
-```text
-/Documentaciones/Guia-despliegue-Equipo4.pdf
-```
+
+📄 [Ver Guía de Despliegue](Documentaciones/Sistemas/Guia-despliegue-Equipo4.docx)
+
 
 ---
-
-# 📗 Manual de Usuario
+</details>
+<details>
+<summary>📗 Manual de Usuario</summary>
 
 El manual de usuario se encuentra en:
 
-```text
-/Documentaciones/Manual-usuario-Equipo4.pdf
-```
+📄 [Abrir Manual de Usuario](Documentaciones/Sistemas/Manual-usuario-Equipo4.docx)
 
 ---
+</details>
 
 # 🚀 Resultados Obtenidos
 
@@ -470,14 +472,6 @@ El manual de usuario se encuentra en:
 
 ---
 
-# 🔮 Mejoras Futuras
-
-- Integración con códigos QR
-- Panel web dinámico
-- Sistema de notificaciones
-- Gestión avanzada de usuarios
-
----
 
 # 📜 Licencia
 

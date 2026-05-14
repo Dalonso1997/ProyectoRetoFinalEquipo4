@@ -192,5 +192,23 @@ public class MaterialDAO {
             return false;
         }
     }
+    
+        public boolean cambioUbicacionMaterial(int idUbicacion, int idMaterial) {
+        //Llamamos a la instancia de la conexion de la base de datos
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        //cambiamos la ubicacion por id de ubicacion que seleccionen
+        String sql = "UPDATE materiales SET id_ubicacion = ? WHERE id_material=?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUbicacion);
+            ps.setInt(2, idMaterial);
+            //si devuelve distinto a cero se ha ejecutado correctamente
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar ubicacion: " + e.getMessage());
+            return false;
+        }
+    }
 
 }

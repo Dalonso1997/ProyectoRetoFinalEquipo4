@@ -8,6 +8,7 @@ import daoClasesSQL.MaterialDAO;
 import devolucionesYPrestamos.devoluciones;
 import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
+import interfaz.ubicacion.CambioUbicacion;
 import java.awt.BorderLayout;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -440,7 +441,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 if (exito) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Material dado de baja correctamente.");
                     //actualizamos la tabla
-                    panelConsulta.refrescarLsitado();
+                    panelConsulta.refrescarListado();
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(this, "Hubo un error al intentar dar de baja el material.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 }
@@ -466,7 +467,45 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAltaActionPerformed
 
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
-        // TODO add your handling code here:
+        //cogemos lo que el usuario esta viendo ahora mismo en el panel
+        java.awt.Component componenteActual = panelDerecha.getViewport().getView();
+
+        //comprobamos que estemos en la pantalla de consulta de materiales
+        if (componenteActual instanceof PanelConsultaMateriales) {
+            //convertimos el componente para poder usar sus metodos
+            PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
+
+            //sacamos la id del material que el admin ha pinchado en la tabla
+            int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
+
+            //comprobamos si no ha seleccionado nada (el metodo devuelve -1 si esta vacio)
+            if (idSeleccionado == -1) {
+                //si no hay seleccion, le soltamos el mensaje de aviso para que elija uno
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Selecciona primero un material de la tabla para gestionar su ubicacion.",
+                        "Informacion",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+                //paramos la ejecucion aqui para que no intente abrir la otra ventana
+                return;
+            }
+
+            //si llegamos aqui es que si hay una id, asi que cogemos su ubicacion actual
+            String ubiActual = panelConsulta.getIdUbicacionSeleccionada();
+
+            //abrimos la ventana de cambio de ubicacion pasando todos los datos necesarios
+            CambioUbicacion ventana = new CambioUbicacion(this, true, idSeleccionado, ubiActual);
+            ventana.setVisible(true);
+
+            //una vez se cierre la ventana de gestion, refrescamos la tabla para ver los cambios
+            panelConsulta.refrescarListado();
+
+        } else {
+            //en caso de que no este ni en la pantalla de consulta, le avisamos tambien
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Abre primero la pantalla de 'Consulta' y selecciona un material.",
+                    "Informacion",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_botonGestionarActionPerformed
 
     /**
@@ -494,9 +533,6 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -1,7 +1,9 @@
 devolucionesYPrestamos\prestamos$Material.class
+interfaz\ubicacion\CambioUbicacion$4.class
 viewFormularios\FormularioAltaMaterial$1.class
 viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
+interfaz\menuPrincipal\MenuPrincipalAdmin$11.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 pruebas\Pruebas.class
@@ -19,6 +21,7 @@ devolucionesYPrestamos\devoluciones$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$9.class
 interfaz\menuPrincipal\MenuPrincipalAdmin.class
 devolucionesYPrestamos\prestamos$3.class
+interfaz\ubicacion\CambioUbicacion$1.class
 interfaz\menuPrincipal\PanelConsultaMateriales.class
 utilsClasesApoyo\ConexionBD.class
 daoClasesSQL\UsuarioDAO.class
@@ -27,6 +30,7 @@ interfaz\login.class
 viewFormularios\FormularioAltaMaterial.class
 modelClasesTablas\Inventario.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
+interfaz\ubicacion\CambioUbicacion$3.class
 daoClasesSQL\MaterialDAO.class
 devolucionesYPrestamos\prestamos$5$1.class
 controllerClasesGestionModelVista\NewClass.class
@@ -68,14 +72,20 @@ interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 viewFormularios\FormularioAltaMaterial$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
 interfaz\modificar\MenuModificar$3.class
+<<<<<<< Updated upstream
 devolucionesYPrestamos\devoluciones$3$1.class
+=======
+interfaz\ubicacion\CambioUbicacion.class
+>>>>>>> Stashed changes
 interfaz\modificar\MenuModificar$8$1.class
 devolucionesYPrestamos\prestamos$5.class
 viewFormularios\FormularioAltaMaterial$5.class
 interfaz\login$1.class
 devolucionesYPrestamos\prestamos.class
+interfaz\ubicacion\CambioUbicacion$4$1.class
 interfaz\modificar\MenuModificar.class
 devolucionesYPrestamos\prestamos$2.class
+interfaz\ubicacion\CambioUbicacion$2.class
 modelClasesTablas\Usuario.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
 modelClasesTablas\Estado.class
