@@ -25,26 +25,26 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 ```
 🛠️ Tecnologías Utilizadas
 <details>
-Programación
+<summary>Programación</summary>
 Java
 Swing
 JDBC
 NetBeans
 </details>
 <details>
-Base de Datos
+<summary>Base de Datos</summary>
 MySQL
 MySQL Workbench
 </details>
 <details>
-Web
+<summary>Web</summary>
 HTML5
 CSS3
 JavaScript
 Infraestructura
 </details>
 <details>
-AWS Academy
+<summary>AWS Academy</summary>
 EC2
 VPC
 Elastic IP
