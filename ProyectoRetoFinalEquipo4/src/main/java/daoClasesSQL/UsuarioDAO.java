@@ -27,7 +27,7 @@ public class UsuarioDAO {
         Connection con = ConexionBD.getInstancia().getConexion();
         
         //Creamos un String con la consulta que necesita MySQL para recibir los datos del usuario introducido
-        String sql = "SELECT * FROM usuario WHERE email = ? AND password = ?";
+        String sql = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
         
         
         //Prepared Statement es el objeto de java que protege la consulta es decir valida que lo que se recoge en la variable sql es una consulta valida que no crea problemas en la base de datos
