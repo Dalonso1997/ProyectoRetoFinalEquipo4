@@ -472,14 +472,6 @@ El manual de usuario se encuentra en:
 
 ---
 
-# 🔮 Mejoras Futuras
-
-- Integración con códigos QR
-- Panel web dinámico
-- Sistema de notificaciones
-- Gestión avanzada de usuarios
-
----
 
 # 📜 Licencia
 
