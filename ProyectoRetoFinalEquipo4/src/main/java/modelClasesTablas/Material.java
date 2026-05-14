@@ -1,47 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelClasesTablas;
 
 import java.time.LocalDateTime;
 
 /**
- *
- * @author DAM126
+ * Representa un elemento del inventario del taller.
+ * Refleja la estructura de la tabla 'materiales' de la base de datos.
+ * * @author DAM126
  */
 public class Material {
     private int id_material;
     private String nombre;
     private String descripcion;
     private int cantidad;
-    private String estado;
+    private int id_estado; // CAMBIADO: Antes era String, ahora es int (FK)
     private LocalDateTime fecha_Alta;
     private int id_categoria;
     private int id_ubicacion;
 
-    public Material(int id_material, String nombre, String descripcion, int cantidad, String estado, LocalDateTime fecha_Alta, int id_categoria, int id_ubicacion) {
+    /**
+     * Constructor completo para cargar materiales desde la base de datos.
+     */
+    public Material(int id_material, String nombre, String descripcion, int cantidad, int id_estado, LocalDateTime fecha_Alta, int id_categoria, int id_ubicacion) {
         this.id_material = id_material;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
-        this.estado = estado;
+        this.id_estado = id_estado;
         this.fecha_Alta = fecha_Alta;
         this.id_categoria = id_categoria;
         this.id_ubicacion = id_ubicacion;
     }
 
-    public Material(String nombre, String descripcion, int cantidad, String estado, int id_categoria, int id_ubicacion) {
+    /**
+     * Constructor para la creación de nuevos materiales (sin ID ni fecha).
+     */
+    public Material(String nombre, String descripcion, int cantidad, int id_estado, int id_categoria, int id_ubicacion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
-        this.estado = estado;
+        this.id_estado = id_estado;
         this.id_categoria = id_categoria;
         this.id_ubicacion = id_ubicacion;
     }
-    
-    
-    
+
+    // --- Getters y Setters ---
+
     public int getId_material() {
         return id_material;
     }
@@ -74,12 +77,15 @@ public class Material {
         this.cantidad = cantidad;
     }
 
-    public String getEstado() {
-        return estado;
+    /**
+     * @return El ID del estado asociado (FK a la tabla estado).
+     */
+    public int getId_estado() {
+        return id_estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setId_estado(int id_estado) {
+        this.id_estado = id_estado;
     }
 
     public LocalDateTime getFecha_Alta() {
@@ -108,12 +114,8 @@ public class Material {
 
     @Override
     public String toString() {
-        return "Material{" + "id_material=" + id_material + ", nombre=" + nombre + ", descripcion=" + descripcion + ", cantidad=" + cantidad + ", estado=" + estado + ", fecha_Alta=" + fecha_Alta + ", id_categoria=" + id_categoria + ", id_ubicacion=" + id_ubicacion + '}';
+        return "Material{" + "id_material=" + id_material + ", nombre=" + nombre + 
+               ", cantidad=" + cantidad + ", id_estado=" + id_estado + 
+               ", id_categoria=" + id_categoria + ", id_ubicacion=" + id_ubicacion + '}';
     }
-
-   
-    
-    
-    
-    
 }

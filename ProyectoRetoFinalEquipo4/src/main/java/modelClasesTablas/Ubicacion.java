@@ -1,27 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelClasesTablas;
 
-/**
- *
- * @author DAM126
- */
 public class Ubicacion {
 
     private int id_ubicacion;
-    private String ubicacion;
-    private String cajon;
+    private String tipo;      // 'mesa' o 'armario'
+    private String ubicacion; // Lo que en SQL se llama 'nombre'
+    private Integer cajon;    // Integer para permitir NULL en las mesas
     private String descripcion;
 
-    public Ubicacion(int id_ubicacion, String ubicacion, String cajon, String descripcion) {
+    // Constructor con los 5 campos del nuevo script
+    public Ubicacion(int id_ubicacion, String tipo, String ubicacion, Integer cajon, String descripcion) {
         this.id_ubicacion = id_ubicacion;
+        this.tipo = tipo;
         this.ubicacion = ubicacion;
         this.cajon = cajon;
         this.descripcion = descripcion;
     }
 
+    // Getters y Setters
     public int getId_ubicacion() {
         return id_ubicacion;
     }
@@ -30,19 +26,27 @@ public class Ubicacion {
         this.id_ubicacion = id_ubicacion;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getUbicacion() {
         return ubicacion;
-    }
+    } // Mantenemos el nombre que usas
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 
-    public String getCajon() {
+    public Integer getCajon() {
         return cajon;
     }
 
-    public void setCajon(String cajon) {
+    public void setCajon(Integer cajon) {
         this.cajon = cajon;
     }
 
@@ -56,15 +60,10 @@ public class Ubicacion {
 
     @Override
     public String toString() {
-        String texto = "";
-        if (cajon != null) {
-            texto = "Armario: " + ubicacion+ " Cajon: " + cajon;
-        } else if (cajon == null) {
-            texto = "Armario: " + ubicacion;
+        if ("armario".equalsIgnoreCase(tipo) && cajon != null) {
+            return "Armario: " + ubicacion + " (Cajón " + cajon + ")";
+        } else {
+            return "Mesa: " + ubicacion;
         }
-
-        return texto;
-
     }
-
 }

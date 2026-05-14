@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package daoClasesSQL;
 
 import java.sql.Connection;
@@ -14,43 +10,49 @@ import modelClasesTablas.Ubicacion;
 import utilsClasesApoyo.ConexionBD;
 
 /**
- *
+ * Clase DAO para la gestión de las ubicaciones (mesas y armarios).
+ * Interactúa con la tabla 'ubicacion' de la base de datos en AWS.
  * @author DAM126
  */
 public class UbicacionDAO {
 
-    //Metodo que devuelve una lista con todas las ubicaciones de la base de datos
+    /**
+     * Recupera todas las ubicaciones registradas en el taller.
+     * @return List de objetos Ubicacion con sus datos completos.
+     */
     public List<Ubicacion> listarTodos() {
-
-        //Creamos una lista vacia donde guardaremos las ubicaciones
         List<Ubicacion> lista = new ArrayList<>();
-
-        //Pedimos la conexion a la clase ConexionDB (Singleton)
+        
+        // 1. Obtenemos la conexión del Singleton (FUERA del try para no cerrarla)
         Connection con = ConexionBD.getInstancia().getConexion();
 
-        //Creamos un String con la consulta para obtener todas las ubicaciones ordenadas por armario y balda
-        String sql = "SELECT * FROM ubicacion ORDER BY ubicacion ASC, cajon ASC";
+        // 2. SQL: Cambiamos 'ubicacion' por 'nombre' en el ORDER BY para que coincida con la BD
+        String sql = "SELECT id_ubicacion, tipo, nombre, cajon, descripcion FROM ubicacion ORDER BY nombre ASC, cajon ASC";
 
-        //PreparedStatement protege la consulta SQL y la ejecuta
-        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        // 3. Usamos try-with-resources para cerrar ps y rs automáticamente
+        try (PreparedStatement ps = con.prepareStatement(sql); 
+             ResultSet rs = ps.executeQuery()) {
 
-            //Recorremos todas las filas que devuelve la consulta
+            // ¡IMPORTANTE! Necesitas el while para recorrer las filas del ResultSet
             while (rs.next()) {
-
-                //Por cada fila creamos un objeto Ubicacion con los datos obtenidos
-                lista.add(new Ubicacion(
-                        rs.getInt("id_ubicacion"),
-                        rs.getString("ubicacion"),
-                        rs.getString("cajon"),
-                        rs.getString("descripcion")
-                ));
+                
+                // Creamos el objeto mapeando las columnas de la BD al constructor
+                Ubicacion ubi = new Ubicacion(
+                    rs.getInt("id_ubicacion"),
+                    rs.getString("tipo"),
+                    rs.getString("nombre"), // Columna 'nombre' de la BD va a 'ubicacion' en Java
+                    (rs.getObject("cajon") != null) ? rs.getInt("cajon") : null, // Manejo de nulos para mesas
+                    rs.getString("descripcion")
+                );
+                
+                // ¡IMPORTANTE! Añadimos el objeto a la lista
+                lista.add(ubi);
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al listar ubicaciones: " + e.getMessage());
+            System.err.println("Error al listar ubicaciones: " + e.getMessage());
         }
 
-        //Devolvemos la lista con todas las ubicaciones (vacia si no encontro ninguna)
         return lista;
     }
 }

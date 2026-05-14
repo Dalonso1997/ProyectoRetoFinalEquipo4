@@ -7,7 +7,9 @@ package viewFormularios;
 import daoClasesSQL.CategoriaDAO;
 import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
+import java.awt.Desktop;
 import java.io.File;
+import java.net.URI;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,39 +28,37 @@ public class VentanaBusqueda extends javax.swing.JDialog {
      * Creates new form VentanaBusqueda
      */
     public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        this.setTitle("Busqueda Componentes");
-        this.setLocationRelativeTo(null);
+    super(parent, modal);
+    initComponents();
+    this.setTitle("Búsqueda Componentes");
+    this.setLocationRelativeTo(null);
 
-        //Recorremos todas las categorias de la base de datos y las añadimos al combobox
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
-        for (Categoria c : categoriaDAO.listarTodos()) {
-            ElejirCategoria.addItem(c.getNombre());
-        }
-        //Limpiamos el combobox de estados y añadimos la opcion "TODOS" al principio
-        ElejirEstado.removeAllItems();
-        ElejirEstado.addItem("TODOS");
-
-        //Recorremos todos los valores del enum Estado y los añadimos al combobox en minusculas
-        // CÓDIGO NUEVO
-        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
-        java.util.List<modelClasesTablas.Estado> listaEstados = estadoDAO.listarTodos();
-
-        for (modelClasesTablas.Estado e : listaEstados) {
-            ElejirEstado.addItem(e.getNombre());
-        }
-        //Limpiamos el combobox de ubicaciones y añadimos la opcion "TODAS" al principio
-        ElejirUbicacion.removeAllItems();
-        ElejirUbicacion.addItem("TODAS");
-
-        //Recorremos todas las ubicaciones de la base de datos y las añadimos al combobox con formato "Armario - Balda"
-        UbicacionDAO ubicacionDAO = new UbicacionDAO();
-        for (Ubicacion u : ubicacionDAO.listarTodos()) {
-            ElejirUbicacion.addItem(u.getUbicacion() + " - " + u.getCajon());
-        }
-
+    // 1. Categorías: Añadir "TODAS" al principio
+    ElejirCategoria.removeAllItems();
+    ElejirCategoria.addItem("TODAS");
+    CategoriaDAO categoriaDAO = new CategoriaDAO();
+    for (Categoria c : categoriaDAO.listarTodos()) {
+        ElejirCategoria.addItem(c.getNombre());
     }
+
+    // 2. Estados: Ya lo tienes bien encaminado
+    ElejirEstado.removeAllItems();
+    ElejirEstado.addItem("TODOS");
+    daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+    for (modelClasesTablas.Estado e : estadoDAO.listarTodos()) {
+        ElejirEstado.addItem(e.getNombre());
+    }
+
+    // 3. Ubicaciones: Corregir getUbicacion() por getNombre()
+    ElejirUbicacion.removeAllItems();
+    ElejirUbicacion.addItem("TODAS");
+    UbicacionDAO ubicacionDAO = new UbicacionDAO();
+    for (Ubicacion u : ubicacionDAO.listarTodos()) {
+        // Lógica para no mostrar "null" si es una mesa
+        String detalle = (u.getCajon() != null) ? " - Cajón " + u.getCajon() : "";
+        ElejirUbicacion.addItem(u.getUbicacion() + detalle);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,6 +82,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         TextBusqueda = new javax.swing.JTextField();
         MensageMaterialesEncontrados = new javax.swing.JLabel();
+        botonIrPaginaWeb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,6 +141,13 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
+        botonIrPaginaWeb.setText("Ir Pagina Web");
+        botonIrPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIrPaginaWebActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,9 +170,14 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             .addComponent(TextBusqueda))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 610, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 610, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(214, 214, 214))))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -174,7 +187,9 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                         .addGap(52, 52, 52)
                         .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -268,6 +283,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
+//Variables añadidas para un push
+            
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
@@ -288,6 +305,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             } else {
                 MensageMaterialesEncontrados.setText(lista.size() + " materiales encontrados");
             }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error al buscar: " + e.getMessage(),
@@ -303,6 +321,22 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     private void ElejirCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElejirCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ElejirCategoriaActionPerformed
+
+    private void botonIrPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIrPaginaWebActionPerformed
+        // TODO add your handling code here:
+        
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(
+                                new URI("http://3.224.141.230/")
+                        );
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo abrir la página web");
+                }
+            
+    }//GEN-LAST:event_botonIrPaginaWebActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,6 +380,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
@@ -353,6 +388,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     private javax.swing.JLabel MensageMaterialesEncontrados;
     private javax.swing.JTextField TextBusqueda;
     private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonIrPaginaWeb;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

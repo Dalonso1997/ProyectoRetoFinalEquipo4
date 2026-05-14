@@ -70,9 +70,9 @@ public class MaterialDAO {
             parametros.add(estado.trim().toLowerCase());
         }
 
-        //Si el usuario selecciono una ubicacion, añadimos filtro por armario y balda
+        //Si el usuario selecciono una ubicacion, añadimos filtro por armario y cajon
         if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
-            //Dividimos el string "Armario - Balda" en dos partes
+            //Dividimos el string "Armario - Cajon" en dos partes
             String[] partes = ubicacionStr.split(" - ");
             sql.append("AND u.ubicacion = ? AND u.cajon = ? ");
             parametros.add(partes[0].trim());
@@ -122,7 +122,7 @@ public class MaterialDAO {
         Connection con = ConexionBD.getInstancia().getConexion();
 
         //Creamos un string con la update de la SQL
-        //Como siempre, usamos las ? como posicion para luego introducir los datos
+        //Como siempre, usamos las ? como indice para luego introducir los datos
         String sql = "INSERT INTO materiales (nombre,descripcion,cantidad,estado,id_categoria,id_ubicacion,fecha_alta) VALUES (?,?,?,?,?,?,NOW())";
 
         //Introducimos los datos recibidos del manterial en la consulta creada arriba
@@ -130,7 +130,7 @@ public class MaterialDAO {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getDescripcion());
             ps.setInt(3, m.getCantidad());
-            ps.setString(4, m.getEstado());
+            ps.setInt(4, m.getId_estado());
             ps.setInt(5, m.getId_categoria());
             ps.setInt(6, m.getId_ubicacion());
             //Ejecutamos la update
@@ -156,7 +156,7 @@ public class MaterialDAO {
             ps.setString(1, m.getNombre());
             ps.setString(2, m.getDescripcion());
             ps.setInt(3, m.getCantidad());
-            ps.setString(4, m.getEstado());
+            ps.setInt(4, m.getId_estado());
             ps.setInt(5, m.getId_categoria());
             ps.setInt(6, m.getId_ubicacion());
 
@@ -195,7 +195,7 @@ public class MaterialDAO {
                             rs.getString("nombre"),
                             rs.getString("descripcion"),
                             rs.getInt("cantidad"),
-                            rs.getString("estado"),
+                            rs.getInt("estado"),
                             fechaAlta,
                             rs.getInt("id_categoria"),
                             rs.getInt("id_ubicacion")

@@ -5,6 +5,7 @@
 package viewFormularios;
 
 import daoClasesSQL.CategoriaDAO;
+import daoClasesSQL.EstadoDAO;
 import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
 import java.util.List;
@@ -16,7 +17,7 @@ import modelClasesTablas.Ubicacion;
 
 /**
  *
- * @author DAM125
+ * @author David Alonso Casaiz
  */
 public class FormularioAltaMaterial extends javax.swing.JDialog {
 
@@ -24,42 +25,61 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
      * Creates new form FormularioAltaMaterial
      */
     public FormularioAltaMaterial(java.awt.Frame parent, boolean modal) {
+        //LLamada al constructor de la ventana padre, el modal sirve para que la ventana
+        //principal quede bloqueada mientras la de alta esta activa
         super(parent, modal);
+        //Inicializa todos los componentes del formulario
         initComponents();
+        //Nombre de la ventana del material
         this.setTitle("Nuevo material");
+        //Llamamos al metodo privado para cargar todos los datos iniciales de la base de datos
+        //Necesarios para el formulario
         cargarDatosIniciales();
-        
+
     }
-    
+
     //Metodo creado para cargar los datos de los desplegables
-    private void cargarDatosIniciales(){
+    private void cargarDatosIniciales() {
+        //Al iniciar el metodo vaciamos el desplegable del estado
+        //Para asegurarnos de que cuando se recojan los datos no haya duplicados
         desplegableEstado.removeAllItems();
         
-        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+        //Hacemos una instancia del DAO de estado y lo metemos en una lista usando el metodo para listar todos los elementos
+        EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
         List<Estado> listaEstados = estadoDAO.listarTodos();
         
+        //Recorremos la lista y por cada uno de ellos anadimos al desplegable los datos que estan en la base de datos
+        //De esta manera al usuario siempre le apareceran los tipos de estado que hay en la base de datos
         for (Estado est : listaEstados) {
             desplegableEstado.addItem(est);
         }
         
+        //Volvemos a eliminar el contenido esta vez de categoria, por el mismo motivo que el estado
         desplegableCategoria.removeAllItems();
+        
+        //Instanciamos el DAO de categoria y lo anadimos a su lista
         CategoriaDAO categorias = new CategoriaDAO();
         List<Categoria> listaCategorias = categorias.listarTodos();
         
+        //Recorremos y anadimos cada categoria al desplegable
         for (Categoria categoria : listaCategorias) {
             desplegableCategoria.addItem(categoria);
         }
         
+        //De nuevo vaciamos el contenido ahora de ubicacion, por el mismo motivo que el estado
         desplegableUbicacion.removeAllItems();
+        
+        //Instanciamos el DAO de ubicacion y lo metemos en una lista
         UbicacionDAO ubicacion = new UbicacionDAO();
         List<Ubicacion> ubicaciones = ubicacion.listarTodos();
         
+        //Recorremos y anadimos al desplegable cada ubicacion situada en la base de datos
         for (Ubicacion ubi : ubicaciones) {
             desplegableUbicacion.addItem(ubi);
         }
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,7 +273,8 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
     }//GEN-LAST:event_desplegableEstadoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        //Cerramos la ventana de alta y volvemos a la ventana principal
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void desplegableCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableCategoriaActionPerformed
@@ -261,23 +282,32 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
     }//GEN-LAST:event_desplegableCategoriaActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        //Recibimos el nombre recogido en el campo del nombre del material al que dar de alta
         String nombre = campoNombre.getText().trim();
-        
-        if (nombre.isEmpty()){
+
+        //En caso de que el usuario no incluya un nombre, se lo pediremos
+        if (nombre.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor añade un nombre", "Campo vacío", javax.swing.JOptionPane.WARNING_MESSAGE);
         } else {
-        String descripcion = campoDescripcion.getText().trim();
-        int cantidad = (int) selectorCantidad.getValue();
-        Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
-        Ubicacion ubi = (Ubicacion) desplegableUbicacion.getSelectedItem();
-        String estado = (String) desplegableEstado.getSelectedItem();
-        
-        Material nuevoMaterial = new Material(nombre,descripcion,cantidad, estado,cat.getId_categoria(),ubi.getId_ubicacion());
-        MaterialDAO dao = new MaterialDAO();
-        dao.insertarMaterial(nuevoMaterial);
-        javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
-        this.dispose();
+            //Recogemos los datos que nos da el usuario sobre el material que quiere dar de alta en la aplicacion y en la base de datos.
+            String descripcion = campoDescripcion.getText().trim();
+            int cantidad = (int) selectorCantidad.getValue();
+            Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
+            Ubicacion ubi = (Ubicacion) desplegableUbicacion.getSelectedItem();
+            Estado estado = (Estado) desplegableEstado.getSelectedItem();
+            
+            //Creamos un nuevo material en base a los datos recogidos del formulario
+            Material nuevoMaterial = new Material(nombre, descripcion, cantidad, estado.getId_estado(), cat.getId_categoria(), ubi.getId_ubicacion());
+            
+            // Creamos el DAO para gestionar el acceso a la base de datos
+            MaterialDAO dao = new MaterialDAO();
+            
+            //Insertamos el nuevo material en la base de datos
+            dao.insertarMaterial(nuevoMaterial);
+            
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
+            //Volvemos a la ventana princial.
+            this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
