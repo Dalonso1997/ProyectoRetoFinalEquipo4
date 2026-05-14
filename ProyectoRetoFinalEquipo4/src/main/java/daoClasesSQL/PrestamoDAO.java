@@ -15,7 +15,7 @@ import utilsClasesApoyo.ConexionBD;
 public class PrestamoDAO {
 
     
-    // 1. MÉTODO PARA PRESTAR MATERIAL
+  
     public boolean registrarPrestamo(Prestamo p) {
         Connection con = ConexionBD.getInstancia().getConexion();
         
