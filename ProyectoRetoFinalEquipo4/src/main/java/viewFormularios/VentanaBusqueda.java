@@ -82,6 +82,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         TextBusqueda = new javax.swing.JTextField();
         MensageMaterialesEncontrados = new javax.swing.JLabel();
+        botonIrPaginaWeb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,6 +141,13 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
+        botonIrPaginaWeb.setText("Ir Pagina Web");
+        botonIrPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIrPaginaWebActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,9 +170,14 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             .addComponent(TextBusqueda))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 610, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 610, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(214, 214, 214))))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -174,7 +187,9 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
                         .addGap(52, 52, 52)
                         .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -290,18 +305,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             } else {
                 MensageMaterialesEncontrados.setText(lista.size() + " materiales encontrados");
             }
-            if (!lista.isEmpty()) {
-                try {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().browse(
-                                new URI("http://3.224.141.230/")
-                        );
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this,
-                            "No se pudo abrir la página web");
-                }
-            }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error al buscar: " + e.getMessage(),
@@ -317,6 +321,22 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     private void ElejirCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElejirCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ElejirCategoriaActionPerformed
+
+    private void botonIrPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIrPaginaWebActionPerformed
+        // TODO add your handling code here:
+        
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(
+                                new URI("http://3.224.141.230/")
+                        );
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this,
+                            "No se pudo abrir la página web");
+                }
+            
+    }//GEN-LAST:event_botonIrPaginaWebActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,6 +388,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     private javax.swing.JLabel MensageMaterialesEncontrados;
     private javax.swing.JTextField TextBusqueda;
     private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonIrPaginaWeb;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
