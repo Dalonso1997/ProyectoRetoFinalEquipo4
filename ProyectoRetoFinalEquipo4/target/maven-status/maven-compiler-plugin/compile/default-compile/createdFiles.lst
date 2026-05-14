@@ -3,7 +3,6 @@ interfaz\ubicacion\CambioUbicacion$4.class
 viewFormularios\FormularioAltaMaterial$1.class
 viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
-interfaz\menuPrincipal\MenuPrincipalAdmin$11.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
 pruebas\Pruebas.class
@@ -72,11 +71,8 @@ interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 viewFormularios\FormularioAltaMaterial$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
 interfaz\modificar\MenuModificar$3.class
-<<<<<<< Updated upstream
-devolucionesYPrestamos\devoluciones$3$1.class
-=======
 interfaz\ubicacion\CambioUbicacion.class
->>>>>>> Stashed changes
+devolucionesYPrestamos\devoluciones$3$1.class
 interfaz\modificar\MenuModificar$8$1.class
 devolucionesYPrestamos\prestamos$5.class
 viewFormularios\FormularioAltaMaterial$5.class
