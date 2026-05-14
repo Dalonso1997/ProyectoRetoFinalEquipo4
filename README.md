@@ -288,3 +288,193 @@ La web contiene:
 ## Archivo principal
 
 ---
+---
+```
+## 🖼️ Capturas
+
+### Página principal
+
+![Página Principal](ruta/pagina-principal.png)
+
+---
+
+### Inventario
+
+![Inventario](ruta/inventario.png)
+
+---
+
+### Vista 3D
+
+![Vista 3D](ruta/vista3d.png)
+
+---
+
+# ☕ Aplicación Java
+
+## 📖 Descripción
+
+Aplicación de escritorio desarrollada en Java Swing para la gestión del inventario del taller de informática.
+
+La aplicación permite administrar materiales, localizar componentes y gestionar préstamos mediante distintos perfiles de usuario.
+
+---
+
+## ✅ Funcionalidades
+
+- Login con roles
+- CRUD de inventario
+- Gestión de préstamos
+- Localización de material
+- Generación de informes
+- Importación/exportación CSV
+
+---
+
+## 🏗️ Decisiones de Diseño
+
+### Patrón Singleton
+
+Utilizado para mantener una única conexión con la base de datos.
+
+---
+
+### Patrón DAO
+
+Separación entre acceso a datos y lógica de negocio.
+
+---
+
+### Gestión por Roles
+
+Diferenciación entre:
+
+- Administrador
+- Profesor
+
+---
+
+## 📂 Estructura del Proyecto Java
+
+```text
+/src
+├── dao
+├── model
+├── view
+├── controller
+└── utils
+```
+
+---
+
+## 📸 Capturas de la Aplicación
+
+### Pantalla de Login
+
+![Login](ruta/login.png)
+
+---
+
+### Gestión de Inventario
+
+![Inventario Java](ruta/inventario-java.png)
+
+---
+
+### Gestión de Préstamos
+
+![Préstamos](ruta/prestamos.png)
+
+---
+
+# ☁️ Infraestructura y Despliegue
+
+## 🏗️ Arquitectura AWS
+
+La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 separadas para servicios y base de datos.
+
+---
+
+## 🖥️ EC2-1 — Servidor de Datos
+
+- Ubuntu Server
+- MySQL
+- Elastic IP
+- Puerto 3306 restringido
+
+---
+
+## 🌐 EC2-2 — Servidor Web
+
+- Apache/Nginx
+- SFTP
+- Puerto 80 abierto
+
+---
+
+## 🔐 Seguridad
+
+- Security Groups configurados
+- Restricción SSH
+- Control de acceso por IP
+
+---
+
+# 📘 Guía de Despliegue
+
+La guía completa se encuentra en:
+
+```text
+/Documentaciones/Guia-despliegue-Equipo4.pdf
+```
+
+---
+
+# 📗 Manual de Usuario
+
+El manual de usuario se encuentra en:
+
+```text
+/Documentaciones/Manual-usuario-Equipo4.pdf
+```
+
+---
+
+# 🚀 Resultados Obtenidos
+
+- Aplicación Java funcional
+- Base de datos conectada en AWS
+- Sitio web operativo
+- Gestión de inventario implementada
+- Infraestructura desplegada correctamente
+
+---
+
+# 🔮 Mejoras Futuras
+
+- Integración con códigos QR
+- Panel web dinámico
+- Sistema de notificaciones
+- Gestión avanzada de usuarios
+
+---
+
+# 📜 Licencia
+
+Consultar el archivo:
+
+```text
+LICENSE
+```
+
+---
+
+# 🌍 Webgrafía
+
+- AWS Documentation
+- Oracle Java Documentation
+- MySQL Documentation
+- MDN Web Docs
+- GitHub Docs
+
+```
