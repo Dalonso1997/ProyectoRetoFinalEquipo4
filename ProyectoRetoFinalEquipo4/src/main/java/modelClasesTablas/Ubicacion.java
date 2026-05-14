@@ -61,9 +61,9 @@ public class Ubicacion {
     @Override
     public String toString() {
         if ("armario".equalsIgnoreCase(tipo) && cajon != null) {
-            return "Armario: " + ubicacion + " (Cajón " + cajon + ")";
+            return ubicacion + " - Cajón " + cajon;
         } else {
-            return "Mesa: " + ubicacion;
+            return ubicacion;
         }
     }
 }

@@ -7,10 +7,11 @@ package interfaz.menuPrincipal;
 import devolucionesYPrestamos.devoluciones;
 import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
+import interfaz.ubicacion.CambioUbicacion;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
-
 
 /**
  *
@@ -255,15 +256,15 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonLocalizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLocalizacionActionPerformed
         // TODO add your handling code here:
-        
+
         VentanaBusqueda buscar = new VentanaBusqueda(this, true);
         buscar.setVisible(true);
-        
+
         botonConsultaActionPerformed(null);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonLocalizacionActionPerformed
 
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
@@ -277,24 +278,24 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
-        
-        prestamos prestamo = new prestamos(this,true);
+
+        prestamos prestamo = new prestamos(this, true);
         prestamo.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonPrestamosActionPerformed
 
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
         // TODO add your handling code here:
-        
-        devoluciones devolucion = new devoluciones(this,true);
+
+        devoluciones devolucion = new devoluciones(this, true);
         devolucion.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
-        
+
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
@@ -318,44 +319,44 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
         //cogemos lo que ve el usuario en el panel
         java.awt.Component componenteActual = panelDerecha.getViewport().getView();
-        
+
         //comprobamos si esta viendo la consulta de materiales
         if (componenteActual instanceof PanelConsultaMateriales) {
             PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
-            
+
             //cogemos el id de lo que selecciona
             int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
-            
+
             //Si es -1 significa que no selecciona nada
             if (idSeleccionado == -1) {
-                javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Selecciona primero un material de la tabla para darlo de baja.", 
-                    "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Selecciona primero un material de la tabla para darlo de baja.",
+                        "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            
+
             //pedimos confirmacion antes de dar de baja
-            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this, 
-                "Estas seguro de que deseas dar de baja el material con ID: " + idSeleccionado, 
-                "Confirmar Baja", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
-                
+            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(this,
+                    "Estas seguro de que deseas dar de baja el material con ID: " + idSeleccionado,
+                    "Confirmar Baja", javax.swing.JOptionPane.YES_NO_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE);
+
             if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
                 //si da a si llamamos al metodo para cmabiar el estado a baja
                 daoClasesSQL.MaterialDAO dao = new daoClasesSQL.MaterialDAO();
                 boolean exito = dao.bajaMaterial(idSeleccionado);
-                
+
                 if (exito) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Material dado de baja correctamente.");
                     //actualizamos la tabla
-                    panelConsulta.refrescarLsitado();
+                    panelConsulta.refrescarListado();
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(this, "Hubo un error al intentar dar de baja el material.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Abre primero la pantalla de 'Consulta' y selecciona un material.", 
-                "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Abre primero la pantalla de 'Consulta' y selecciona un material.",
+                    "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBajaActionPerformed
 
@@ -373,7 +374,45 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAltaActionPerformed
 
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
-        // TODO add your handling code here:
+        //cogemos lo que el usuario esta viendo ahora mismo en el panel
+        java.awt.Component componenteActual = panelDerecha.getViewport().getView();
+
+        //comprobamos que estemos en la pantalla de consulta de materiales
+        if (componenteActual instanceof PanelConsultaMateriales) {
+            //convertimos el componente para poder usar sus metodos
+            PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
+
+            //sacamos la id del material que el admin ha pinchado en la tabla
+            int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
+
+            //comprobamos si no ha seleccionado nada (el metodo devuelve -1 si esta vacio)
+            if (idSeleccionado == -1) {
+                //si no hay seleccion, le soltamos el mensaje de aviso para que elija uno
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Selecciona primero un material de la tabla para gestionar su ubicacion.",
+                        "Informacion",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+                //paramos la ejecucion aqui para que no intente abrir la otra ventana
+                return;
+            }
+
+            //si llegamos aqui es que si hay una id, asi que cogemos su ubicacion actual
+            String ubiActual = panelConsulta.getIdUbicacionSeleccionada();
+
+            //abrimos la ventana de cambio de ubicacion pasando todos los datos necesarios
+            CambioUbicacion ventana = new CambioUbicacion(this, true, idSeleccionado, ubiActual);
+            ventana.setVisible(true);
+
+            //una vez se cierre la ventana de gestion, refrescamos la tabla para ver los cambios
+            panelConsulta.refrescarListado();
+
+        } else {
+            //en caso de que no este ni en la pantalla de consulta, le avisamos tambien
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Abre primero la pantalla de 'Consulta' y selecciona un material.",
+                    "Informacion",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_botonGestionarActionPerformed
 
     /**
@@ -401,9 +440,6 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
