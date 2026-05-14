@@ -324,9 +324,9 @@ La web contiene:
 ### Vista 3D
 <details>
 📄 [Inventario 3D](Web/inventario_3d.html)
-</details>
----
 
+---
+</details>
 # 💻 Aplicación Java
 
 ## 📖 Descripción
