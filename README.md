@@ -31,6 +31,7 @@ Java
 Swing
 JDBC
 NetBeans
+
 </details>
 <details>
 <summary>Base de Datos</summary>
