@@ -23,6 +23,77 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 └── README.md            # Este archivo
 
 ```
+🛠️ Tecnologías Utilizadas
+<details>
+Programación
+Java
+Swing
+JDBC
+NetBeans
+</details>
+<details>
+Base de Datos
+MySQL
+MySQL Workbench
+</details>
+<details>
+Web
+HTML5
+CSS3
+JavaScript
+Infraestructura
+</details>
+<details>
+AWS Academy
+EC2
+VPC
+Elastic IP
+Security Groups
+Apache/Nginx
+OpenSSH
+</details>
+<details>
+Herramientas colaborativas
+Git
+GitHub
+GitHub Projects
+Teams
+Visual Studio Code
+Diagrams.net
+</details>  
+🗄️ Base de Datos
+Descripción
+
+La base de datos permite almacenar y gestionar el inventario completo del taller de informática.
+
+Se registran:
+
+Componentes hardware
+Material de red
+Herramientas
+Material fungible
+Equipos completos
+Usuarios
+Préstamos
+Ubicaciones físicas
+📌 Diagrama Entidad/Relación
+
+📌 Modelo Relacional
+
+📄 Script SQL
+
+El script SQL de creación de la base de datos se encuentra en:
+
+/Database/script.sql
+⚡ Triggers Implementados
+Trigger de control de préstamos
+
+Descripción breve.
+
+Trigger de actualización de stock
+
+Descripción breve.
+
 
 
 ## 🌐 Sitio Web
