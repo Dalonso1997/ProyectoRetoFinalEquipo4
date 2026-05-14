@@ -6,6 +6,7 @@ package daoClasesSQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,118 +17,125 @@ public class PrestamoDAO {
 
     
   
-    public boolean registrarPrestamo(Prestamo p) {
-        Connection con = ConexionBD.getInstancia().getConexion();
-        
-        String sqlInsert = "INSERT INTO prestamos (id_material, nombre, descripcion, estado, cantidad, fecha, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String sqlUpdateStock = "UPDATE materiales SET cantidad = cantidad - ? WHERE id_material = ?";
+    public boolean registrarPrestamo(modelClasesTablas.Prestamo p, int idUsuario) {
+    Connection con = ConexionBD.getInstancia().getConexion();
+    
+    // El orden aquí es: 1.cantidad, 2.observaciones, 3.id_material, 4.id_usuario
+    String sqlInsert = "INSERT INTO prestamos (cantidad, fecha_prestamo, observaciones, id_material, id_usuario) VALUES (?, NOW(), ?, ?, ?)";
+    String sqlUpdateStock = "UPDATE materiales SET cantidad = cantidad - ? WHERE id_material = ?";
 
-        try {
-            con.setAutoCommit(false); 
+    try {
+        con.setAutoCommit(false); 
 
-            try (PreparedStatement psInsert = con.prepareStatement(sqlInsert);
-                 PreparedStatement psUpdate = con.prepareStatement(sqlUpdateStock)) {
-                
-                psInsert.setInt(1, p.getId_material());
-                psInsert.setString(2, p.getNombre());
-                psInsert.setString(3, p.getDescripcion());
-                psInsert.setString(4, p.getEstado() != null ? p.getEstado().toString() : "PRESTADO"); 
-                psInsert.setInt(5, p.getCantidad());
-                psInsert.setObject(6, p.getFecha()); 
-                psInsert.setString(7, p.getObservaciones());
-                psInsert.executeUpdate();
+        try (PreparedStatement psInsert = con.prepareStatement(sqlInsert);
+             PreparedStatement psUpdate = con.prepareStatement(sqlUpdateStock)) {
+            
+            // --- INSERTAR PRÉSTAMO ---
+            // 1er '?' es cantidad (int)
+            psInsert.setInt(1, p.getCantidad());
+            // 2do '?' es observaciones (String) -> AQUÍ IRÁ EL "si" Y NO DARÁ ERROR
+            psInsert.setString(2, p.getObservaciones());
+            // 3er '?' es id_material (int)
+            psInsert.setInt(3, p.getId_material());
+            // 4to '?' es id_usuario (int)
+            psInsert.setInt(4, idUsuario); 
+            
+            psInsert.executeUpdate();
 
-                psUpdate.setInt(1, p.getCantidad());
-                psUpdate.setInt(2, p.getId_material());
-                psUpdate.executeUpdate();
+            // --- ACTUALIZAR STOCK ---
+            psUpdate.setInt(1, p.getCantidad());
+            psUpdate.setInt(2, p.getId_material());
+            psUpdate.executeUpdate();
 
-                con.commit(); 
-                return true;
-            } catch (SQLException e) {
-                con.rollback(); 
-                System.out.println("Error al registrar préstamo: " + e.getMessage());
-                return false;
-            } finally {
-                con.setAutoCommit(true);
-            }
+            con.commit(); 
+            return true;
         } catch (SQLException e) {
-            System.out.println("Error de conexión: " + e.getMessage());
+            con.rollback(); 
+            System.out.println("Error en la transacción: " + e.getMessage());
             return false;
+        } finally {
+            con.setAutoCommit(true);
         }
+    } catch (SQLException e) {
+        System.out.println("Error de conexión: " + e.getMessage());
+        return false;
     }
+}
 
-    // 2. MÉTODO PARA DEVOLVER MATERIAL (El que te estaba dando error)
-    public boolean registrarDevolucion(int idPrestamo) {
-        Connection con = ConexionBD.getInstancia().getConexion();
-        
-        String sqlSelect = "SELECT id_material, cantidad FROM prestamos WHERE id_prestamo = ? AND estado != 'DEVUELTO'";
-        String sqlUpdatePrestamo = "UPDATE prestamos SET estado = 'DEVUELTO' WHERE id_prestamo = ?";
-        String sqlUpdateStock = "UPDATE materiales SET cantidad = cantidad + ? WHERE id_material = ?";
-
-        try {
-            con.setAutoCommit(false); 
-
-            try (PreparedStatement psSelect = con.prepareStatement(sqlSelect);
-                 PreparedStatement psUpdateP = con.prepareStatement(sqlUpdatePrestamo);
-                 PreparedStatement psUpdateS = con.prepareStatement(sqlUpdateStock)) {
-                
-                psSelect.setInt(1, idPrestamo);
-                try (java.sql.ResultSet rs = psSelect.executeQuery()) {
-                    if (rs.next()) {
-                        int idMaterial = rs.getInt("id_material");
-                        int cantidad = rs.getInt("cantidad");
-
-                        psUpdateP.setInt(1, idPrestamo);
-                        psUpdateP.executeUpdate();
-
-                        psUpdateS.setInt(1, cantidad);
-                        psUpdateS.setInt(2, idMaterial);
-                        psUpdateS.executeUpdate();
-
-                        con.commit(); 
-                        return true;
-                    } else {
-                        return false; 
-                    }
-                }
-            } catch (SQLException e) {
-                con.rollback();
-                System.out.println("Error al procesar devolución: " + e.getMessage());
-                return false;
-            } finally {
-                con.setAutoCommit(true);
-            }
-        } catch (SQLException e) {
-            return false;
-        }
-    }
-
-    // 3. MÉTODO PARA LISTAR LOS PRÉSTAMOS QUE AÚN NO SE HAN DEVUELTO
-    public List<Object[]> listarPrestamosPendientes() {
+    // En PrestamoDAO.java
+    public List<Object[]> listarTodosLosPrestamos() {
         List<Object[]> lista = new ArrayList<>();
         Connection con = ConexionBD.getInstancia().getConexion();
-        
-        String sql = "SELECT p.id_prestamo, p.cantidad, p.fecha_prestamo " +
+
+        // Traemos la fecha_devolucion para saber si está entregado o no
+        String sql = "SELECT p.id_prestamo, u.nombre as usuario, m.nombre as material, p.cantidad, p.fecha_devolucion " +
                      "FROM prestamos p " +
                      "JOIN materiales m ON p.id_material = m.id_material " +
-                     "WHERE p.fecha_devolucion < now()"; 
+                     "JOIN usuarios u ON p.id_usuario = u.id_usuario " +
+                     "ORDER BY p.id_prestamo DESC"; // Los más nuevos arriba
 
         try (PreparedStatement ps = con.prepareStatement(sql);
-             java.sql.ResultSet rs = ps.executeQuery()) {
-            
+             ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 lista.add(new Object[]{
                     rs.getInt("id_prestamo"),
-                    rs.getString("prestatario"),
+                    rs.getString("usuario"),
                     rs.getString("material"),
                     rs.getInt("cantidad"),
-                    rs.getTimestamp("fecha").toLocalDateTime()
+                    rs.getObject("fecha_devolucion") // Guardamos la fecha (puede ser null)
                 });
             }
         } catch (SQLException e) {
-            System.out.println("Error al listar préstamos pendientes: " + e.getMessage());
+            System.out.println("Error al listar: " + e.getMessage());
         }
         return lista;
+    }
+
+    // 2. Método para registrar la devolución (con Transacción)
+    public boolean registrarDevolucion(int idPrestamo) {
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        // SQLs necesarios
+        String sqlCheck = "SELECT id_material, cantidad FROM prestamos WHERE id_prestamo = ? AND fecha_devolucion IS NULL";
+        String sqlUpdatePrestamo = "UPDATE prestamos SET fecha_devolucion = NOW() WHERE id_prestamo = ?";
+        String sqlUpdateStock = "UPDATE materiales SET cantidad = cantidad + ? WHERE id_material = ?";
+
+        try {
+            con.setAutoCommit(false);
+            try (PreparedStatement psCheck = con.prepareStatement(sqlCheck)) {
+                psCheck.setInt(1, idPrestamo);
+                ResultSet rs = psCheck.executeQuery();
+
+                if (rs.next()) {
+                    int idMaterial = rs.getInt("id_material");
+                    int cantidad = rs.getInt("cantidad");
+
+                    // Marcar como devuelto
+                    try (PreparedStatement ps1 = con.prepareStatement(sqlUpdatePrestamo)) {
+                        ps1.setInt(1, idPrestamo);
+                        ps1.executeUpdate();
+                    }
+
+                    // Devolver stock al material
+                    try (PreparedStatement ps2 = con.prepareStatement(sqlUpdateStock)) {
+                        ps2.setInt(1, cantidad);
+                        ps2.setInt(2, idMaterial);
+                        ps2.executeUpdate();
+                    }
+
+                    con.commit();
+                    return true;
+                }
+            }
+            con.rollback();
+            return false;
+        } catch (SQLException e) {
+            try { con.rollback(); } catch (SQLException ex) {}
+            return false;
+        } finally {
+            try { con.setAutoCommit(true); } catch (SQLException ex) {}
+        }
     }
     
 }
