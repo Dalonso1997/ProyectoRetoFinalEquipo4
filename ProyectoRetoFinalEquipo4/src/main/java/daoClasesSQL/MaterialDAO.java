@@ -68,7 +68,7 @@ public class MaterialDAO {
                 parametros.add(partes[0].trim());
                 if (partes.length > 1) {
                     sql.append("AND u.cajon = ? ");
-                    parametros.add(partes[1].replace("Cajón ", "").trim());
+                    parametros.add(partes[1].replaceAll("[^0-9]", "").trim());
                 }
             }
 

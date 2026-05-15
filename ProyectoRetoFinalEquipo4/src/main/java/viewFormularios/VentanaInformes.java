@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -199,12 +200,16 @@ public class VentanaInformes extends javax.swing.JDialog {
         //dao para coger las ubicaciones
         daoClasesSQL.UbicacionDAO ubiDAO = new daoClasesSQL.UbicacionDAO();
         List<modelClasesTablas.Ubicacion> listaUbi = ubiDAO.listarTodos();
-
-        String[] ubicaciones = new String[listaUbi.size()];
-
+        //lista para no tener duplicados
+        List<String> listaU = new ArrayList<>();
         for (int i = 0; i < listaUbi.size(); i++) {
-            ubicaciones[i] = listaUbi.get(i).getUbicacion();
+            if (!listaU.contains(listaUbi.get(i).getUbicacion())) {
+                listaU.add(listaUbi.get(i).getUbicacion());
+            }
         }
+
+        //convertimos la lista limpia al array de strings final que necesita el desplegable
+        String[] ubicaciones = listaU.toArray(new String[0]);
         String ubicacion = (String) JOptionPane.showInputDialog(
                 this,
                 "Selecciona la ubicacion",
@@ -217,8 +222,35 @@ public class VentanaInformes extends javax.swing.JDialog {
         if (ubicacion == null) {
             return;
         }
+        //lista para no tener duplicados
+        List<String> listaC = new ArrayList<>();
+        for (int i = 0; i < listaUbi.size(); i++) {
+            //miramos que la ubicacion actual sea la misma que el admin ha elegido en el primer combo
+            if (listaUbi.get(i).getUbicacion().equals(ubicacion)) {
 
-        String ubicacionFiltro = ubicacion.trim().isEmpty() ? null : ubicacion.trim();
+                //comprobamos que no sea nully que no se repita
+                if (listaUbi.get(i).getCajon() != null) {
+                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
+                    if (!listaC.contains(textoCajon)) {
+                        listaC.add(textoCajon);
+                    }
+                }
+            }
+        }
+        String[] cajones = listaC.toArray(new String[0]);
+        String cajon = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona el cajon",
+                "cajon",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                cajones,
+                cajones[0]
+        );
+        if (cajon == null) {
+            return;
+        }
+        String ubicacionFiltro = ubicacion + " - " + cajon;
 
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, ubicacionFiltro);
         generarInforme(datosInforme, "Informe_ubicacion.txt");
