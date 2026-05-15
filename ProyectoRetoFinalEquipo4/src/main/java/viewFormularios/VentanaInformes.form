@@ -40,16 +40,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="botonPorUbicacion" min="-2" pref="289" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="botonPorUbicacion" min="-2" pref="289" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="botonPorCategoria" min="-2" pref="289" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                  <Component id="botonInforme" min="-2" pref="289" max="-2" attributes="0"/>
+                                  <Component id="botonInforme" alignment="1" min="-2" pref="289" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -98,21 +95,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Informe completo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonInformeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonPorCategoria">
           <Properties>
             <Property name="text" type="java.lang.String" value="Por categor&#xed;a y estado"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonPorCategoriaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonPorUbicacion">
           <Properties>
             <Property name="text" type="java.lang.String" value="Por ubicaci&#xf3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonPorUbicacionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

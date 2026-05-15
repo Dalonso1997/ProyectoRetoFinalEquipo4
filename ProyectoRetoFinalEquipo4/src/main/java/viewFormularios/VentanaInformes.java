@@ -4,6 +4,15 @@
  */
 package viewFormularios;
 
+import daoClasesSQL.MaterialDAO;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DAM126
@@ -40,12 +49,32 @@ public class VentanaInformes extends javax.swing.JDialog {
         jLabel1.setText("Generar Informes");
 
         botonInforme.setText("Informe completo");
+        botonInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInformeActionPerformed(evt);
+            }
+        });
 
         botonPorCategoria.setText("Por categoría y estado");
+        botonPorCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPorCategoriaActionPerformed(evt);
+            }
+        });
 
         botonPorUbicacion.setText("Por ubicación");
+        botonPorUbicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonPorUbicacionActionPerformed(evt);
+            }
+        });
 
         botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -53,15 +82,13 @@ public class VentanaInformes extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botonPorUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(botonPorCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addComponent(botonInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botonPorUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(botonPorCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botonInforme, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -101,48 +128,118 @@ public class VentanaInformes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaInformes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaInformes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaInformes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaInformes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void botonInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformeActionPerformed
+        // TODO add your handling code here:
+        List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, null);
+        generarInforme(datosInforme, "Informe_inventario_completo.txt");
+    }//GEN-LAST:event_botonInformeActionPerformed
+
+    private void botonPorCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorCategoriaActionPerformed
+        // TODO add your handling code here:
+        String categoria = JOptionPane.showInputDialog(this, "Escribe la categoría (vacío = todas):");
+        if (categoria == null) {
+            return;
         }
-        //</editor-fold>
+        String estado = JOptionPane.showInputDialog(this, "Escribe el estado (disponible/prestado/reparacion/baja)( vacío = todos):");
+        if (estado == null) {
+            return;
+        }
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VentanaInformes dialog = new VentanaInformes(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+        String categoriaFiltro = categoria.trim().isEmpty() ? null : categoria.trim();
+        String estadoFiltro = estado.trim().isEmpty() ? null : estado.trim();
+
+        List<Object[]> datosInforme = new MaterialDAO().buscar(null, categoriaFiltro, estadoFiltro, null);
+        generarInforme(datosInforme, "Informe_categoria_estado.txt");
+    }//GEN-LAST:event_botonPorCategoriaActionPerformed
+
+    private void botonPorUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorUbicacionActionPerformed
+        // TODO add your handling code here:
+        String ubicacion = JOptionPane.showInputDialog(this, "Escribe la ubicación (ej: Armario1 - Cajón1)\n(vacío = todas):");
+        if (ubicacion == null) {
+            return;
+        }
+
+        String ubicacionFiltro = ubicacion.trim().isEmpty() ? null : ubicacion.trim();
+
+        List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, ubicacionFiltro);
+        generarInforme(datosInforme, "Informe_ubicacion.txt");
+    }//GEN-LAST:event_botonPorUbicacionActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_botonCancelarActionPerformed
+    private void generarInforme(List<Object[]> datosInforme, String nombreArchivo) {
+        JFileChooser selector = new JFileChooser();
+        selector.setDialogTitle("Guardar informe de inventario");
+        selector.setSelectedFile(new File(nombreArchivo));
+
+        int respuesta = selector.showSaveDialog(this);
+
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File archivoDestino = selector.getSelectedFile();
+            String ruta = archivoDestino.getAbsolutePath();
+
+            if (!ruta.toLowerCase().endsWith(".txt")) {
+                ruta += ".txt";
             }
-        });
-    }
 
+            String formato = "%-5s | %-30s | %-25s | %-15s | %-25s | %-6s";
+            String lineaDiv = "-----------------------------------------------------------------------------------------------------------------------";
+
+            try (BufferedWriter informe = new BufferedWriter(new FileWriter(ruta))) {
+                informe.write("IES MIGUEL HERRERO PEREDA - INFORME DE INVENTARIO");
+                informe.newLine();
+                informe.write("Fecha de creacion: " + new java.util.Date());
+                informe.newLine();
+                informe.write(lineaDiv);
+                informe.newLine();
+                informe.write(String.format(formato, "ID", "NOMBRE", "CATEGORIA", "ESTADO", "UBICACION", "CANT."));
+                informe.newLine();
+                informe.write(lineaDiv);
+                informe.newLine();
+
+                for (Object[] fila : datosInforme) {
+                    String nombre = (fila[1] != null) ? fila[1].toString() : "";
+                    if (nombre.length() > 30) {
+                        nombre = nombre.substring(0, 27) + "...";
+                    }
+
+                    String categoria = (fila[3] != null) ? fila[3].toString() : "";
+                    if (categoria.length() > 25) {
+                        categoria = categoria.substring(0, 22) + "...";
+                    }
+
+                    String ubicacion = (fila[5] != null) ? fila[5].toString() : "";
+                    if (ubicacion.length() > 25) {
+                        ubicacion = ubicacion.substring(0, 22) + "...";
+                    }
+
+                    informe.write(String.format(formato,
+                            fila[0].toString(),
+                            nombre,
+                            categoria,
+                            fila[4].toString(),
+                            ubicacion,
+                            fila[6].toString()
+                    ));
+                    informe.newLine();
+                }
+
+                informe.write(lineaDiv);
+                informe.newLine();
+                informe.write("Fin del informe. Total de registros: " + datosInforme.size());
+
+                JOptionPane.showMessageDialog(this, "Informe generado con éxito en: " + ruta);
+                this.dispose();
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error al escribir el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        /**
+         * @param args the command line arguments
+         */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonInforme;
