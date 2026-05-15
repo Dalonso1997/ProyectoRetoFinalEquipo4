@@ -181,7 +181,7 @@ public class CambioUbicacion extends javax.swing.JDialog {
             if (idNuevaUbi != -1) {
                 MaterialDAO matDAO = new MaterialDAO();
                 if (matDAO.cambioUbicacionMaterial(idNuevaUbi, idMaterial)) {
-                    JOptionPane.showMessageDialog(this, "Ubicación actualizada.");
+                    JOptionPane.showMessageDialog(this, "Ubicacion actualizada.");
                     this.dispose();
                 }
             }

@@ -4,14 +4,22 @@
  */
 package interfaz.menuPrincipal;
 
+import daoClasesSQL.MaterialDAO;
 import devolucionesYPrestamos.devoluciones;
 import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
 import interfaz.ubicacion.CambioUbicacion;
 import java.awt.BorderLayout;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
+import viewFormularios.VentanaInformes;
 
 /**
  *
@@ -301,7 +309,10 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
-        // TODO add your handling code here:
+        
+        VentanaInformes ventanaInformes = new VentanaInformes(this, true);
+        ventanaInformes.setVisible(true);
+
     }//GEN-LAST:event_botonInformesActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed

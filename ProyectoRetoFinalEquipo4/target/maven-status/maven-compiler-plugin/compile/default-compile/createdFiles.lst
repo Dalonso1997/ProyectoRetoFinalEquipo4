@@ -3,9 +3,9 @@ interfaz\ubicacion\CambioUbicacion$4.class
 viewFormularios\FormularioAltaMaterial$1.class
 viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
-interfaz\menuPrincipal\MenuPrincipalAdmin$11.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
+viewFormularios\VentanaInformes$1.class
 pruebas\Pruebas.class
 CSV\GenerarCSV.class
 daoClasesSQL\EstadoDAO.class
@@ -24,6 +24,7 @@ devolucionesYPrestamos\prestamos$3.class
 interfaz\ubicacion\CambioUbicacion$1.class
 interfaz\menuPrincipal\PanelConsultaMateriales.class
 utilsClasesApoyo\ConexionBD.class
+viewFormularios\VentanaInformes$4.class
 daoClasesSQL\UsuarioDAO.class
 interfaz\modificar\MenuModificar$5.class
 interfaz\login.class
@@ -42,10 +43,12 @@ viewFormularios\FormularioAltaMaterial$4.class
 devolucionesYPrestamos\devoluciones$3.class
 interfaz\login$3.class
 viewFormularios\VentanaBusqueda$2.class
-viewFormularios\VentanaBusqueda$5$1.class
 devolucionesYPrestamos\devoluciones$1.class
 viewFormularios\FormularioAltaMaterial$5$1.class
+viewFormularios\VentanaInformes$3.class
+viewFormularios\VentanaInformes.class
 interfaz\login$2.class
+viewFormularios\VentanaBusqueda$6$1.class
 devolucionesYPrestamos\prestamos$4.class
 devolucionesYPrestamos\prestamos$Prestamo.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$3.class
@@ -57,6 +60,7 @@ devolucionesYPrestamos\prestamos$1.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
 interfaz\modificar\MenuModificar$7.class
 modelClasesTablas\Categoria.class
+viewFormularios\VentanaBusqueda$6.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
 modelClasesTablas\Ubicacion.class
@@ -69,13 +73,11 @@ viewFormularios\VentanaBusqueda$4.class
 devolucionesYPrestamos\devoluciones.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 viewFormularios\FormularioAltaMaterial$2.class
+viewFormularios\VentanaInformes$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
 interfaz\modificar\MenuModificar$3.class
-<<<<<<< Updated upstream
-devolucionesYPrestamos\devoluciones$3$1.class
-=======
 interfaz\ubicacion\CambioUbicacion.class
->>>>>>> Stashed changes
+devolucionesYPrestamos\devoluciones$3$1.class
 interfaz\modificar\MenuModificar$8$1.class
 devolucionesYPrestamos\prestamos$5.class
 viewFormularios\FormularioAltaMaterial$5.class

@@ -196,7 +196,7 @@ public class login extends javax.swing.JFrame {
 <<<<<<< Updated upstream
             this.dispose();
             
-            if(usuario.getRol().equals("Profesor")){
+            if(usuario.getRol().equals("profesor")){
                 new MenuPrincipalProfesor().setVisible(true);
 =======
             // PASAMOS EL OBJETO 'usuario' A LOS CONSTRUCTORES
