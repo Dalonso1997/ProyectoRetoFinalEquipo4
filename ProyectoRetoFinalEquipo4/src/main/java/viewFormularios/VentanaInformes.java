@@ -154,7 +154,7 @@ public class VentanaInformes extends javax.swing.JDialog {
 
     private void botonPorUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorUbicacionActionPerformed
         // TODO add your handling code here:
-        String ubicacion = JOptionPane.showInputDialog(this, "Escribe la ubicación (ej: Armario1 - Cajón1)\n(vacío = todas):");
+        String ubicacion = JOptionPane.showInputDialog(this, "Escribe la ubicación (ej: Armario1 - Cajón1)( vacío = todas):");
         if (ubicacion == null) {
             return;
         }
@@ -170,36 +170,48 @@ public class VentanaInformes extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
     private void generarInforme(List<Object[]> datosInforme, String nombreArchivo) {
+        //Vamos a usar JFileChooser
+        //de esta manera cuando se vaya a crear un fichero de informe, el usuario podra elegir la ubicacion y el nombre del archivo
         JFileChooser selector = new JFileChooser();
         selector.setDialogTitle("Guardar informe de inventario");
-        selector.setSelectedFile(new File(nombreArchivo));
+        selector.setSelectedFile(new File(nombreArchivo)); //Nombre por defecto
 
+        //Mostramos la ventana del JFileChoose y comprobamos si el usuario acepta
         int respuesta = selector.showSaveDialog(this);
 
         if (respuesta == JFileChooser.APPROVE_OPTION) {
+
             File archivoDestino = selector.getSelectedFile();
             String ruta = archivoDestino.getAbsolutePath();
 
+            //Revisamos que el archivo tenga la extension .txt
             if (!ruta.toLowerCase().endsWith(".txt")) {
                 ruta += ".txt";
             }
 
+            //Creamos dos variables de string para dar formato a la tabla que aparecera en el archivo.
             String formato = "%-5s | %-30s | %-25s | %-15s | %-25s | %-6s";
             String lineaDiv = "-----------------------------------------------------------------------------------------------------------------------";
 
             try (BufferedWriter informe = new BufferedWriter(new FileWriter(ruta))) {
+
+                // Encabezado del archivo txt
                 informe.write("IES MIGUEL HERRERO PEREDA - INFORME DE INVENTARIO");
                 informe.newLine();
                 informe.write("Fecha de creacion: " + new java.util.Date());
                 informe.newLine();
                 informe.write(lineaDiv);
                 informe.newLine();
+
+                // Escribimos los títulos de las columnas usando el formato definido
                 informe.write(String.format(formato, "ID", "NOMBRE", "CATEGORIA", "ESTADO", "UBICACION", "CANT."));
                 informe.newLine();
                 informe.write(lineaDiv);
                 informe.newLine();
 
+                // Recorremos los registros de la lista creada uno a uno para gestionarlos y anadirlos al archivo de text
                 for (Object[] fila : datosInforme) {
+                    // Limpiamos y limitamos la longitud de los textos para no desalinear las columnas
                     String nombre = (fila[1] != null) ? fila[1].toString() : "";
                     if (nombre.length() > 30) {
                         nombre = nombre.substring(0, 27) + "...";
@@ -215,21 +227,24 @@ public class VentanaInformes extends javax.swing.JDialog {
                         ubicacion = ubicacion.substring(0, 22) + "...";
                     }
 
+                    // Escribimos la fila con el formato idéntico a la cabecera
                     informe.write(String.format(formato,
-                            fila[0].toString(),
-                            nombre,
-                            categoria,
-                            fila[4].toString(),
-                            ubicacion,
-                            fila[6].toString()
+                            fila[0].toString(), // ID
+                            nombre,             // Nombre
+                            categoria,          // Categoría
+                            fila[4].toString(), // Estado
+                            ubicacion,          // Ubicación
+                            fila[6].toString()  // Cantidad
                     ));
                     informe.newLine();
                 }
 
+                // Cierre del informe
                 informe.write(lineaDiv);
                 informe.newLine();
                 informe.write("Fin del informe. Total de registros: " + datosInforme.size());
 
+                //Mostramos al usuario una ventana informando de que se ha generado el archivo correctamente.
                 JOptionPane.showMessageDialog(this, "Informe generado con éxito en: " + ruta);
                 this.dispose();
 
@@ -237,6 +252,7 @@ public class VentanaInformes extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Error al escribir el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }    
         /**
          * @param args the command line arguments
          */
