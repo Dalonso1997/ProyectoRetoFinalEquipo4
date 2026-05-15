@@ -20,6 +20,7 @@ public class prestamos extends javax.swing.JDialog {
     private List<Prestamo> registroPrestamos = new ArrayList<>();
     private javax.swing.DefaultListModel<Object[]> modeloLista = new javax.swing.DefaultListModel<>();
     private daoClasesSQL.MaterialDAO mDAO = new daoClasesSQL.MaterialDAO();
+    private modelClasesTablas.Usuario userLogueado;
     
    
 
@@ -57,13 +58,17 @@ public class prestamos extends javax.swing.JDialog {
     /**
      * Creates new form prestamos
      */
-    public prestamos(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        inicializarDatos();
-        configurarEventos();
-        cargarMateriales();
-    }
+    public prestamos(java.awt.Frame parent, boolean modal, modelClasesTablas.Usuario usuarioQueViene) {
+     super(parent, modal);
+     this.userLogueado = usuarioQueViene; // Guardamos la sesión antes que nada
+     initComponents();
+
+     // Cargamos los usuarios usando los datos del que inició sesión
+     cargarUsuarios(userLogueado.getId_usuario(), userLogueado.getNombre(), userLogueado.getRol());
+
+     cargarMateriales();
+     configurarEventos();
+ }
 
     private void inicializarDatos() {
         // Cargar materiales de ejemplo en la lista
@@ -88,12 +93,12 @@ public class prestamos extends javax.swing.JDialog {
         jList1 = new javax.swing.JList();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jComboBoxUsuarios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,15 +149,14 @@ public class prestamos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
@@ -166,9 +170,9 @@ public class prestamos extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,79 +252,83 @@ public class prestamos extends javax.swing.JDialog {
 
     // --- 3. LÓGICA DEL PRÉSTAMO CON BASE DE DATOS ---
     private void realizarPrestamo() {
-        Object[] seleccionado = (Object[]) jList1.getSelectedValue();
+        Object[] matSel = (Object[]) jList1.getSelectedValue();
+        Object[] userSel = (Object[]) jComboBoxUsuarios.getSelectedItem();
 
-        if (seleccionado == null) {
-            JOptionPane.showMessageDialog(this, "Selecciona un material.");
-            return;
-        }
-
-        // MAPEO CORRECTO DE TUS TEXTFIELDS:
-        String nombreUser = jTextField1.getText().trim();  // Nombre
-        String cantTexto  = jTextField2.getText().trim();  // Cantidad (DEBE SER NÚMERO)
-        String obsTexto   = jTextField3.getText().trim();  // Observaciones (TEXTO LIBRE)
-
-        if (nombreUser.isEmpty() || cantTexto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nombre y Cantidad son obligatorios.");
+        if (matSel == null || userSel == null) {
+            JOptionPane.showMessageDialog(this, "Selecciona material y usuario.");
             return;
         }
 
         try {
-            int idMat = (int) seleccionado[0];
-            int stock = (int) seleccionado[6];
-            int cantPedida = Integer.parseInt(cantTexto);
+            int idUsuario = (int) userSel[0]; // ID real de la base de datos
+            String nombreUser = userSel[1].toString();
+            int idMat = (int) matSel[0];
+            int cantPedida = Integer.parseInt(jTextField2.getText().trim());
 
-            if (cantPedida > stock) {
-                JOptionPane.showMessageDialog(this, "No hay stock suficiente.");
-                return;
-            }
-
-            // Creamos el objeto con los datos capturados
-            // Nota: El constructor de 6 parámetros: (idMat, nombre, desc, null, cant, obs)
             modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
-                    idMat, 
-                    nombreUser, 
-                    "Préstamo", 
-                    null, 
-                    cantPedida, 
-                    obsTexto
+                    idMat, nombreUser, "Préstamo", null, cantPedida, jTextField3.getText().trim()
             );
 
             daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
-
-            // Si tu tabla 'prestamos' tiene id_usuario como INT, pasa un 1 de prueba.
-            // Si 'id_usuario' fuera VARCHAR (para el nombre), tendrías que cambiar el DAO.
-            if (pDAO.registrarPrestamo(p, 1)) {
+            if (pDAO.registrarPrestamo(p, idUsuario)) { // Guardamos con el ID correcto
                 JOptionPane.showMessageDialog(this, "¡Éxito!");
                 cargarMateriales();
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar. Revisa la consola.");
             }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }
+    
+    private void cargarUsuarios(int idActual, String nombreActual, String rolActual) {
+        jComboBoxUsuarios.removeAllItems();
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        if (rolActual.equalsIgnoreCase("administrador")) {
+            daoClasesSQL.UsuarioDAO uDAO = new daoClasesSQL.UsuarioDAO();
+            List<Object[]> usuarios = uDAO.listarUsuarios();
+            for (Object[] u : usuarios) {
+                jComboBoxUsuarios.addItem(u);
+            }
+        } else {
+            // El profesor solo se ve a sí mismo
+            jComboBoxUsuarios.addItem(new Object[]{idActual, nombreActual, rolActual});
+        }
+
+        // Renderer para mostrar solo el nombre en el Combo
+        jComboBoxUsuarios.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
-            public void run() {
-                prestamos dialog = new prestamos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+            public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Object[]) {
+                    Object[] u = (Object[]) value;
+                    setText(u[1].toString()); // Posición 1 es el nombre
+                }
+                return this;
             }
         });
     }
 
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+            // Creamos un usuario "fantasma" para que el main no dé error al compilar
+            modelClasesTablas.Usuario userTest = new modelClasesTablas.Usuario();
+            userTest.setId_usuario(1);
+            userTest.setNombre("Prueba");
+            userTest.setRol("administrador");
+
+            // SOLUCIÓN: Pasamos el tercer parámetro (userTest)
+            prestamos dialog = new prestamos(new javax.swing.JFrame(), true, userTest);
+            dialog.setVisible(true);
+        }
+    });
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<Object[]> jComboBoxUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -328,7 +336,6 @@ public class prestamos extends javax.swing.JDialog {
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables

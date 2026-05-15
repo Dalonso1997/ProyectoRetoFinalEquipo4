@@ -187,23 +187,15 @@ public class login extends javax.swing.JFrame {
         Usuario usuario = dao.login(email, password);
 
         if (usuario != null) {
-
-            JOptionPane.showMessageDialog(this,
-                    "Bienvenido, " + usuario.getNombre());
-
             this.dispose();
-            
-            if(usuario.getRol().equals("profesor")){
-                new MenuPrincipalProfesor().setVisible(true);
+
+            if(usuario.getRol().equalsIgnoreCase("profesor")){
+                new MenuPrincipalProfesor(usuario).setVisible(true);
             } else {
-                new MenuPrincipalAdmin().setVisible(true);
+                // ERROR ANTES: new MenuPrincipalAdmin().setVisible(true);
+                // SOLUCIÓN: Agregamos 'usuario' entre los paréntesis
+                new MenuPrincipalAdmin(usuario).setVisible(true); 
             }
-            
-        } else {
-
-            JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos.");
-
         }
     }//GEN-LAST:event_botonContActionPerformed
 
