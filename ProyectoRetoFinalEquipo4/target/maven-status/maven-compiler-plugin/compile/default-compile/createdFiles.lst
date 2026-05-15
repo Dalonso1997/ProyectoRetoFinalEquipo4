@@ -5,11 +5,13 @@ viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
 interfaz\mainInterfaz.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$1.class
+viewFormularios\VentanaInformes$1.class
 pruebas\Pruebas.class
 CSV\GenerarCSV.class
 daoClasesSQL\EstadoDAO.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$5.class
+interfaz\modificar\MenuModificar$5$1.class
 interfaz\modificar\MenuModificar$2.class
 interfaz\menuPrincipal\PanelConsultaMateriales$1.class
 daoClasesSQL\CategoriaDAO.class
@@ -23,6 +25,7 @@ devolucionesYPrestamos\prestamos$3.class
 interfaz\ubicacion\CambioUbicacion$1.class
 interfaz\menuPrincipal\PanelConsultaMateriales.class
 utilsClasesApoyo\ConexionBD.class
+viewFormularios\VentanaInformes$4.class
 daoClasesSQL\UsuarioDAO.class
 interfaz\modificar\MenuModificar$5.class
 interfaz\login.class
@@ -34,7 +37,6 @@ daoClasesSQL\MaterialDAO.class
 devolucionesYPrestamos\prestamos$5$1.class
 controllerClasesGestionModelVista\NewClass.class
 modelClasesTablas\Prestamo.class
-interfaz\modificar\MenuModificar$8.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$8.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$4.class
 interfaz\modificar\MenuModificar$1.class
@@ -45,6 +47,8 @@ viewFormularios\VentanaBusqueda$2.class
 viewFormularios\VentanaBusqueda$5$1.class
 devolucionesYPrestamos\devoluciones$1.class
 viewFormularios\FormularioAltaMaterial$5$1.class
+viewFormularios\VentanaInformes$3.class
+viewFormularios\VentanaInformes.class
 interfaz\login$2.class
 devolucionesYPrestamos\prestamos$4.class
 devolucionesYPrestamos\prestamos$Prestamo.class
@@ -55,7 +59,6 @@ com\mycompany\proyectoretofinalequipo4\ProyectoRetoFinalEquipo4.class
 modelClasesTablas\Registro.class
 devolucionesYPrestamos\prestamos$1.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
-interfaz\modificar\MenuModificar$7.class
 modelClasesTablas\Categoria.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
@@ -69,11 +72,11 @@ viewFormularios\VentanaBusqueda$4.class
 devolucionesYPrestamos\devoluciones.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 viewFormularios\FormularioAltaMaterial$2.class
+viewFormularios\VentanaInformes$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
 interfaz\modificar\MenuModificar$3.class
 interfaz\ubicacion\CambioUbicacion.class
 devolucionesYPrestamos\devoluciones$3$1.class
-interfaz\modificar\MenuModificar$8$1.class
 devolucionesYPrestamos\prestamos$5.class
 viewFormularios\FormularioAltaMaterial$5.class
 interfaz\login$1.class
@@ -85,4 +88,3 @@ interfaz\ubicacion\CambioUbicacion$2.class
 modelClasesTablas\Usuario.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
 modelClasesTablas\Estado.class
-interfaz\modificar\MenuModificar$6.class

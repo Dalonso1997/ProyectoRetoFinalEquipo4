@@ -119,18 +119,18 @@ public class MaterialDAO {
         }
     }
 
-    public boolean modificarMaterial(Material m) {
+    public boolean modificarMaterial(int idMaterial, String nombreMat, String descriMat, int cantMat, int estaMat, int cateMat) {
+        
         Connection con = ConexionBD.getInstancia().getConexion();
-        String sql = "UPDATE materiales SET nombre=?, descripcion=?, cantidad=?, id_estado=?, id_categoria=?, id_ubicacion=? WHERE id_material=?";
+        String sql = "UPDATE materiales SET nombre=?, descripcion=?, cantidad=?, id_estado=?, id_categoria=? WHERE id_material=?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, m.getNombre());
-            ps.setString(2, m.getDescripcion());
-            ps.setInt(3, m.getCantidad());
-            ps.setInt(4, m.getId_estado());
-            ps.setInt(5, m.getId_categoria());
-            ps.setInt(6, m.getId_ubicacion());
-            ps.setInt(7, m.getId_material()); // El ID para el WHERE
+            ps.setString(1, nombreMat);
+            ps.setString(2, descriMat);
+            ps.setInt(3, cantMat);
+            ps.setInt(4, estaMat);
+            ps.setInt(5, cateMat);
+            ps.setInt(6, idMaterial); // El ID para el WHERE
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import modelClasesTablas.Material;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
 
@@ -24,6 +25,7 @@ import viewFormularios.VentanaBusqueda;
  *
  * @author DAM119
  */
+
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     /**
@@ -321,7 +323,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         int respuesta = selector.showSaveDialog(this);
 
         if (respuesta == JFileChooser.APPROVE_OPTION) {
-            
+
             File archivoDestino = selector.getSelectedFile();
             String ruta = archivoDestino.getAbsolutePath();
 
@@ -383,7 +385,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 informe.write(lineaDiv);
                 informe.newLine();
                 informe.write("Fin del informe. Total de registros: " + datosInforme.size());
-                
+
                 //Mostramos al usuario una ventana informando de que se ha generado el archivo correctamente.
                 JOptionPane.showMessageDialog(this, "Informe generado con éxito en: " + ruta);
 
@@ -396,17 +398,45 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonInformesActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
-        // TODO add your handling code here:
+        //cogemos lo que el usuario esta viendo ahora mismo en el panel
+        java.awt.Component componenteActual = panelDerecha.getViewport().getView();
 
-        MenuModificar modificar = new MenuModificar(this, true);
-        modificar.setVisible(true);
+        //comprobamos que estemos en la pantalla de consulta de materiales
+        if (componenteActual instanceof PanelConsultaMateriales) {
+            //convertimos el componente para poder usar sus metodos
+            PanelConsultaMateriales panelConsulta = (PanelConsultaMateriales) componenteActual;
 
-        //Llamamos al boton de consulta para refrescar la consulta a la base de datos
-        botonConsultaActionPerformed(null);
+            //sacamos la id del material que el admin ha pinchado en la tabla
+            int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
 
-        panelDerecha.revalidate(); // Re-calcula el diseño
-        panelDerecha.repaint();    // Vuelve a pintar los píxeles
+            //comprobamos si no ha seleccionado nada (el metodo devuelve -1 si esta vacio)
+            if (idSeleccionado == -1) {
+                //si no hay seleccion, le soltamos el mensaje de aviso para que elija uno
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Selecciona primero un material de la tabla para modificarlo.",
+                        "Informacion",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+                //paramos la ejecucion aqui para que no intente abrir la otra ventana
+                return;
+            }
 
+            //si llegamos aqui es que si hay una id, asi que cogemos su ubicacion actual
+            String matActual = panelConsulta.getIdUbicacionSeleccionada();
+
+            //abrimos la ventana de cambio de ubicacion pasando todos los datos necesarios
+            MenuModificar ventana = new MenuModificar(this, true, idSeleccionado);
+            ventana.setVisible(true);
+
+            //una vez se cierre la ventana de gestion, refrescamos la tabla para ver los cambios
+            panelConsulta.refrescarListado();
+
+        } else {
+            //en caso de que no este ni en la pantalla de consulta, le avisamos tambien
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Abre primero la pantalla de 'Consulta' y selecciona un material.",
+                    "Informacion",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
@@ -512,36 +542,36 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipalAdmin().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new MenuPrincipalAdmin().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAlta;
