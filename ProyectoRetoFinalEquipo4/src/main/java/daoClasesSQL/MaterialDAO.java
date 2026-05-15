@@ -27,24 +27,25 @@ public class MaterialDAO {
     //Devuelve una lista de arrays con los datos para mostrar en la tabla
 
     public List<Object[]> buscar(String texto, String categoriaNombre, String estado, String ubicacionStr) {
-            List<Object[]> resultados = new ArrayList<>();
-            Connection conexion = ConexionBD.getInstancia().getConexion();
-            StringBuilder sql = new StringBuilder();
+        List<Object[]> resultados = new ArrayList<>();
+        Connection conexion = ConexionBD.getInstancia().getConexion();
+        StringBuilder sql = new StringBuilder();
 
-            sql.append("SELECT m.id_material, m.nombre, m.descripcion, c.nombre AS categoria, ")
-               .append("e.nombre AS estado_nombre, ") // Obtenemos el nombre del estado
-               .append("CASE ")
-               .append("  WHEN u.tipo = 'mesa' THEN u.nombre ")
-               .append("  ELSE CONCAT(u.nombre, ' - Cajón ', u.cajon) ")
-               .append("END AS ubicacion, m.cantidad ")
-               .append("FROM materiales m ")
-               .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
-               .append("JOIN estado e ON m.id_estado = e.id_estado ") 
-               .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
-               .append("WHERE 1=1 ");
+        sql.append("SELECT m.id_material, m.nombre, m.descripcion, c.nombre AS categoria, ")
+                .append("e.nombre AS estado_nombre, ") // Obtenemos el nombre del estado
+                .append("CASE ")
+                .append("  WHEN u.tipo = 'mesa' THEN u.nombre ")
+                .append("  ELSE CONCAT(u.nombre, ' - Cajón ', u.cajon) ")
+                .append("END AS ubicacion, m.cantidad ")
+                .append("FROM materiales m ")
+                .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
+                .append("JOIN estado e ON m.id_estado = e.id_estado ")
+                .append("JOIN ubicacion u ON m.id_ubicacion = u.id_ubicacion ")
+                .append("WHERE 1=1 ");
 
-            List<Object> parametros = new ArrayList<>();
+        List<Object> parametros = new ArrayList<>();
 
+<<<<<<< Updated upstream
             if (texto != null && !texto.trim().isEmpty()) {
                 sql.append("AND (m.nombre LIKE ? OR m.descripcion LIKE ?) ");
                 parametros.add("%" + texto.trim() + "%");
@@ -96,7 +97,60 @@ public class MaterialDAO {
                 System.out.println("Error al buscar materiales: " + e.getMessage());
             }
             return resultados;
+=======
+        if (texto != null && !texto.trim().isEmpty()) {
+            sql.append("AND (m.nombre LIKE ? OR m.descripcion LIKE ?) ");
+            parametros.add("%" + texto.trim() + "%");
+            parametros.add("%" + texto.trim() + "%");
+>>>>>>> Stashed changes
         }
+
+        if (categoriaNombre != null && !categoriaNombre.trim().isEmpty()) {
+            sql.append("AND c.nombre = ? ");
+            parametros.add(categoriaNombre.trim());
+        }
+
+        // CORRECCIÓN: Filtramos por el NOMBRE del estado en la tabla 'e'
+        if (estado != null && !estado.trim().isEmpty()) {
+            sql.append("AND e.nombre = ? ");
+            parametros.add(estado.trim());
+        }
+
+        if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
+            String[] partes = ubicacionStr.split(" - ");
+            sql.append("AND u.nombre = ? "); // Asumiendo que u.nombre es el nombre del armario/ubicación
+            parametros.add(partes[0].trim());
+            if (partes.length > 1) {
+                sql.append("AND u.cajon = ? ");
+                parametros.add(partes[1].replace("Cajón ", "").trim());
+            }
+        }
+
+        sql.append("ORDER BY m.nombre");
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql.toString())) {
+            for (int i = 0; i < parametros.size(); i++) {
+                ps.setObject(i + 1, parametros.get(i));
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    resultados.add(new Object[]{
+                        rs.getInt("id_material"),
+                        rs.getString("nombre"),
+                        rs.getString("descripcion"),
+                        rs.getString("categoria"),
+                        rs.getString("estado_nombre"), // Usamos el alias de la consulta
+                        rs.getString("ubicacion"),
+                        rs.getInt("cantidad")
+                    });
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar materiales: " + e.getMessage());
+        }
+        return resultados;
+    }
 
     public boolean insertarMaterial(Material m) {
         Connection con = ConexionBD.getInstancia().getConexion();
@@ -192,8 +246,8 @@ public class MaterialDAO {
             return false;
         }
     }
-    
-        public boolean cambioUbicacionMaterial(int idUbicacion, int idMaterial) {
+
+    public boolean cambioUbicacionMaterial(int idUbicacion, int idMaterial) {
         //Llamamos a la instancia de la conexion de la base de datos
         Connection con = ConexionBD.getInstancia().getConexion();
 
@@ -209,6 +263,34 @@ public class MaterialDAO {
             System.out.println("Error al actualizar ubicacion: " + e.getMessage());
             return false;
         }
+    }
+
+    public List<String> buscarPorEstado() {
+        Connection con = ConexionBD.getInstancia().getConexion();
+        List<String> materiales = new ArrayList<>();
+
+        String sql = "SELECT nombre FROM materiales WHERE id_estado = (SELECT id_estado FROM estado WHERE nombre = 'baja');";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            // CORRECCIÓN 1: No pasar la variable 'sql' dentro de executeQuery()
+            try (ResultSet rs = ps.executeQuery()) {
+
+                // CORRECCIÓN 2: Usar 'while' para recorrer todos los resultados, no solo el primero
+                while (rs.next()) {
+                    String nombreMaterial = rs.getString("nombre");
+                    System.out.println("Encontrado en DB: " + nombreMaterial); // <-- Agrega esto
+                    materiales.add(nombreMaterial);
+                }
+            }
+
+        } catch (SQLException e) {
+            // Es buena práctica imprimir el StackTrace para depurar mejor el error
+            System.out.println("Error al buscar por estado: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return materiales;
     }
 
 }

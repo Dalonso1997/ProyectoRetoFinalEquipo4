@@ -19,12 +19,12 @@ import modelClasesTablas.Ubicacion;
  *
  * @author David Alonso Casaiz
  */
-public class FormularioAltaMaterial extends javax.swing.JDialog {
+public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
 
     /**
      * Creates new form FormularioAltaMaterial
      */
-    public FormularioAltaMaterial(java.awt.Frame parent, boolean modal) {
+    public FormularioAltaMaterialNuevo(java.awt.Frame parent, boolean modal) {
         //LLamada al constructor de la ventana padre, el modal sirve para que la ventana
         //principal quede bloqueada mientras la de alta esta activa
         super(parent, modal);
@@ -37,7 +37,9 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
         cargarDatosIniciales();
 
     }
-
+    
+    
+    
     //Metodo creado para cargar los datos de los desplegables
     private void cargarDatosIniciales() {
         //Al iniciar el metodo vaciamos el desplegable del estado
@@ -325,20 +327,21 @@ public class FormularioAltaMaterial extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioAltaMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAltaMaterialNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioAltaMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAltaMaterialNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioAltaMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAltaMaterialNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioAltaMaterial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAltaMaterialNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormularioAltaMaterial dialog = new FormularioAltaMaterial(new javax.swing.JFrame(), true);
+                FormularioAltaMaterialNuevo dialog = new FormularioAltaMaterialNuevo(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
