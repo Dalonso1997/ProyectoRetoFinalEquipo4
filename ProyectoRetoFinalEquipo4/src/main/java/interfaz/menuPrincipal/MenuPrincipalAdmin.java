@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import modelClasesTablas.Material;
 import viewFormularios.FormularioAltaMaterial;
 import viewFormularios.VentanaBusqueda;
+import viewFormularios.VentanaInformes;
 
 /**
  *
@@ -28,11 +29,13 @@ import viewFormularios.VentanaBusqueda;
 
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
+    private modelClasesTablas.Usuario userSesion;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipalAdmin() {
+    public MenuPrincipalAdmin(modelClasesTablas.Usuario usuarioLogin) { // Cambia el nombre según el menú
         initComponents();
+        this.userSesion = usuarioLogin;
     }
 
     /**
@@ -288,8 +291,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
 
-        prestamos prestamo = new prestamos(this, true);
-        prestamo.setVisible(true);
+        prestamos p = new prestamos(this, true, this.userSesion);
+        p.setVisible(true);
 
         panelDerecha.revalidate();
         panelDerecha.repaint();
@@ -308,6 +311,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
+<<<<<<< HEAD
         //Instanciamos MaterialDAO para poder usar su metodo buscar
         MaterialDAO material = new MaterialDAO();
         //Guardamos los datos recibidos al buscar en una lista de objetos
@@ -394,6 +398,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             }
         }
 
+=======
+        
+        VentanaInformes ventanaInformes = new VentanaInformes(this, true);
+        ventanaInformes.setVisible(true);
+>>>>>>> f1f518a2e7d97d04ee47d72137441e4edd65ddf7
 
     }//GEN-LAST:event_botonInformesActionPerformed
 
@@ -542,6 +551,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+<<<<<<< HEAD
     /* Set the Nimbus look and feel */
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -569,6 +579,17 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     java.awt.EventQueue.invokeLater(new Runnable() {
         public void run() {
             new MenuPrincipalAdmin().setVisible(true);
+=======
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            // Creamos un usuario de prueba para que el archivo compile
+            modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
+            uTest.setNombre("Admin Prueba");
+            uTest.setRol("administrador");
+
+            // IMPORTANTE: Pasamos el usuario de prueba al constructor
+            new MenuPrincipalAdmin(uTest).setVisible(true);
+>>>>>>> f1f518a2e7d97d04ee47d72137441e4edd65ddf7
         }
     });
 }

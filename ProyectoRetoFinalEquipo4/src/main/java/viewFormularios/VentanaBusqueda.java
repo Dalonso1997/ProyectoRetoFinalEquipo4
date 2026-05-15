@@ -23,7 +23,7 @@ import modelClasesTablas.Ubicacion;
  * @author DAM126
  */
 public class VentanaBusqueda extends javax.swing.JDialog {
-
+    
     /**
      * Creates new form VentanaBusqueda
      */
@@ -32,6 +32,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     initComponents();
     this.setTitle("Búsqueda Componentes");
     this.setLocationRelativeTo(null);
+    
+    boolean cancelando = false;
 
     // 1. Categorías: Añadir "TODAS" al principio
     ElejirCategoria.removeAllItems();
@@ -82,7 +84,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jTable1 = new javax.swing.JTable();
         TextBusqueda = new javax.swing.JTextField();
         MensageMaterialesEncontrados = new javax.swing.JLabel();
-        botonIrPaginaWeb = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        BotonPaginaWeb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,10 +144,18 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
-        botonIrPaginaWeb.setText("Ir Pagina Web");
-        botonIrPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIrPaginaWebActionPerformed(evt);
+                botonCancelarActionPerformed(evt);
+            }
+        });
+
+        BotonPaginaWeb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        BotonPaginaWeb.setText("Ir Pagina Web");
+        BotonPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonPaginaWebActionPerformed(evt);
             }
         });
 
@@ -168,16 +179,18 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                                     .addComponent(ElejirUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(TextBusqueda))
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 610, Short.MAX_VALUE))
+                                .addGap(165, 165, 165)
+                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(214, 214, 214))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(352, 352, 352)
+                                .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 480, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -187,10 +200,12 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonIrPaginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
-                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(TextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,8 +220,10 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(ElejirUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ElejirUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
                                 .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,8 +263,9 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
-
+        
         try {
+            
             String texto = TextBusqueda.getText().trim();
             String categoriaSel = (String) ElejirCategoria.getSelectedItem();
             String estadoSel = (String) ElejirEstado.getSelectedItem();
@@ -298,6 +316,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                     fila[6]});
 
             }
+            
             if (lista.isEmpty()) {
                 MensageMaterialesEncontrados.setText("No se encontraron materiales");
             } else if (lista.size() == 1) {
@@ -325,7 +344,16 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     private void botonIrPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIrPaginaWebActionPerformed
         // TODO add your handling code here:
         
-                try {
+    }//GEN-LAST:event_botonIrPaginaWebActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void BotonPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPaginaWebActionPerformed
+        // TODO add your handling code here:
+        try {
                     if (Desktop.isDesktopSupported()) {
                         Desktop.getDesktop().browse(
                                 new URI("http://3.224.141.230/")
@@ -336,7 +364,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             "No se pudo abrir la página web");
                 }
             
-    }//GEN-LAST:event_botonIrPaginaWebActionPerformed
+    }//GEN-LAST:event_BotonPaginaWebActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,13 +410,14 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonPaginaWeb;
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
     private javax.swing.JComboBox<String> ElejirUbicacion;
     private javax.swing.JLabel MensageMaterialesEncontrados;
     private javax.swing.JTextField TextBusqueda;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonIrPaginaWeb;
+    private javax.swing.JButton botonCancelar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

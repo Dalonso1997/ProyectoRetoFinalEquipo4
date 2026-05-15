@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -135,16 +136,59 @@ public class VentanaInformes extends javax.swing.JDialog {
     }//GEN-LAST:event_botonInformeActionPerformed
 
     private void botonPorCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorCategoriaActionPerformed
-        // TODO add your handling code here:
-        String categoria = JOptionPane.showInputDialog(this, "Escribe la categoría (vacío = todas):");
+        //dao para las categorias
+        daoClasesSQL.CategoriaDAO catDAO = new daoClasesSQL.CategoriaDAO();
+        List<modelClasesTablas.Categoria> listaCat = catDAO.listarTodos();
+
+        //creamos un array de strings para meter las opciones del desplegable
+        String[] categorias = new String[listaCat.size()];
+        //recorremos la lista para rellenar el array con los nombres de las categorias
+        for (int i = 0; i < listaCat.size(); i++) {
+            categorias[i] = listaCat.get(i).getNombre();
+        }
+
+        //mostramos la ventana con el desplegable de las categorias
+        String categoria = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona una categoria:",
+                "categorias",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                categorias,
+                categorias[0]
+        );
+
+        //si el usuario cancela la ventana o la cierra, paramos la ejecucion aqui
         if (categoria == null) {
             return;
         }
-        String estado = JOptionPane.showInputDialog(this, "Escribe el estado (disponible/prestado/reparacion/baja)( vacío = todos):");
+
+        //dao para coger los estados
+        daoClasesSQL.EstadoDAO estDAO = new daoClasesSQL.EstadoDAO();
+        List<modelClasesTablas.Estado> listaEst = estDAO.listarTodos();
+
+        //creamos el array para los estados de la base de datos mas la opcion de todos
+        String[] estados = new String[listaEst.size()];
+        //recorremos la lista para meter los nombres de los estados en el array
+        for (int i = 0; i < listaEst.size(); i++) {
+            estados[i] = listaEst.get(i).getNombre();
+        }
+
+        //mostramos la ventana con el desplegable de estados
+        String estado = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona el estado:",
+                "estados",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                estados,
+                estados[0]
+        );
+
+        //si vuelve a cancelar, paramos la ejecucion para que no haga nada
         if (estado == null) {
             return;
         }
-
         String categoriaFiltro = categoria.trim().isEmpty() ? null : categoria.trim();
         String estadoFiltro = estado.trim().isEmpty() ? null : estado.trim();
 
@@ -153,13 +197,60 @@ public class VentanaInformes extends javax.swing.JDialog {
     }//GEN-LAST:event_botonPorCategoriaActionPerformed
 
     private void botonPorUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorUbicacionActionPerformed
-        // TODO add your handling code here:
-        String ubicacion = JOptionPane.showInputDialog(this, "Escribe la ubicación (ej: Armario1 - Cajón1)( vacío = todas):");
+        //dao para coger las ubicaciones
+        daoClasesSQL.UbicacionDAO ubiDAO = new daoClasesSQL.UbicacionDAO();
+        List<modelClasesTablas.Ubicacion> listaUbi = ubiDAO.listarTodos();
+        //lista para no tener duplicados
+        List<String> listaU = new ArrayList<>();
+        for (int i = 0; i < listaUbi.size(); i++) {
+            if (!listaU.contains(listaUbi.get(i).getUbicacion())) {
+                listaU.add(listaUbi.get(i).getUbicacion());
+            }
+        }
+
+        //convertimos la lista limpia al array de strings final que necesita el desplegable
+        String[] ubicaciones = listaU.toArray(new String[0]);
+        String ubicacion = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona la ubicacion",
+                "ubicacion",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                ubicaciones,
+                ubicaciones[0]
+        );
         if (ubicacion == null) {
             return;
         }
+        //lista para no tener duplicados
+        List<String> listaC = new ArrayList<>();
+        for (int i = 0; i < listaUbi.size(); i++) {
+            //miramos que la ubicacion actual sea la misma que el admin ha elegido en el primer combo
+            if (listaUbi.get(i).getUbicacion().equals(ubicacion)) {
 
-        String ubicacionFiltro = ubicacion.trim().isEmpty() ? null : ubicacion.trim();
+                //comprobamos que no sea nully que no se repita
+                if (listaUbi.get(i).getCajon() != null) {
+                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
+                    if (!listaC.contains(textoCajon)) {
+                        listaC.add(textoCajon);
+                    }
+                }
+            }
+        }
+        String[] cajones = listaC.toArray(new String[0]);
+        String cajon = (String) JOptionPane.showInputDialog(
+                this,
+                "Selecciona el cajon",
+                "cajon",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                cajones,
+                cajones[0]
+        );
+        if (cajon == null) {
+            return;
+        }
+        String ubicacionFiltro = ubicacion + " - " + cajon;
 
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, ubicacionFiltro);
         generarInforme(datosInforme, "Informe_ubicacion.txt");
@@ -230,11 +321,11 @@ public class VentanaInformes extends javax.swing.JDialog {
                     // Escribimos la fila con el formato idéntico a la cabecera
                     informe.write(String.format(formato,
                             fila[0].toString(), // ID
-                            nombre,             // Nombre
-                            categoria,          // Categoría
+                            nombre, // Nombre
+                            categoria, // Categoría
                             fila[4].toString(), // Estado
-                            ubicacion,          // Ubicación
-                            fila[6].toString()  // Cantidad
+                            ubicacion, // Ubicación
+                            fila[6].toString() // Cantidad
                     ));
                     informe.newLine();
                 }
@@ -252,10 +343,10 @@ public class VentanaInformes extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Error al escribir el archivo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }    
-        /**
-         * @param args the command line arguments
-         */
+    }
+    /**
+     * @param args the command line arguments
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonInforme;
