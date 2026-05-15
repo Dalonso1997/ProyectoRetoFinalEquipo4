@@ -193,7 +193,7 @@ public class login extends javax.swing.JFrame {
 
             this.dispose();
             
-            if(usuario.getRol().equals("Profesor")){
+            if(usuario.getRol().equals("profesor")){
                 new MenuPrincipalProfesor().setVisible(true);
             } else {
                 new MenuPrincipalAdmin().setVisible(true);

@@ -24,9 +24,8 @@ CREATE TABLE categorias (
  
 -- ------------------------------------------------------------
 -- UBICACION
--- Mesas (sin baldas ni cajones) y ArmarioA (con cajones)
---   tipo  = 'mesa'    → solo nombre (ej: 'Mesa 1'), cajon NULL
---   tipo  = 'armario' → nombre = 'ArmarioA', cajon = número
+-- Se tomo la decision de eliminar el concepto de baldas, para simplificar la funcionalidad de la base de datos
+-- Se opto por en el armario simplemente trabajar con cajones, que tendran su propio id de ubicacion
 -- ------------------------------------------------------------
 CREATE TABLE ubicacion (
     id_ubicacion   INT            NOT NULL AUTO_INCREMENT,
@@ -63,7 +62,7 @@ CREATE TABLE usuarios (
     nombre         VARCHAR(50)    NOT NULL,
     apellidos      VARCHAR(150)   NOT NULL,
     email          VARCHAR(200)   NOT NULL,
-    password       VARCHAR(255)   NOT NULL,   -- hash bcrypt
+    password       VARCHAR(255)   NOTmateriales NULL,   -- hash bcrypt
     rol            ENUM('administrador','profesor') NOT NULL DEFAULT 'profesor',
     activo         TINYINT(1)     NOT NULL DEFAULT 1,
     fecha_alta     DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
