@@ -87,12 +87,12 @@ footer {
    ESTILOS ESPECÍFICOS PARA: index.html (Adaptados al Dark Theme)
    ========================================================================== */
 .main-index { 
-    flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; 
+    flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%;
 }
 
 .section-index {
     background: var(--panel-bg); border-radius: var(--radius); padding: 2rem;
-    margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-top: 4px solid var(--blue);
     border: 1px solid var(--border);
 }
@@ -138,11 +138,10 @@ footer {
 }
 
 /* Tamaños de las tablas */
-.armario[data-id="A1"] tr:nth-child(-n+2) td { height: 25px; width: 40px; }
-.armario[data-id="A1"] tr:nth-child(n+3) td { height: 45px; width: 40px; }
+.armario[data-id="A1"] tr:nth-child(-n+2) td { height: 45px; width: 100px; }
+.armario[data-id="A1"] tr:nth-child(n+3) td { height: 45px; width: 100px; }
 .armario[data-id="A1"] td[rowspan] { width: 50px; background: var(--navy-dark); }
-.cajonera td { height: 40px; width: 60px; }
-.taquilla td { height: 60px; width: 80px; }
+.Mesa td { height: 40px; width: 60px; }
 
 /* Panel de Inventario Inferior */
 .inventario-layout-unico { background: var(--navy); padding: 25px; border-radius: var(--radius); border: 1px solid var(--border); }
@@ -153,7 +152,7 @@ footer {
     border-radius: 8px; border: 1px solid var(--border); position: relative;
     font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.2); color: var(--text);
 }
-.lista-objetos li::before { content: '📦'; position: absolute; left: 15px; font-size: 1.2rem; }
+.lista-objetos li::before { content: '✔️'; position: absolute; left: 15px; bottom: 12.5px; font-size: 1.2rem; }
 
 .panel-vacio { color: var(--text-muted); text-align: center; padding: 40px 0; font-style: italic; }
 
@@ -164,9 +163,35 @@ footer {
 }
 
 
-/* ==========================================================================
-   ESTILOS ESPECÍFICOS PARA: inventario_3d.html
-   ========================================================================== */
+/* Layout dos columnas: plano izquierda, inventario derecha */
+.layout-dos-columnas {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.layout-dos-columnas #plano {
+    flex: 1.2;
+    min-width: 0;
+}
+
+.layout-dos-columnas #inventario {
+    flex: 1;
+    min-width: 280px;
+    position: sticky;
+    top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .layout-dos-columnas {
+        flex-direction: column;
+    }
+    .layout-dos-columnas #inventario {
+        position: static;
+    }
+}
+
+
 .main-3d {
   flex: 1;
   display: flex;
