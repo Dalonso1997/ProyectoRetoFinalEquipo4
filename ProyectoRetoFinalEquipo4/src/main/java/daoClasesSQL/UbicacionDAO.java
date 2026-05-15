@@ -55,4 +55,20 @@ public class UbicacionDAO {
 
         return lista;
     }
+    
+    public Ubicacion SelecionarTipo(String tipo,String nombre) throws SQLException{
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        String sql = "SELECT nombre FROM ubicacion WHERE nombre";
+        
+        
+            try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+                
+            }catch (SQLException e) {
+            
+        }
+        return null;
+        
+    }
+    
 }
