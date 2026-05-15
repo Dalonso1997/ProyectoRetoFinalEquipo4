@@ -59,7 +59,7 @@ public class UbicacionDAO {
     public Ubicacion SelecionarTipo(String tipo,String nombre) throws SQLException{
         Connection con = ConexionBD.getInstancia().getConexion();
 
-        String sql = "SELECT nombre FROM ubicacion WHERE nombre";
+        String sql = "SELECT nombre, cajon FROM ubicacion ORDER BY nombre ASC , cajon ASC";
         
         
             try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
