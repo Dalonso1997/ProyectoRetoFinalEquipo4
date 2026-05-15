@@ -102,15 +102,11 @@ public class prestamos extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-<<<<<<< Updated upstream
-        jSeparator1 = new javax.swing.JSeparator();
-=======
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jComboBoxUsuarios = new javax.swing.JComboBox<>();
->>>>>>> Stashed changes
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,15 +157,6 @@ public class prestamos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-<<<<<<< Updated upstream
-                        .addComponent(jButton1)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
-=======
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,7 +173,6 @@ public class prestamos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
->>>>>>> Stashed changes
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,24 +181,6 @@ public class prestamos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-<<<<<<< Updated upstream
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(28, Short.MAX_VALUE))
-=======
                         .addComponent(jLabel1)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel2)
@@ -233,7 +201,6 @@ public class prestamos extends javax.swing.JDialog {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
->>>>>>> Stashed changes
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -301,41 +268,14 @@ public class prestamos extends javax.swing.JDialog {
     private void realizarPrestamo() {
         Object[] seleccionado = (Object[]) jList1.getSelectedValue();
 
-<<<<<<< Updated upstream
-        // Validaciones básicas
-        if (nombrePersona.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-=======
         Object[] materialSel = (Object[]) jList1.getSelectedValue();
         Object[] usuarioSel = (Object[]) jComboBoxUsuarios.getSelectedItem(); // Obtenemos el usuario del combo
         
->>>>>>> Stashed changes
         if (seleccionado == null) {
             JOptionPane.showMessageDialog(this, "Selecciona un material.");
             return;
         }
 
-<<<<<<< Updated upstream
-        // Extraemos los datos del array seleccionado (según el orden de tu MaterialDAO)
-        int idMaterial = (int) seleccionado[0];
-        String nombreMaterial = (String) seleccionado[1];
-        String estadoMaterial = (String) seleccionado[4];
-        int stockActual = (int) seleccionado[6];
-
-        // Validar que el material se pueda prestar (Estado 'disponible')
-        if (!estadoMaterial.equalsIgnoreCase("disponible")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Este material no está habilitado para préstamos (Estado: " + estadoMaterial + ").", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // Validar stock (Criterio: Actualiza estado o stock)
-        if (stockActual <= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No hay stock disponible para este material.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-=======
     int idUsuario = (int) usuarioSel[0];   // El ID real
         String nombreUser = usuarioSel[1].toString(); // El nombre
 
@@ -346,49 +286,18 @@ public class prestamos extends javax.swing.JDialog {
             int idMat = (int) materialSel[0];
             int stock = (int) materialSel[6];
             int cantPedida = Integer.parseInt(cantTexto);
->>>>>>> Stashed changes
 
         // Lógica de cantidad (Asumimos 1 por defecto)
         int cantidadSolicitada = 1;
 
-<<<<<<< Updated upstream
-        // Crear el objeto Préstamo usando TU constructor
-        // OJO: He puesto 'null' en el Estado. Si tu Enum requiere un valor, ponlo aquí (ej. Estado.PRESTADO)
-        modelClasesTablas.Prestamo nuevoPrestamo = new modelClasesTablas.Prestamo(
-                idMaterial, 
-                nombrePersona, 
-                "Préstamo de " + nombreMaterial, 
-                null, // <--- Tu clase Estado
-                cantidadSolicitada, 
-                "Sin observaciones"
-        );
-=======
             // Creamos el objeto Préstamo con el nombre del usuario seleccionado
             modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
                     idMat, nombreUser, "Préstamo", null, cantPedida, obsTexto
             );
->>>>>>> Stashed changes
 
         // Guardar en la Base de Datos
         daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
 
-<<<<<<< Updated upstream
-        if (pDAO.registrarPrestamo(nuevoPrestamo)) {
-            // Confirmación
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Préstamo registrado con éxito a " + nombrePersona + "\nMaterial: " + nombreMaterial, 
-                    "Éxito", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            
-            // Limpiar formulario
-            jTextField1.setText("");
-            jList1.clearSelection();
-            
-            // ¡IMPORTANTE! Refrescamos la lista llamando a la BD para ver el stock actualizado
-            cargarMateriales(); 
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el préstamo en la base de datos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-=======
             // Guardamos usando el idUsuario que sacamos del combo
             if (pDAO.registrarPrestamo(p, idUsuario)) {
                 JOptionPane.showMessageDialog(this, "¡Préstamo realizado con éxito!");
@@ -397,7 +306,6 @@ public class prestamos extends javax.swing.JDialog {
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "La cantidad debe ser un número.");
->>>>>>> Stashed changes
         }
     }
 
@@ -456,13 +364,8 @@ public class prestamos extends javax.swing.JDialog {
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-<<<<<<< Updated upstream
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-=======
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
->>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
 
