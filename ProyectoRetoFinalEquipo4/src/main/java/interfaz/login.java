@@ -22,6 +22,8 @@ public class login extends javax.swing.JFrame {
      * Creates new form login
      */
     
+   
+    
     public login() {
 
         setTitle("Login de usuario");
@@ -187,23 +189,28 @@ public class login extends javax.swing.JFrame {
         Usuario usuario = dao.login(email, password);
 
         if (usuario != null) {
+            JOptionPane.showMessageDialog(this, "Bienvenido, " + usuario.getNombre());
 
-            JOptionPane.showMessageDialog(this,
-                    "Bienvenido, " + usuario.getNombre());
+            this.dispose(); // Cerramos el login
 
+<<<<<<< Updated upstream
             this.dispose();
             
             if(usuario.getRol().equals("Profesor")){
                 new MenuPrincipalProfesor().setVisible(true);
+=======
+            // PASAMOS EL OBJETO 'usuario' A LOS CONSTRUCTORES
+            if(usuario.getRol().equalsIgnoreCase("profesor")){
+                // Asegúrate de que MenuPrincipalProfesor también reciba el usuario
+                new MenuPrincipalProfesor(usuario).setVisible(true); 
+>>>>>>> Stashed changes
             } else {
-                new MenuPrincipalAdmin().setVisible(true);
+                // Aquí pasamos el usuario al Admin
+                new MenuPrincipalAdmin(usuario).setVisible(true);
             }
-            
+
         } else {
-
-            JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos.");
-
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
         }
     }//GEN-LAST:event_botonContActionPerformed
 

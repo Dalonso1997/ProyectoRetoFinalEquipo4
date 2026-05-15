@@ -32,7 +32,6 @@ modelClasesTablas\Inventario.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
 interfaz\ubicacion\CambioUbicacion$3.class
 daoClasesSQL\MaterialDAO.class
-devolucionesYPrestamos\prestamos$5$1.class
 controllerClasesGestionModelVista\NewClass.class
 modelClasesTablas\Prestamo.class
 interfaz\modificar\MenuModificar$8.class

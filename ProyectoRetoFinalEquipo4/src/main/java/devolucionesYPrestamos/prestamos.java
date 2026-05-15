@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class prestamos extends javax.swing.JDialog {
 
+    private modelClasesTablas.Usuario userLogueado;
     private List<Prestamo> registroPrestamos = new ArrayList<>();
     private javax.swing.DefaultListModel<Object[]> modeloLista = new javax.swing.DefaultListModel<>();
     private daoClasesSQL.MaterialDAO mDAO = new daoClasesSQL.MaterialDAO();
@@ -56,13 +57,25 @@ public class prestamos extends javax.swing.JDialog {
     /**
      * Creates new form prestamos
      */
-    public prestamos(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        inicializarDatos();
-        configurarEventos();
-        cargarMateriales();
+    public prestamos(java.awt.Frame parent, boolean modal, modelClasesTablas.Usuario usuarioQueVieneDelLogin) {
+    super(parent, modal);
+    this.userLogueado = usuarioQueVieneDelLogin; 
+    
+    initComponents();
+    
+    if (this.userLogueado != null) {
+        // LLAMADA CORREGIDA: Pasamos ID (int), Nombre (String) y Rol (String)
+        cargarUsuarios(
+            userLogueado.getId_usuario(), 
+            userLogueado.getNombre(), 
+            userLogueado.getRol()
+        );
     }
+    
+    inicializarDatos();
+    configurarEventos();
+    cargarMateriales();
+}
 
     private void inicializarDatos() {
         // Cargar materiales de ejemplo en la lista
@@ -88,9 +101,16 @@ public class prestamos extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+<<<<<<< Updated upstream
         jSeparator1 = new javax.swing.JSeparator();
+=======
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxUsuarios = new javax.swing.JComboBox<>();
+>>>>>>> Stashed changes
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -130,6 +150,7 @@ public class prestamos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addComponent(jButton1)
                         .addGap(35, 35, 35)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,6 +158,24 @@ public class prestamos extends javax.swing.JDialog {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
+=======
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
+>>>>>>> Stashed changes
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,6 +184,7 @@ public class prestamos extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+<<<<<<< Updated upstream
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -161,6 +201,28 @@ public class prestamos extends javax.swing.JDialog {
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(28, Short.MAX_VALUE))
+=======
+                        .addComponent(jLabel1)
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 87, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36))
+>>>>>>> Stashed changes
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,16 +284,23 @@ public class prestamos extends javax.swing.JDialog {
         // Ahora la lista devuelve un array de objetos con los datos de la BD
         Object[] seleccionado = (Object[]) jList1.getSelectedValue();
 
+<<<<<<< Updated upstream
         // Validaciones básicas
         if (nombrePersona.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar el nombre de la persona.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
+=======
+        Object[] materialSel = (Object[]) jList1.getSelectedValue();
+        Object[] usuarioSel = (Object[]) jComboBoxUsuarios.getSelectedItem(); // Obtenemos el usuario del combo
+        
+>>>>>>> Stashed changes
         if (seleccionado == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un material de la lista.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+<<<<<<< Updated upstream
         // Extraemos los datos del array seleccionado (según el orden de tu MaterialDAO)
         int idMaterial = (int) seleccionado[0];
         String nombreMaterial = (String) seleccionado[1];
@@ -249,10 +318,23 @@ public class prestamos extends javax.swing.JDialog {
             javax.swing.JOptionPane.showMessageDialog(this, "No hay stock disponible para este material.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
+=======
+    int idUsuario = (int) usuarioSel[0];   // El ID real
+        String nombreUser = usuarioSel[1].toString(); // El nombre
+
+        String cantTexto = jTextField2.getText().trim();
+        String obsTexto  = jTextField3.getText().trim();
+
+        try {
+            int idMat = (int) materialSel[0];
+            int stock = (int) materialSel[6];
+            int cantPedida = Integer.parseInt(cantTexto);
+>>>>>>> Stashed changes
 
         // Lógica de cantidad (Asumimos 1 por defecto)
         int cantidadSolicitada = 1;
 
+<<<<<<< Updated upstream
         // Crear el objeto Préstamo usando TU constructor
         // OJO: He puesto 'null' en el Estado. Si tu Enum requiere un valor, ponlo aquí (ej. Estado.PRESTADO)
         modelClasesTablas.Prestamo nuevoPrestamo = new modelClasesTablas.Prestamo(
@@ -263,10 +345,17 @@ public class prestamos extends javax.swing.JDialog {
                 cantidadSolicitada, 
                 "Sin observaciones"
         );
+=======
+            // Creamos el objeto Préstamo con el nombre del usuario seleccionado
+            modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
+                    idMat, nombreUser, "Préstamo", null, cantPedida, obsTexto
+            );
+>>>>>>> Stashed changes
 
         // Guardar en la Base de Datos
         daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
 
+<<<<<<< Updated upstream
         if (pDAO.registrarPrestamo(nuevoPrestamo)) {
             // Confirmación
             javax.swing.JOptionPane.showMessageDialog(this, 
@@ -282,36 +371,80 @@ public class prestamos extends javax.swing.JDialog {
             cargarMateriales(); 
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el préstamo en la base de datos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+=======
+            // Guardamos usando el idUsuario que sacamos del combo
+            if (pDAO.registrarPrestamo(p, idUsuario)) {
+                JOptionPane.showMessageDialog(this, "¡Préstamo realizado con éxito!");
+                cargarMateriales(); // Refrescar stock en la lista
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número.");
+>>>>>>> Stashed changes
         }
     }
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+            // Asegúrate de que los parámetros sean: int, String, String
+    private void cargarUsuarios(int idActual, String nombreActual, String rolActual) {
+        jComboBoxUsuarios.removeAllItems(); // Limpiar el combo
+
+        if (rolActual.equalsIgnoreCase("administrador")) {
+            // Si es admin, traemos todos de la base de datos
+            daoClasesSQL.UsuarioDAO uDAO = new daoClasesSQL.UsuarioDAO();
+            java.util.List<Object[]> usuarios = uDAO.listarUsuarios();
+            for (Object[] u : usuarios) {
+                jComboBoxUsuarios.addItem(u); 
+            }
+        } else {
+            // Si es profesor, solo se agrega a sí mismo (mismo formato que el admin: ID, Nombre, Rol)
+            Object[] yo = new Object[]{idActual, nombreActual, rolActual};
+            jComboBoxUsuarios.addItem(yo);
+        }
+
+        // Configurar el Renderer para mostrar el nombre
+        jComboBoxUsuarios.setRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
-            public void run() {
-                prestamos dialog = new prestamos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+            public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Object[]) {
+                    Object[] u = (Object[]) value;
+                    setText(u[1].toString()); // El nombre está en la posición 1
+                }
+                return this;
             }
         });
     }
+
+    public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(() -> {
+        // Creamos un usuario temporal para que el programa no de error al probar
+        modelClasesTablas.Usuario testUser = new modelClasesTablas.Usuario();
+        testUser.setNombre("Admin");
+        testUser.setRol("administrador");
+
+        // PASAMOS EL TERCER PARÁMETRO AQUÍ:
+        prestamos dialog = new prestamos(new javax.swing.JFrame(), true, testUser);
+        dialog.setVisible(true);
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<Object[]> jComboBoxUsuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+<<<<<<< Updated upstream
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
+=======
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+>>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
 

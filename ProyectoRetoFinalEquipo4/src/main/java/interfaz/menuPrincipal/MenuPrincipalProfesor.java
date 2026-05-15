@@ -15,11 +15,20 @@ import viewFormularios.VentanaBusqueda;
  */
 public class MenuPrincipalProfesor extends javax.swing.JFrame {
 
+    
+    private modelClasesTablas.Usuario userSesion;
+    
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipalProfesor() {
+    public MenuPrincipalProfesor(modelClasesTablas.Usuario usuarioLogin) {
         initComponents();
+        
+        // Guardamos el usuario que recibimos
+        this.userSesion = usuarioLogin;
+        
+        // Opcional: Puedes poner el nombre del profesor en algún JLabel si tienes uno
+        // lblBienvenida.setText("Bienvenido, Prof. " + userSesion.getNombre());
     }
 
     /**
@@ -186,7 +195,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
 
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
-        prestamos prestamo = new prestamos(this,true);
+        prestamos prestamo = new prestamos(this,true,this.userSesion);
         prestamo.setVisible(true);
         
         panelDerecha.revalidate();
@@ -233,7 +242,11 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipalProfesor().setVisible(true);
+                modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
+                uTest.setNombre("Profesor Prueba");
+                uTest.setRol("profesor");
+
+                new MenuPrincipalProfesor(uTest).setVisible(true);
             }
         });
     }

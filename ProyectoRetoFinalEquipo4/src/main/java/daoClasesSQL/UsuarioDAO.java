@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelClasesTablas.Usuario;
 import utilsClasesApoyo.ConexionBD;
 
@@ -69,6 +71,38 @@ public class UsuarioDAO {
         
         //Devolvemos el usuario (Con sus datos si era correcto, null si no lo es)
         return usuarioLogueado;
+    }
+    
+    
+    
+    
+    public List<Object[]> listarUsuarios(){
+    
+    
+        List<Object[]> lista = new ArrayList<>();
+        Connection con = ConexionBD.getInstancia().getConexion();
+
+        String sql = "SELECT id_usuario, nombre, rol FROM usuarios";
+        
+        
+        try (PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getInt("id_usuario"), 
+                    rs.getString("nombre"),   
+                    rs.getString("rol")        
+                   
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar: " + e.getMessage());
+        }
+        
+        return lista;
+        
+    
     }
    
 }

@@ -19,11 +19,13 @@ import viewFormularios.VentanaBusqueda;
  */
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
+    private modelClasesTablas.Usuario userSesion;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipalAdmin() {
+    public MenuPrincipalAdmin(modelClasesTablas.Usuario usuarioLogin) {
         initComponents();
+        this.userSesion = usuarioLogin;
     }
 
     /**
@@ -279,7 +281,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
 
-        prestamos prestamo = new prestamos(this, true);
+        prestamos prestamo = new prestamos(this, true,this.userSesion);
         prestamo.setVisible(true);
 
         panelDerecha.revalidate();
@@ -445,7 +447,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipalAdmin().setVisible(true);
+                modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
+            uTest.setNombre("Profesor Prueba");
+            uTest.setRol("profesor");
+            
+            new MenuPrincipalAdmin(uTest).setVisible(true);
             }
         });
     }
