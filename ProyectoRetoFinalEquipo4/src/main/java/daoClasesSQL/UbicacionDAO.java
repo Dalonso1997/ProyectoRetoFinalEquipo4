@@ -71,4 +71,65 @@ public class UbicacionDAO {
         
     }
     
+    
+    public List<String> listarArmarios(){
+        
+        List<String> lista = new ArrayList<>();
+        
+        Connection con = ConexionBD.getInstancia().getConexion();
+        
+       String sql = "SELECT DISTINCT ubicacion.nombre FROM ubicacion WHERE ubicacion.tipo = 'armario' ORDER BY ubicacion.nombre ASC";
+        
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){
+                String armario = rs.getString("nombre");
+                System.out.println("aramario encontrado: "+armario);
+                lista.add(armario);
+            }
+            
+        } catch (SQLException e){
+            System.out.println("Error en la consulta" + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        System.out.println("Total armarios: "+lista.size());
+        return lista;
+    }
+    
+    
+    
+    public List<Ubicacion> listarCajonesPorArmario(String nombreArmario){
+        
+        List<Ubicacion> lista = new ArrayList<>();
+        Connection con = ConexionBD.getInstancia().getConexion();
+        
+        String sql = "SELECT * FROM ubicacion WHERE nombre = ? ORDER BY cajon ASC";
+        
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, nombreArmario);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){
+                
+                Ubicacion ubi = new Ubicacion(
+                
+                rs.getInt("id_ubicacion"),
+                        rs.getString("tipo"),
+                        rs.getString("nombre"),
+                        rs.getInt("cajon"),
+                        rs.getString("descripcion")
+                );
+                
+                lista.add(ubi);
+                
+            }
+            
+        } catch (SQLException e){
+            System.out.println("Error al consultar el nombre");
+        }
+        return lista;
+    }
 }

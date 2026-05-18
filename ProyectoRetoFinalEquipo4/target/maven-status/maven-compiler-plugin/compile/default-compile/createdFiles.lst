@@ -24,7 +24,6 @@ modelClasesTablas\Prestamo.class
 interfaz\modificar\MenuModificar$1.class
 viewFormularios\VentanaInformes.class
 devolucionesYPrestamos\prestamos$4.class
-viewFormularios\FormularioAltaMaterialNuevo$5$1.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
 modelClasesTablas\Categoria.class
 viewFormularios\VentanaBusqueda$6.class

@@ -68,16 +68,15 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             desplegableCategoria.addItem(categoria);
         }
         
-        //De nuevo vaciamos el contenido ahora de ubicacion, por el mismo motivo que el estado
-        desplegableUbicacion.removeAllItems();
         
         //Instanciamos el DAO de ubicacion y lo metemos en una lista
-        UbicacionDAO ubicacion = new UbicacionDAO();
-        List<Ubicacion> ubicaciones = ubicacion.listarTodos();
+        UbicacionDAO ubicacionDAO = new UbicacionDAO();
+        desplegableArmario.removeAllItems();
         
-        //Recorremos y anadimos al desplegable cada ubicacion situada en la base de datos
-        for (Ubicacion ubi : ubicaciones) {
-            desplegableUbicacion.addItem(ubi);
+        for (String armario : ubicacionDAO.listarArmarios()) {
+            
+            desplegableArmario.addItem(armario);
+            
         }
 
     }
@@ -105,10 +104,12 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         desplegableEstado = new javax.swing.JComboBox<>();
         desplegableCategoria = new javax.swing.JComboBox<>();
         etiquetaCategoria = new javax.swing.JLabel();
-        etiquetaUbicacion = new javax.swing.JLabel();
-        desplegableUbicacion = new javax.swing.JComboBox<>();
+        etiquetaArmario = new javax.swing.JLabel();
+        desplegableArmario = new javax.swing.JComboBox<>();
         btnCancelar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        etiquetaCajon = new javax.swing.JLabel();
+        desplegableCajon = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,9 +157,15 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         etiquetaCategoria.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaCategoria.setText("Categoria:");
 
-        etiquetaUbicacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        etiquetaUbicacion.setForeground(new java.awt.Color(255, 255, 255));
-        etiquetaUbicacion.setText("Ubicacion:");
+        etiquetaArmario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaArmario.setForeground(new java.awt.Color(255, 255, 255));
+        etiquetaArmario.setText("Armario");
+
+        desplegableArmario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                desplegableArmarioActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +181,10 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             }
         });
 
+        etiquetaCajon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        etiquetaCajon.setForeground(new java.awt.Color(255, 255, 255));
+        etiquetaCajon.setText("Cajon:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -188,7 +199,8 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                             .addComponent(etiquetaCantidad)
                             .addComponent(etiquetaEstado)
                             .addComponent(etiquetaCategoria)
-                            .addComponent(etiquetaUbicacion))
+                            .addComponent(etiquetaArmario)
+                            .addComponent(etiquetaCajon))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDescripcion)
@@ -197,8 +209,9 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(desplegableUbicacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoNombre)))
+                            .addComponent(desplegableArmario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoNombre)
+                            .addComponent(desplegableCajon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 28, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,9 +255,13 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                     .addComponent(etiquetaCategoria))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaUbicacion)
-                    .addComponent(desplegableUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                    .addComponent(etiquetaArmario)
+                    .addComponent(desplegableArmario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(etiquetaCajon)
+                    .addComponent(desplegableCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(lineaSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -292,7 +309,7 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             String descripcion = campoDescripcion.getText().trim();
             int cantidad = (int) selectorCantidad.getValue();
             Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
-            Ubicacion ubi = (Ubicacion) desplegableUbicacion.getSelectedItem();
+            Ubicacion ubi = (Ubicacion) desplegableArmario.getSelectedItem();
             Estado estado = (Estado) desplegableEstado.getSelectedItem();
             
             //Creamos un nuevo material en base a los datos recogidos del formulario
@@ -309,6 +326,23 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void desplegableArmarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableArmarioActionPerformed
+        String armarioSeleccionado = (String) desplegableArmario.getSelectedItem();
+        
+        if (armarioSeleccionado == null){
+            return;
+        }
+        
+        desplegableCajon.removeAllItems();
+        
+        UbicacionDAO ubicacionDAO = new UbicacionDAO();
+        
+        for (Ubicacion ubi : ubicacionDAO.listarCajonesPorArmario(armarioSeleccionado)) {
+            desplegableCajon.addItem(ubi);
+        }
+        
+    }//GEN-LAST:event_desplegableArmarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,15 +392,17 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JTextField campoDescripcion;
     private javax.swing.JTextField campoNombre;
+    private javax.swing.JComboBox<String> desplegableArmario;
+    private javax.swing.JComboBox<Ubicacion> desplegableCajon;
     private javax.swing.JComboBox<Categoria> desplegableCategoria;
     private javax.swing.JComboBox<Estado> desplegableEstado;
-    private javax.swing.JComboBox<Ubicacion> desplegableUbicacion;
+    private javax.swing.JLabel etiquetaArmario;
+    private javax.swing.JLabel etiquetaCajon;
     private javax.swing.JLabel etiquetaCantidad;
     private javax.swing.JLabel etiquetaCategoria;
     private javax.swing.JLabel etiquetaDescripcion;
     private javax.swing.JLabel etiquetaEstado;
     private javax.swing.JLabel etiquetaNombre;
-    private javax.swing.JLabel etiquetaUbicacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator lineaSeparador1;

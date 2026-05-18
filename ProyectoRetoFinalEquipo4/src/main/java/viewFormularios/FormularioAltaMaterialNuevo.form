@@ -53,7 +53,8 @@
                               <Component id="etiquetaCantidad" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="etiquetaEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="etiquetaCategoria" min="-2" max="-2" attributes="0"/>
-                              <Component id="etiquetaUbicacion" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="etiquetaArmario" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="etiquetaCajon" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -64,8 +65,9 @@
                                   <Component id="selectorCantidad" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="desplegableUbicacion" max="32767" attributes="0"/>
+                              <Component id="desplegableArmario" max="32767" attributes="0"/>
                               <Component id="campoNombre" alignment="0" max="32767" attributes="0"/>
+                              <Component id="desplegableCajon" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -123,10 +125,15 @@
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="etiquetaUbicacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="desplegableUbicacion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="etiquetaArmario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="desplegableArmario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="97" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="etiquetaCajon" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="desplegableCajon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
                   <Component id="lineaSeparador2" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -251,7 +258,7 @@
             <Property name="text" type="java.lang.String" value="Categoria:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="etiquetaUbicacion">
+        <Component class="javax.swing.JLabel" name="etiquetaArmario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
@@ -259,12 +266,15 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Ubicacion:"/>
+            <Property name="text" type="java.lang.String" value="Armario"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="desplegableUbicacion">
+        <Component class="javax.swing.JComboBox" name="desplegableArmario">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="desplegableArmarioActionPerformed"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Ubicacion&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
@@ -282,6 +292,22 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGuardarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="etiquetaCajon">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cajon:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="desplegableCajon">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Ubicacion&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
