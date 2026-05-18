@@ -139,7 +139,15 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             new String [] {
                 "Nombre", "Descripción", "Categoría", "Estado", "ubicacion", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowHeight(40);
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
