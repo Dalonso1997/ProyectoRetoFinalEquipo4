@@ -45,7 +45,6 @@ public class MaterialDAO {
 
         List<Object> parametros = new ArrayList<>();
 
-<<<<<<< Updated upstream
             if (texto != null && !texto.trim().isEmpty()) {
                 sql.append("AND (m.nombre LIKE ? OR m.descripcion LIKE ?) ");
                 parametros.add("%" + texto.trim() + "%");
@@ -97,59 +96,6 @@ public class MaterialDAO {
                 System.out.println("Error al buscar materiales: " + e.getMessage());
             }
             return resultados;
-=======
-        if (texto != null && !texto.trim().isEmpty()) {
-            sql.append("AND (m.nombre LIKE ? OR m.descripcion LIKE ?) ");
-            parametros.add("%" + texto.trim() + "%");
-            parametros.add("%" + texto.trim() + "%");
->>>>>>> Stashed changes
-        }
-
-        if (categoriaNombre != null && !categoriaNombre.trim().isEmpty()) {
-            sql.append("AND c.nombre = ? ");
-            parametros.add(categoriaNombre.trim());
-        }
-
-        // CORRECCIÓN: Filtramos por el NOMBRE del estado en la tabla 'e'
-        if (estado != null && !estado.trim().isEmpty()) {
-            sql.append("AND e.nombre = ? ");
-            parametros.add(estado.trim());
-        }
-
-        if (ubicacionStr != null && !ubicacionStr.trim().isEmpty()) {
-            String[] partes = ubicacionStr.split(" - ");
-            sql.append("AND u.nombre = ? "); // Asumiendo que u.nombre es el nombre del armario/ubicación
-            parametros.add(partes[0].trim());
-            if (partes.length > 1) {
-                sql.append("AND u.cajon = ? ");
-                parametros.add(partes[1].replace("Cajón ", "").trim());
-            }
-        }
-
-        sql.append("ORDER BY m.nombre");
-
-        try (PreparedStatement ps = conexion.prepareStatement(sql.toString())) {
-            for (int i = 0; i < parametros.size(); i++) {
-                ps.setObject(i + 1, parametros.get(i));
-            }
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    resultados.add(new Object[]{
-                        rs.getInt("id_material"),
-                        rs.getString("nombre"),
-                        rs.getString("descripcion"),
-                        rs.getString("categoria"),
-                        rs.getString("estado_nombre"), // Usamos el alias de la consulta
-                        rs.getString("ubicacion"),
-                        rs.getInt("cantidad")
-                    });
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al buscar materiales: " + e.getMessage());
-        }
-        return resultados;
     }
 
     public boolean insertarMaterial(Material m) {
