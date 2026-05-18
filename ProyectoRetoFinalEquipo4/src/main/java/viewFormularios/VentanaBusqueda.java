@@ -10,7 +10,9 @@ import daoClasesSQL.UbicacionDAO;
 import java.awt.Desktop;
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelClasesTablas.Categoria;
@@ -23,44 +25,50 @@ import modelClasesTablas.Ubicacion;
  * @author DAM126
  */
 public class VentanaBusqueda extends javax.swing.JDialog {
-    
+
     /**
      * Creates new form VentanaBusqueda
      */
     public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
-    super(parent, modal);
-    initComponents();
-    this.setTitle("Búsqueda Componentes");
-    this.setLocationRelativeTo(null);
-    
-    boolean cancelando = false;
+        super(parent, modal);
+        initComponents();
+        this.setTitle("Busqueda Componentes");
+        this.setLocationRelativeTo(null);
 
-    // 1. Categorías: Añadir "TODAS" al principio
-    ElejirCategoria.removeAllItems();
-    ElejirCategoria.addItem("TODAS");
-    CategoriaDAO categoriaDAO = new CategoriaDAO();
-    for (Categoria c : categoriaDAO.listarTodos()) {
-        ElejirCategoria.addItem(c.getNombre());
-    }
+        // 1. Categorías: Añadir "TODAS" al principio
+        ElejirCategoria.removeAllItems();
+        ElejirCategoria.addItem("TODAS");
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        for (Categoria c : categoriaDAO.listarTodos()) {
+            ElejirCategoria.addItem(c.getNombre());
+        }
 
-    // 2. Estados: Ya lo tienes bien encaminado
-    ElejirEstado.removeAllItems();
-    ElejirEstado.addItem("TODOS");
-    daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
-    for (modelClasesTablas.Estado e : estadoDAO.listarTodos()) {
-        ElejirEstado.addItem(e.getNombre());
-    }
+        // 2. Estados: Ya lo tienes bien encaminado
+        ElejirEstado.removeAllItems();
+        ElejirEstado.addItem("TODOS");
+        daoClasesSQL.EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
+        for (modelClasesTablas.Estado e : estadoDAO.listarTodos()) {
+            ElejirEstado.addItem(e.getNombre());
+        }
 
-    // 3. Ubicaciones: Corregir getUbicacion() por getNombre()
-    ElejirUbicacion.removeAllItems();
-    ElejirUbicacion.addItem("TODAS");
-    UbicacionDAO ubicacionDAO = new UbicacionDAO();
-    for (Ubicacion u : ubicacionDAO.listarTodos()) {
-        // Lógica para no mostrar "null" si es una mesa
-        String detalle = (u.getCajon() != null) ? " - Cajón " + u.getCajon() : "";
-        ElejirUbicacion.addItem(u.getUbicacion() + detalle);
+        // 3. Armarios — carga solo los unicos
+        ElejirArmario.removeAllItems();
+        ElejirArmario.addItem("TODOS");
+        UbicacionDAO ubicacionDAO = new UbicacionDAO();
+        List<Ubicacion> ubicaciones = ubicacionDAO.listarTodos();
+
+        Set<String> armariosUnicos = new java.util.LinkedHashSet<>();
+        for (Ubicacion u : ubicaciones) {
+            armariosUnicos.add(u.getUbicacion()); 
+        }
+        for (String armario : armariosUnicos) {
+            ElejirArmario.addItem(armario);
+        }
+
+        // 4. Cajon empieza vacio
+        ElejirCajon.removeAllItems();
+        ElejirCajon.addItem("TODOS");
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,17 +82,19 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         botonBuscar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Categoria = new javax.swing.JLabel();
         ElejirCategoria = new javax.swing.JComboBox<>();
-        ElejirUbicacion = new javax.swing.JComboBox<>();
+        ElejirCajon = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         ElejirEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         TextBusqueda = new javax.swing.JTextField();
         MensageMaterialesEncontrados = new javax.swing.JLabel();
-        botonCancelar = new javax.swing.JButton();
+        BotonCancelar = new javax.swing.JButton();
+        Armario = new javax.swing.JLabel();
+        ElejirArmario = new javax.swing.JComboBox<>();
+        Cajon = new javax.swing.JLabel();
         BotonPaginaWeb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -100,13 +110,9 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Categoría:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ubicación:");
+        Categoria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Categoria.setForeground(new java.awt.Color(255, 255, 255));
+        Categoria.setText("Categoría:");
 
         ElejirCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +120,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
-        ElejirUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ElejirCajon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,14 +150,28 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             }
         });
 
-        botonCancelar.setText("Cancelar");
-        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+        BotonCancelar.setText("Cancelar");
+        BotonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonCancelarActionPerformed(evt);
+                BotonCancelarActionPerformed(evt);
             }
         });
 
-        BotonPaginaWeb.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Armario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Armario.setForeground(new java.awt.Color(255, 255, 255));
+        Armario.setText("Armario");
+
+        ElejirArmario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ElejirArmario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElejirArmarioActionPerformed(evt);
+            }
+        });
+
+        Cajon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Cajon.setForeground(new java.awt.Color(255, 255, 255));
+        Cajon.setText("Cajon");
+
         BotonPaginaWeb.setText("Ir Pagina Web");
         BotonPaginaWeb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,34 +184,41 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(14, 14, 14)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ElejirUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(TextBusqueda))
-                        .addGap(28, 28, 28)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(165, 165, 165)
-                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Cajon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ElejirCajon, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(352, 352, 352)
-                                .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 480, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                                    .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Armario, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ElejirArmario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(169, 169, 169)
+                        .addComponent(TextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(BotonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63)
+                                .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 940, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -199,32 +226,37 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Categoria)
+                            .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Armario)
+                            .addComponent(ElejirArmario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MensageMaterialesEncontrados, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TextBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(jLabel3)
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(ElejirUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(7, 7, 7)
-                                .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(ElejirCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Cajon)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BotonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ElejirEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97))
@@ -263,13 +295,14 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
-        
+
         try {
-            
+
             String texto = TextBusqueda.getText().trim();
             String categoriaSel = (String) ElejirCategoria.getSelectedItem();
             String estadoSel = (String) ElejirEstado.getSelectedItem();
-            String ubicacionSel = (String) ElejirUbicacion.getSelectedItem().toString();
+            String armarioSel = (String) ElejirArmario.getSelectedItem();
+            String cajonSel = (String) ElejirCajon.getSelectedItem();
 
             // Integer idCategoria = null;
 //            if (categoriaSel != null && !categoriaSel.equals("TODAS")) {  // ✅ Cambiar a categoriaSel
@@ -297,12 +330,19 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             String textoFiltro = texto.isEmpty() ? null : texto;
             String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
             String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
-            String ubicacionFiltro = (ubicacionSel != null && ubicacionSel.equals("TODAS")) ? null : ubicacionSel;
+            String ubicacionFiltro = null;
+            
+            // Combinar armario y cajon para el filtro de ubicacion
+            if (armarioSel != null && !armarioSel.equals("TODOS")) {
+                if (cajonSel != null && !cajonSel.equals("TODOS")) {
+                    ubicacionFiltro = armarioSel + " - " + cajonSel.replace("Cajon ", "");
+                } else {
+                    ubicacionFiltro = armarioSel;
+                }
+            }
 
             MaterialDAO dao = new MaterialDAO();
             List<Object[]> lista = dao.buscar(textoFiltro, categoriaFiltro, estadoFiltro, ubicacionFiltro);
-//Variables añadidas para un push
-            
 
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setRowCount(0);
@@ -316,7 +356,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                     fila[6]});
 
             }
-            
+
             if (lista.isEmpty()) {
                 MensageMaterialesEncontrados.setText("No se encontraron materiales");
             } else if (lista.size() == 1) {
@@ -324,7 +364,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             } else {
                 MensageMaterialesEncontrados.setText(lista.size() + " materiales encontrados");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                     "Error al buscar: " + e.getMessage(),
@@ -341,30 +381,49 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_ElejirCategoriaActionPerformed
 
-    private void botonIrPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIrPaginaWebActionPerformed
+    private void botonBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_botonIrPaginaWebActionPerformed
 
-    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void BotonPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPaginaWebActionPerformed
         // TODO add your handling code here:
         try {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().browse(
-                                new URI("http://3.224.141.230/")
-                        );
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this,
-                            "No se pudo abrir la página web");
-                }
-            
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(
+                        new URI("http://3.224.141.230/")
+                );
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo abrir la pagina web");
+        }
+
     }//GEN-LAST:event_BotonPaginaWebActionPerformed
+
+    private void BotonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BotonCancelarActionPerformed
+
+    private void ElejirArmarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElejirArmarioActionPerformed
+        // TODO add your handling code here:
+        String armarioSel = (String) ElejirArmario.getSelectedItem();
+        ElejirCajon.removeAllItems();
+        ElejirCajon.addItem("TODOS");
+
+        if (armarioSel == null || armarioSel.equals("TODOS")) {
+            return;
+        }
+
+        UbicacionDAO ubicacionDAO = new UbicacionDAO();
+        for (Ubicacion u : ubicacionDAO.listarTodos()) {
+            if (u.getUbicacion().equals(armarioSel)) {
+                String cajon = (u.getCajon() != null) ? "Cajon " + u.getCajon() : "Sin cajon";
+                ElejirCajon.addItem(cajon);
+            }
+        }
+    }//GEN-LAST:event_ElejirArmarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,18 +467,20 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         });
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Armario;
+    private javax.swing.JButton BotonCancelar;
     private javax.swing.JButton BotonPaginaWeb;
+    private javax.swing.JLabel Cajon;
+    private javax.swing.JLabel Categoria;
+    private javax.swing.JComboBox<String> ElejirArmario;
+    private javax.swing.JComboBox<String> ElejirCajon;
     private javax.swing.JComboBox<String> ElejirCategoria;
     private javax.swing.JComboBox<String> ElejirEstado;
-    private javax.swing.JComboBox<String> ElejirUbicacion;
     private javax.swing.JLabel MensageMaterialesEncontrados;
     private javax.swing.JTextField TextBusqueda;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonCancelar;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

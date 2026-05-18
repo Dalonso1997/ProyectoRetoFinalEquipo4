@@ -264,6 +264,7 @@ public class MaterialDAO {
             return false;
         }
     }
+        
 
     public List<String> buscarPorEstado() {
         Connection con = ConexionBD.getInstancia().getConexion();
