@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import viewFormularios.FormularioAltaMaterialNuevo;
+import viewFormularios.SelectorAlta;
 import viewFormularios.VentanaBusqueda;
 import viewFormularios.VentanaInformes;
 
@@ -493,8 +494,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
 
         //Abrimos la ventana de alta de material
-        FormularioAltaMaterialNuevo altaMaterial = new FormularioAltaMaterialNuevo(this, true);
-        altaMaterial.setVisible(true);
+        SelectorAlta selAlta = new SelectorAlta(this,true);
+        selAlta.setVisible(true);
         //Llamamos al boton de consulta para refrescar la consulta a la base de datos
         botonConsultaActionPerformed(null);
 

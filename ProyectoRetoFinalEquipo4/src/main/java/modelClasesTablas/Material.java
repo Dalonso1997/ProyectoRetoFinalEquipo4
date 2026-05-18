@@ -3,11 +3,13 @@ package modelClasesTablas;
 import java.time.LocalDateTime;
 
 /**
- * Representa un elemento del inventario del taller.
- * Refleja la estructura de la tabla 'materiales' de la base de datos.
+ * Representa un elemento del inventario del taller. Refleja la estructura de la
+ * tabla 'materiales' de la base de datos.
+ *
  * * @author DAM126
  */
 public class Material {
+
     private int id_material;
     private String nombre;
     private String descripcion;
@@ -44,7 +46,6 @@ public class Material {
     }
 
     // --- Getters y Setters ---
-
     public int getId_material() {
         return id_material;
     }
@@ -114,8 +115,6 @@ public class Material {
 
     @Override
     public String toString() {
-        return "Material{" + "id_material=" + id_material + ", nombre=" + nombre + 
-               ", cantidad=" + cantidad + ", id_estado=" + id_estado + 
-               ", id_categoria=" + id_categoria + ", id_ubicacion=" + id_ubicacion + '}';
+        return "[" + id_material + "] " + nombre + " (Stock: " + cantidad + ")";
     }
 }

@@ -6,6 +6,7 @@ package viewFormularios;
 
 import daoClasesSQL.MaterialDAO;
 import java.util.List;
+import modelClasesTablas.Material;
 
 /**
  *
@@ -19,6 +20,11 @@ public class SelectorAlta extends javax.swing.JDialog {
     public SelectorAlta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        MaterialDAO dao = new MaterialDAO();
+        List<Material> materiales = dao.buscarPorEstado("baja");
+        for (Material m : materiales) {
+            selectorMaterial.addItem(m.toString());
+        }
     }
 
     /**
@@ -35,6 +41,9 @@ public class SelectorAlta extends javax.swing.JDialog {
         lineaSeparador1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         selectorMaterial = new javax.swing.JComboBox<>();
+        bntAceptar = new javax.swing.JButton();
+        btnAnadir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,6 +63,27 @@ public class SelectorAlta extends javax.swing.JDialog {
             }
         });
 
+        bntAceptar.setText("Aceptar");
+        bntAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntAceptarActionPerformed(evt);
+            }
+        });
+
+        btnAnadir.setText("Anadir nuevo");
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnadirActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -63,17 +93,26 @@ public class SelectorAlta extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lineaSeparador1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel2)
+                        .addGap(287, 407, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(selectorMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 132, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(bntAceptar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnAnadir)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnCancelar))
+                                    .addComponent(selectorMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -87,7 +126,12 @@ public class SelectorAlta extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(selectorMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAnadir)
+                    .addComponent(btnCancelar)
+                    .addComponent(bntAceptar))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,19 +149,25 @@ public class SelectorAlta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectorMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectorMaterialActionPerformed
-        
-        MaterialDAO material = new MaterialDAO();
-        List<String> materiales = material.buscarPorEstado();
-        
-        for (String materiale : materiales) {
-            
-            selectorMaterial.addItem(materiale);
-            
-        }
-        
-        
-        
+
+      
+
+
     }//GEN-LAST:event_selectorMaterialActionPerformed
+
+    private void bntAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAceptarActionPerformed
+
+
+    }//GEN-LAST:event_bntAceptarActionPerformed
+
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        FormularioAltaMaterialNuevo form = new FormularioAltaMaterialNuevo(null, true);
+        form.setVisible(true);
+    }//GEN-LAST:event_btnAnadirActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,6 +212,9 @@ public class SelectorAlta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntAceptar;
+    private javax.swing.JButton btnAnadir;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
