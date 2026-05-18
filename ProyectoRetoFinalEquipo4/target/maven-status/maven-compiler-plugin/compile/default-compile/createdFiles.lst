@@ -1,5 +1,6 @@
 devolucionesYPrestamos\prestamos$Material.class
 viewFormularios\VentanaBusqueda$7$1.class
+viewFormularios\FormularioAltaMaterialNuevo$6$1.class
 viewFormularios\FormularioAltaMaterialNuevo$3.class
 pruebas\Pruebas.class
 CSV\GenerarCSV.class
@@ -31,6 +32,7 @@ viewFormularios\SelectorAlta$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$10.class
 daoClasesSQL\UbicacionDAO.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$6.class
+viewFormularios\SelectorAlta$3.class
 devolucionesYPrestamos\prestamos$5.class
 interfaz\ubicacion\CambioUbicacion$4$1.class
 viewFormularios\VentanaBusqueda$7.class
@@ -38,6 +40,7 @@ interfaz\ubicacion\CambioUbicacion$2.class
 modelClasesTablas\Usuario.class
 interfaz\menuPrincipal\MenuPrincipalProfesor.class
 interfaz\ubicacion\CambioUbicacion$4.class
+viewFormularios\SelectorAlta$5$1.class
 viewFormularios\VentanaBusqueda$5.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$5.class
 interfaz\mainInterfaz.class
@@ -56,6 +59,7 @@ interfaz\login.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$2.class
 viewFormularios\FormularioAltaMaterialNuevo$2.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$8.class
+viewFormularios\SelectorAlta$4.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$4.class
 devolucionesYPrestamos\devoluciones$3.class
 interfaz\login$3.class
@@ -76,6 +80,7 @@ devolucionesYPrestamos\prestamos$1.class
 viewFormularios\FormularioAltaMaterialNuevo$1.class
 viewFormularios\VentanaBusqueda$3.class
 viewFormularios\VentanaBusqueda.class
+viewFormularios\SelectorAlta$5.class
 modelClasesTablas\Ubicacion.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$4.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$3.class
@@ -85,6 +90,7 @@ interfaz\menuPrincipal\MenuPrincipalProfesor$2.class
 viewFormularios\VentanaInformes$2.class
 interfaz\modificar\MenuModificar$3.class
 interfaz\ubicacion\CambioUbicacion.class
+viewFormularios\FormularioAltaMaterialNuevo$6.class
 viewFormularios\SelectorAlta.class
 devolucionesYPrestamos\devoluciones$3$1.class
 interfaz\login$1.class

@@ -12,7 +12,7 @@ import utilsClasesApoyo.ConexionBD;
 /**
  * Clase DAO para la gestión de las ubicaciones (mesas y armarios).
  * Interactúa con la tabla 'ubicacion' de la base de datos en AWS.
- * @author DAM126
+ * @author alberto gonzalez
  */
 public class UbicacionDAO {
 

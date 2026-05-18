@@ -10,18 +10,26 @@ import java.awt.BorderLayout;
 import viewFormularios.VentanaBusqueda;
 
 /**
+ * Ventana del menú principal para los usuarios con el rol de profesor. Limita
+ * los accesos ocultando los botones de alta, baja, modificación e informes que
+ * son de administrador.
  *
- * @author DAM119
+ * * @author Equipo4
  */
 public class MenuPrincipalProfesor extends javax.swing.JFrame {
 
     private modelClasesTablas.Usuario userSesion;
+
     /**
-     * Creates new form MenuPrincipal
+     * Constructor que crea el menú principal del profesor e inicializa los
+     * componentes de la interfaz.
+     *
+     * * @param usuarioLogin objeto con la sesión activa del profesor que se
+     * acaba de loguear.
      */
     public MenuPrincipalProfesor(modelClasesTablas.Usuario usuarioLogin) {
         initComponents();
-        
+
         // Guardamos el usuario que recibimos en nuestra variable global
         this.userSesion = usuarioLogin;
     }
@@ -167,18 +175,30 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lanza el cuadro modal para buscar los detalles de localización de las
+     * herramientas del taller.
+     *
+     * * @param evt evento de acción al pulsar el botón localización.
+     * @author alberto gonzalez
+     */
     private void botonLocalizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLocalizacionActionPerformed
         // TODO add your handling code here:
         VentanaBusqueda buscar = new VentanaBusqueda(this, true);
         buscar.setVisible(true);
-        
+
         botonConsultaActionPerformed(null);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
     }//GEN-LAST:event_botonLocalizacionActionPerformed
-
+    /**
+     * Inyecta de forma dinámica el panel con la tabla de consulta de materiales
+     * en el scrollpane derecho.
+     *
+     * * @param evt evento de acción al pulsar el botón consulta.
+     * @author sergio camacho
+     */
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
         // TODO add your handling code here:
 
@@ -187,41 +207,57 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         panelDerecha.setViewportView(panel);
 
     }//GEN-LAST:event_botonConsultaActionPerformed
-
+    /**
+     * Abre el diálogo modal de préstamos pasando los parámetros de la sesión
+     * activa del profesor.
+     *
+     * * @param evt evento de acción al pulsar el botón préstamos.
+     * @author aday fernandez
+     */
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
-        prestamos p = new prestamos(this, true, this.userSesion); 
+        prestamos p = new prestamos(this, true, this.userSesion);
         p.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
     }//GEN-LAST:event_botonPrestamosActionPerformed
-
+    /**
+     * Muestra la pantalla flotante de devoluciones para que el profesor cierre
+     * sus entregas pendientes.
+     *
+     * * @param evt evento de acción al pulsar el botón devoluciones.
+     * @author aday fernandez
+     */
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
         // TODO add your handling code here:
-        devoluciones devolucion = new devoluciones(this,true);
+        devoluciones devolucion = new devoluciones(this, true);
         devolucion.setVisible(true);
-        
+
         panelDerecha.revalidate();
         panelDerecha.repaint();
     }//GEN-LAST:event_botonDevolucionesActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método de arranque encargado de aplicar el Look and Feel de Nimbus e
+     * iniciar el hilo visual del menú del profesor.
+     *
+     * * @param args argumentos de ejecución pasados por la consola del
+     * sistema.
      */
     public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            // Usuario de prueba para que el archivo no de error
-            modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
-            uTest.setNombre("Profesor Prueba");
-            uTest.setRol("profesor");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                // Usuario de prueba para que el archivo no de error
+                modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
+                uTest.setNombre("Profesor Prueba");
+                uTest.setRol("profesor");
 
-            // Pasamos el usuario de prueba al constructor
-            new MenuPrincipalProfesor(uTest).setVisible(true);
-        }
-    });
-}
+                // Pasamos el usuario de prueba al constructor
+                new MenuPrincipalProfesor(uTest).setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonConsulta;

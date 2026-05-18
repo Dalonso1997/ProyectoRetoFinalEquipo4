@@ -14,78 +14,93 @@ import modelClasesTablas.Usuario;
 import utilsClasesApoyo.ConexionBD;
 
 /**
+ * Clase del DAO para gestionar todas las consultas SQL relacionadas con los
+ * usuarios. Se encarga de comprobar las credenciales del login y listar los
+ * usuarios del taller.
  *
- * @author DAM126
+ * * @author alberto gonzalez
  */
 public class UsuarioDAO {
-    
+
+    /**
+     * Comprueba el email y la contraseña de un usuario en la base de datos para
+     * permitir el acceso.
+     *
+     * * @param email el correo electronico que introduce el usuario.
+     * @param password la contraseña asociada a esa cuenta de correo.
+     * @return el objeto Usuario con sus datos cargados si coincide, o null si
+     * las credenciales fallan.
+     */
     //Metodo que recibe lo que el usuario introduce en la pantalla de login
-    public Usuario login(String email, String password){
-        
+    public Usuario login(String email, String password) {
+
         //creamos esta variable para que el usuario logueado no exista en un pricipio.
         Usuario usuarioLogueado = null;
-        
+
         //Pedimos la conexion a la clase ConexionDB (Singleton)
         Connection con = ConexionBD.getInstancia().getConexion();
-        
+
         //Creamos un String con la consulta que necesita MySQL para recibir los datos del usuario introducido
         String sql = "SELECT * FROM usuarios WHERE email = ? AND password = ?";
-        
-        
+
         //Prepared Statement es el objeto de java que protege la consulta es decir valida que lo que se recoge en la variable sql es una consulta valida que no crea problemas en la base de datos
-        try (PreparedStatement ps = con.prepareStatement(sql)){
-            
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
             //Sustituimos los ? de la consulta en la varibale sql por los datos introducidos por el usuario
             //Por defecto el propio metodo lee las ? y las asigna un numero comenzando por 1 y ademas le ponemos la variable contenedora del email y la password del usuario
             ps.setString(1, email);
             ps.setString(2, password);
-            
+
             //Ejecutamos la consulta
-            try (ResultSet rs = ps.executeQuery()){
-                
+            try (ResultSet rs = ps.executeQuery()) {
+
                 //Si rs.next es true, MySql encontro del usuario
-                if(rs.next()){
-                    
+                if (rs.next()) {
+
                     //Creamos el usuario vacio usando el usuario que creamos en inexistente al principio del metodo
                     usuarioLogueado = new Usuario();
-                    
-                    
+
                     //Usamos los sets para meter los datos al usuario con los datos que nos ha devuelto la base de datos con la consulta
                     usuarioLogueado.setId_usuario(rs.getInt("id_usuario"));
                     usuarioLogueado.setNombre(rs.getString("nombre"));
                     usuarioLogueado.setApellidos(rs.getString("apellidos"));
                     usuarioLogueado.setEmail(rs.getString("email"));
-                    
-                    
+
                     //Obtenemos el rol que tiene el usuario que se loguea
                     usuarioLogueado.setRol(rs.getString("rol"));
-                    
+
                 }
-                
+
             }
-            
-            
-        } catch (SQLException e){
-            System.out.println("Error al consultar la base de datos: "+e.getMessage());
+
+        } catch (SQLException e) {
+            System.out.println("Error al consultar la base de datos: " + e.getMessage());
         }
-        
+
         //Devolvemos el usuario (Con sus datos si era correcto, null si no lo es)
         return usuarioLogueado;
     }
-    
+
+    /**
+     * Obtiene una lista simplificada de todos los usuarios registrados en el
+     * sistema del taller. Trae el identificador, el nombre y el rol asignado de
+     * cada uno para pintarlos en la interfaz.
+     *
+     * * @return una lista de arrays de objetos con los datos de las columnas
+     * elegidas.
+     */
     public List<Object[]> listarUsuarios() {
-    List<Object[]> lista = new ArrayList<>();
-    Connection con = ConexionBD.getInstancia().getConexion();
-    String sql = "SELECT id_usuario, nombre, rol FROM usuarios";
-    try (PreparedStatement ps = con.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-            lista.add(new Object[]{ rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("rol") });
+        List<Object[]> lista = new ArrayList<>();
+        Connection con = ConexionBD.getInstancia().getConexion();
+        String sql = "SELECT id_usuario, nombre, rol FROM usuarios";
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new Object[]{rs.getInt("id_usuario"), rs.getString("nombre"), rs.getString("rol")});
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println("Error: " + e.getMessage());
+        return lista;
     }
-    return lista;
-}
-   
+
 }

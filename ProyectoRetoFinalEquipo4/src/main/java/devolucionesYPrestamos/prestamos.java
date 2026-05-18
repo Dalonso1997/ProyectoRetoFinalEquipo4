@@ -12,8 +12,11 @@ import javax.swing.JOptionPane;
 import modelClasesTablas.Prestamo;
 
 /**
+ * Ventana modal para tramitar la salida de materiales del taller de
+ * informática. Controla que los profesores solo puedan pedirse cosas a sí
+ * mismos y que el administrador gestione a todos.
  *
- * @author DAM114
+ * * @author aday fernandez
  */
 public class prestamos extends javax.swing.JDialog {
 
@@ -21,10 +24,13 @@ public class prestamos extends javax.swing.JDialog {
     private javax.swing.DefaultListModel<Object[]> modeloLista = new javax.swing.DefaultListModel<>();
     private daoClasesSQL.MaterialDAO mDAO = new daoClasesSQL.MaterialDAO();
     private modelClasesTablas.Usuario userLogueado;
-    
-   
 
+    /**
+     * Clase interna para simular la estructura de los materiales de la
+     * aplicacion.
+     */
     class Material {
+
         String nombre;
         int stock;
         boolean prestable;
@@ -40,8 +46,12 @@ public class prestamos extends javax.swing.JDialog {
             return nombre + " (Stock: " + stock + ")";
         }
     }
-    
+
+    /**
+     * Clase interna para estructurar un modelo local de prestamos en memoria.
+     */
     class Prestamo {
+
         String persona;
         Material material;
         int cantidad;
@@ -52,27 +62,37 @@ public class prestamos extends javax.swing.JDialog {
             this.material = material;
             this.cantidad = cantidad;
             this.fecha = fecha;
-            
+
         }
     }
+
     /**
-     * Creates new form prestamos
+     * Constructor que inicia la gestion de prestamos cargando el usuario activo
+     * y los materiales.
+     *
+     * * @param parent ventana principal de la interfaz que posee este dialogo.
+     * @param modal bloquea las acciones de la ventana principal si esta en
+     * true.
+     * @param usuarioQueViene datos completos del profesor o admin que ha
+     * iniciado la sesion.
      */
     public prestamos(java.awt.Frame parent, boolean modal, modelClasesTablas.Usuario usuarioQueViene) {
-     super(parent, modal);
-     this.userLogueado = usuarioQueViene; // Guardamos la sesión antes que nada
-     initComponents();
+        super(parent, modal);
+        this.userLogueado = usuarioQueViene; // Guardamos la sesión antes que nada
+        initComponents();
 
-     // Cargamos los usuarios usando los datos del que inició sesión
-     cargarUsuarios(userLogueado.getId_usuario(), userLogueado.getNombre(), userLogueado.getRol());
+        // Cargamos los usuarios usando los datos del que inició sesión
+        cargarUsuarios(userLogueado.getId_usuario(), userLogueado.getNombre(), userLogueado.getRol());
 
-     cargarMateriales();
-     configurarEventos();
- }
+        cargarMateriales();
+        configurarEventos();
+    }
 
+    /**
+     * Vincula el modelo dinámico al JList generado por NetBeans.
+     */
     private void inicializarDatos() {
         // Cargar materiales de ejemplo en la lista
-       
 
         // Reemplazar el modelo por defecto generado por NetBeans
         jList1.setModel((javax.swing.ListModel) modeloLista);
@@ -205,23 +225,27 @@ public class prestamos extends javax.swing.JDialog {
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    /**
+     * Recupera los materiales que tienen estado disponible en AWS y los añade
+     * al JList. Aplica un formateador personalizado para extraer el texto de
+     * las filas de la consulta.
+     */
     private void cargarMateriales() {
         modeloLista.clear();
-        
+
         // Usamos tu MaterialDAO para buscar los materiales disponibles en la BD
         java.util.List<Object[]> materiales = mDAO.buscar("", "", "disponible", "");
         for (Object[] m : materiales) {
             modeloLista.addElement(m);
         }
         jList1.setModel(modeloLista);
-        
+
         // Esto le da formato a la lista para que leas el nombre en vez del código de memoria
         jList1.setCellRenderer(new javax.swing.DefaultListCellRenderer() {
             @Override
@@ -235,8 +259,10 @@ public class prestamos extends javax.swing.JDialog {
             }
         });
     }
-    
-    
+
+    /**
+     * Asocia los botones físicos de la pantalla con sus métodos lógicos.
+     */
     private void configurarEventos() {
         // Evento para el botón "Solicitar prestamo" (jButton1)
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +276,11 @@ public class prestamos extends javax.swing.JDialog {
         jButton3.addActionListener(evt -> dispose());
     }
 
-    // --- 3. LÓGICA DEL PRÉSTAMO CON BASE DE DATOS ---
+    /**
+     * Valida los campos de texto y procesa el préstamo definitivo a través del
+     * PrestamoDAO. Controla las excepciones de formato y recarga los datos de
+     * stock si todo sale bien.
+     */
     private void realizarPrestamo() {
         Object[] matSel = (Object[]) jList1.getSelectedValue();
         Object[] userSel = (Object[]) jComboBoxUsuarios.getSelectedItem();
@@ -279,7 +309,16 @@ public class prestamos extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }
-    
+
+    /**
+     * Rellena el combo de usuarios según el rol del usuario que ha iniciado
+     * sesión. Si es administrador se cargan todos los usuarios de la base de
+     * datos, si es profesor solo él mismo.
+     *
+     * * @param idActual el identificador numérico de la cuenta activa.
+     * @param nombreActual el nombre del profesor logueado.
+     * @param rolActual el grupo o nivel de permisos (administrador o profesor).
+     */
     private void cargarUsuarios(int idActual, String nombreActual, String rolActual) {
         jComboBoxUsuarios.removeAllItems();
 
@@ -308,22 +347,28 @@ public class prestamos extends javax.swing.JDialog {
         });
     }
 
+    /**
+     * Lanza la ventana de pruebas simulando un inicio de sesion administrador
+     * por defecto.
+     *
+     * * @param args argumentos de ejecucion de la linea de comandos.
+     */
     public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        @Override
-        public void run() {
-            // Creamos un usuario "fantasma" para que el main no dé error al compilar
-            modelClasesTablas.Usuario userTest = new modelClasesTablas.Usuario();
-            userTest.setId_usuario(1);
-            userTest.setNombre("Prueba");
-            userTest.setRol("administrador");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Creamos un usuario "fantasma" para que el main no dé error al compilar
+                modelClasesTablas.Usuario userTest = new modelClasesTablas.Usuario();
+                userTest.setId_usuario(1);
+                userTest.setNombre("Prueba");
+                userTest.setRol("administrador");
 
-            // SOLUCIÓN: Pasamos el tercer parámetro (userTest)
-            prestamos dialog = new prestamos(new javax.swing.JFrame(), true, userTest);
-            dialog.setVisible(true);
-        }
-    });
-}
+                // SOLUCIÓN: Pasamos el tercer parámetro (userTest)
+                prestamos dialog = new prestamos(new javax.swing.JFrame(), true, userTest);
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -340,7 +385,3 @@ public class prestamos extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
-
-
-    
-

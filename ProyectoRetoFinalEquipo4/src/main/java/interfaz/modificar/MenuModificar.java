@@ -14,8 +14,11 @@ import modelClasesTablas.Estado;
 import modelClasesTablas.Material;
 
 /**
+ * Ventana modal para modificar las propiedades principales de un material del
+ * taller. Carga dinámicamente las categorías y estados reales para
+ * actualizarlos en la base de datos.
  *
- * @author DAM119
+ * * @author sergio camacho
  */
 public class MenuModificar extends javax.swing.JDialog {
 
@@ -27,6 +30,17 @@ public class MenuModificar extends javax.swing.JDialog {
     private int categoriaActual;
     private int estadoActual;
 
+    /**
+     * Constructor que configura las propiedades del formulario modal de
+     * modificación.
+     *
+     * * @param parent ventana frame principal que actúa como dueña de este
+     * diálogo.
+     * @param modal bloquea la interacción con la ventana trasera si se
+     * establece en true.
+     * @param idMaterial el identificador numérico de la herramienta que se
+     * quiere editar.
+     */
     public MenuModificar(java.awt.Frame parent, boolean modal, int idMaterial) {
         super(parent, modal);
         initComponents();
@@ -40,6 +54,10 @@ public class MenuModificar extends javax.swing.JDialog {
         cargarEstado();
     }
 
+    /**
+     * Recupera todas las categorías de la base de datos a través del
+     * CategoriaDAO y las inyecta en el desplegable.
+     */
     private void cargarCategoria() {
 
         CategoriaDAO cateDAO = new CategoriaDAO();
@@ -56,6 +74,10 @@ public class MenuModificar extends javax.swing.JDialog {
 
     }
 
+    /**
+     * Recupera todos los estados del taller de la base de datos a través del
+     * EstadoDAO y los inyecta en el desplegable.
+     */
     private void cargarEstado() {
 
         EstadoDAO estaDAO = new EstadoDAO();
@@ -246,7 +268,14 @@ public class MenuModificar extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     /**
+     * Recoge todos los datos modificados del formulario y ejecuta el UPDATE a
+     * través de vuestro MaterialDAO. Extrae las claves primarias de los objetos
+     * seleccionados en los JComboBox.
+     *
+     * * @param evt evento de acción al pulsar el botón confirmar.
+     * @author sergio camacho
+     */
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed
         // TODO add your handling code here:
         String nombreMat = txtNuevo.getText();
@@ -257,7 +286,7 @@ public class MenuModificar extends javax.swing.JDialog {
         Estado estaMat = (Estado) selectEstado.getSelectedItem();
 
         MaterialDAO matDAO = new MaterialDAO();
-        
+
         this.dispose();
 
     }//GEN-LAST:event_botonConfirmarActionPerformed
@@ -302,7 +331,12 @@ public class MenuModificar extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /**
+         * Método principal para lanzar y previsualizar de forma independiente
+         * el panel de modificaciones.
+         *
+         * * @param args argumentos de ejecucion por terminal.
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 

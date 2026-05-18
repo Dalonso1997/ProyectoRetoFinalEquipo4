@@ -12,7 +12,7 @@ import utilsClasesApoyo.ConexionBD;
 /**
  * Clase DAO para gestionar los estados de los materiales (Disponible, Prestado, etc.)
  * interactuando con la tabla 'estado' de la base de datos.
- * @author DAM126
+ * @author alberto gonzalez
  */
 public class EstadoDAO {
 

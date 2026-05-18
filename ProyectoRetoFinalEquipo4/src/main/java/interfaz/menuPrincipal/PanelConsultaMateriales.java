@@ -14,14 +14,21 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
+ * Panel gráfico para consultar el listado completo de los materiales del
+ * taller. Dibuja una tabla automática que muestra las cantidades, categorías,
+ * estados y ubicaciones en tiempo real.
  *
- * @author DAM119
+ * * @author sergio camacho
  */
 public class PanelConsultaMateriales extends JPanel {
 
     private JTable tabla;
     private DefaultTableModel modelo;
 
+    /**
+     * Constructor que crea el panel de consulta y activa la carga inicial de
+     * los datos.
+     */
     public PanelConsultaMateriales() {
 
         setLayout(new BorderLayout());
@@ -31,6 +38,10 @@ public class PanelConsultaMateriales extends JPanel {
         cargarMateriales();
     }
 
+    /**
+     * Configura la estructura visual de la tabla, define los nombres de las
+     * columnas y bloquea la edición directa de celdas.
+     */
     private void inicializarTabla() {
 
         String[] columnas = {
@@ -60,6 +71,10 @@ public class PanelConsultaMateriales extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
+    /**
+     * Llama al buscador de vuestro MaterialDAO para recuperar todos los
+     * registros de AWS y rellenar la tabla.
+     */
     private void cargarMateriales() {
 
         MaterialDAO dao = new MaterialDAO();
@@ -87,7 +102,14 @@ public class PanelConsultaMateriales extends JPanel {
         }
     }
 
-    //metodo que devuelve el id del matrial que el admin selecciona
+    /**
+     * Recupera el identificador numérico único del material que el usuario
+     * tiene marcado en la tabla.
+     *
+     * * @return el id numérico del material seleccionado, o -1 si no ha
+     * pinchado en ninguna fila.
+     * @author adrian gonzalez gil
+     */
     public int getIdMaterialSeleccionado() {
         //si es -1 significa que no has seleccionado ninguna
         int filaSeleccionada = tabla.getSelectedRow();
@@ -99,7 +121,14 @@ public class PanelConsultaMateriales extends JPanel {
         }
     }
 
-    //metodo que devuelve el id del material que se selecciona
+    /**
+     * Recupera el texto completo de la columna de ubicaciones de la fila que
+     * esté marcada.
+     *
+     * * @return cadena de caracteres con la mesa o el armario y cajón, o un
+     * texto vacío si no hay selección.
+     * @author adrian gonzalez gil
+     */
     public String getIdUbicacionSeleccionada() {
         //si es -1 significa que no has seleccionado ninguna
         int filaSeleccionada = tabla.getSelectedRow();
@@ -111,8 +140,12 @@ public class PanelConsultaMateriales extends JPanel {
         }
     }
 
-    //es un metodo para usar el metodo de cargar materiales
-    //para ver actualizada la tabla, porque el metodo es privado
+    /**
+     * Método público para forzar la recarga visual de las filas llamando al
+     * cargador privado de materiales.
+     *
+     * * @author adrian gonzalez gil
+     */
     public void refrescarListado() {
         cargarMateriales();
     }

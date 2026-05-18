@@ -11,8 +11,11 @@ import javax.swing.JOptionPane;
 import modelClasesTablas.Ubicacion;
 
 /**
+ * Ventana modal secundaria para modificar la ubicación física de un material
+ * concreto. Filtra las opciones del desplegable para que no aparezca el sitio
+ * donde ya está guardado.
  *
- * @author DAM115
+ * * @author adrian gonzalez gil
  */
 public class CambioUbicacion extends javax.swing.JDialog {
 
@@ -20,7 +23,16 @@ public class CambioUbicacion extends javax.swing.JDialog {
     private String ubicacionActualTexto;
 
     /**
-     * Creates new form CambioUbicacion
+     * Constructor que monta la ventana flotante de actualización e inyecta los
+     * datos del material.
+     *
+     * * @param parent ventana principal de la interfaz que posee y centra este
+     * diálogo.
+     * @param modal bloquea el control de la pantalla de atrás si se establece
+     * en true.
+     * @param idMaterial número identificador del componente que queremos mover.
+     * @param ubicacionActual cadena de texto con el nombre actual del armario o
+     * mesa.
      */
     public CambioUbicacion(java.awt.Frame parent, boolean modal, int idMaterial, String ubicacionActual) {
         //llamamos al constructor padre y activamos el modal para bloquear la ventana de atras
@@ -43,7 +55,11 @@ public class CambioUbicacion extends javax.swing.JDialog {
         cargarUbicaciones();
     }
 
-    //metodo para meter las ubicaciones en el desplegable
+    /**
+     * Busca todas las ubicaciones guardadas en la base de datos y las mete en
+     * el JComboBox. Aplica un filtro para saltarse la posición en la que el
+     * material ya se encuentra.
+     */
     private void cargarUbicaciones() {
         //hacemos una instancia del dao de ubicacion
         UbicacionDAO ubiDAO = new UbicacionDAO();
@@ -165,7 +181,14 @@ public class CambioUbicacion extends javax.swing.JDialog {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    /**
+     * Recoge el texto seleccionado del desplegable, busca su ID correspondiente
+     * y actualiza la ubicación en MySQL.
+     *
+     * * @param evt evento de acción originado al hacer clic en el botón
+     * cambiar.
+     * @author adrian gonzalez gil
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         String seleccion = (String) jComboBox1.getSelectedItem();
@@ -187,14 +210,22 @@ public class CambioUbicacion extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Evento encargado de cerrar y destruir la ventana modal activa sin
+     * realizar ninguna acción en la base de datos.
+     *
+     * * @param evt evento de acción al pulsar el botón cancelar.
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //cierra la ventana
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método de arranque independiente para lanzar y realizar pruebas de
+     * visualización del formulario.
+     *
+     * * @param args argumentos de ejecucion por terminal.
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

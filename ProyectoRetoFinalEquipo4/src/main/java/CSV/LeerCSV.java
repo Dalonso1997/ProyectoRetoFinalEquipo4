@@ -9,12 +9,19 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * Clase para leer y mostrar por consola el contenido del archivo CSV generado.
+ * Trocea las líneas usando las comas como separador de columnas.
  *
- * @author DAM119
+ * * @author Sergio Camacho
+ * * @author David Alonso
  */
-
 public class LeerCSV {
 
+    /**
+     * Método principal que lee el archivo CSV línea por línea.
+     *
+     * * @param args argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
 
         String archivo = "src/inventario.csv";
@@ -26,7 +33,6 @@ public class LeerCSV {
 
                 String[] datos = linea.split(",");
 
-                
                 for (String dato : datos) {
                     System.out.print(dato + " | ");
                 }
