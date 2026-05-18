@@ -281,34 +281,63 @@ public class prestamos extends javax.swing.JDialog {
      * PrestamoDAO. Controla las excepciones de formato y recarga los datos de
      * stock si todo sale bien.
      */
-    private void realizarPrestamo() {
-        Object[] matSel = (Object[]) jList1.getSelectedValue();
-        Object[] userSel = (Object[]) jComboBoxUsuarios.getSelectedItem();
+   private void realizarPrestamo() {
+    Object[] matSel = (Object[]) jList1.getSelectedValue();
+    Object[] userSel = (Object[]) jComboBoxUsuarios.getSelectedItem();
 
-        if (matSel == null || userSel == null) {
-            JOptionPane.showMessageDialog(this, "Selecciona material y usuario.");
+    if (matSel == null || userSel == null) {
+        JOptionPane.showMessageDialog(this, "Selecciona material y usuario.");
+        return;
+    }
+
+    try {
+        int idUsuario = (int) userSel[0]; // ID real de la base de datos
+        String nombreUser = userSel[1].toString();
+        int idMat = (int) matSel[0];
+        
+        // 1. Validar que el campo de texto no esté vacío y sea un número válido
+        String textoCantidad = jTextField2.getText().trim();
+        if (textoCantidad.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa una cantidad.");
+            return;
+        }
+        
+        int cantPedida = Integer.parseInt(textoCantidad);
+
+        // 2. Validar que no pidan 0 o cantidades negativas
+        if (cantPedida <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad pedida debe ser mayor a 0.");
             return;
         }
 
-        try {
-            int idUsuario = (int) userSel[0]; // ID real de la base de datos
-            String nombreUser = userSel[1].toString();
-            int idMat = (int) matSel[0];
-            int cantPedida = Integer.parseInt(jTextField2.getText().trim());
+        // 3. OBTENER Y VALIDAR EL STOCK DISPONIBLE
+        // Usamos .toString() y ParseInt para evitar errores de casteo según el tipo de dato que devuelva la BD
+        int stockDisponible = Integer.parseInt(matSel[6].toString()); 
 
-            modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
-                    idMat, nombreUser, "Préstamo", null, cantPedida, jTextField3.getText().trim()
-            );
-
-            daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
-            if (pDAO.registrarPrestamo(p, idUsuario)) { // Guardamos con el ID correcto
-                JOptionPane.showMessageDialog(this, "¡Éxito!");
-                cargarMateriales();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        if (cantPedida > stockDisponible) {
+            JOptionPane.showMessageDialog(this, 
+                "No puedes pedir más unidades de las disponibles.\nStock actual: " + stockDisponible, 
+                "Stock Insuficiente", 
+                JOptionPane.WARNING_MESSAGE);
+            return; // Detiene el proceso si no hay suficiente stock
         }
+
+        // Si pasa todas las validaciones, procedemos con el préstamo
+        modelClasesTablas.Prestamo p = new modelClasesTablas.Prestamo(
+                idMat, nombreUser, "Préstamo", null, cantPedida, jTextField3.getText().trim()
+        );
+
+        daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
+        if (pDAO.registrarPrestamo(p, idUsuario)) { // Guardamos con el ID correcto
+            JOptionPane.showMessageDialog(this, "¡Éxito!");
+            cargarMateriales(); // Recarga la lista actualizando el stock visual
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "La cantidad debe ser un número entero válido.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
+}
 
     /**
      * Rellena el combo de usuarios según el rol del usuario que ha iniciado
