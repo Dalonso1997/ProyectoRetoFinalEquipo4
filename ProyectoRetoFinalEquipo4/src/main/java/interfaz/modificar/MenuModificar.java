@@ -287,7 +287,14 @@ public class MenuModificar extends javax.swing.JDialog {
 
         MaterialDAO matDAO = new MaterialDAO();
 
-        this.dispose();
+        boolean actualizado = matDAO.modificarMaterial(idMaterial, nombreMat, descriMat, cantMat, cantMat, cantMat);
+        
+        if(actualizado){
+            JOptionPane.showMessageDialog(this,"¡Material modificado con éxito!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this,"Error al modificar el material.");
+        }
 
     }//GEN-LAST:event_botonConfirmarActionPerformed
 
