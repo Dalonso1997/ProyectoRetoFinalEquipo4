@@ -9,10 +9,12 @@ import devolucionesYPrestamos.devoluciones;
 import devolucionesYPrestamos.prestamos;
 import interfaz.modificar.MenuModificar;
 import interfaz.ubicacion.CambioUbicacion;
+import java.awt.Component;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -25,10 +27,10 @@ import viewFormularios.VentanaInformes;
  *
  * @author DAM119
  */
-
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private modelClasesTablas.Usuario userSesion;
+
     /**
      * Creates new form MenuPrincipal
      */
@@ -311,7 +313,6 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
 
-        
         VentanaInformes ventanaInformes = new VentanaInformes(this, true);
         ventanaInformes.setVisible(true);
 
@@ -407,7 +408,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
 
         //Abrimos la ventana de alta de material
-        SelectorAlta selAlta = new SelectorAlta(this,true);
+        SelectorAlta selAlta = new SelectorAlta(this, true);
         selAlta.setVisible(true);
         //Llamamos al boton de consulta para refrescar la consulta a la base de datos
         botonConsultaActionPerformed(null);
@@ -418,8 +419,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAltaActionPerformed
 
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
-        //cogemos lo que el usuario esta viendo ahora mismo en el panel
-        java.awt.Component componenteActual = panelDerecha.getViewport().getView();
+        //cogemos lo que el usuario esta viendo ahora mismo en el panel derecho
+        Component componenteActual = panelDerecha.getViewport().getView();
 
         //comprobamos que estemos en la pantalla de consulta de materiales
         if (componenteActual instanceof PanelConsultaMateriales) {
@@ -432,30 +433,106 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             //comprobamos si no ha seleccionado nada (el metodo devuelve -1 si esta vacio)
             if (idSeleccionado == -1) {
                 //si no hay seleccion, le soltamos el mensaje de aviso para que elija uno
-                javax.swing.JOptionPane.showMessageDialog(this,
+                JOptionPane.showMessageDialog(this,
                         "Selecciona primero un material de la tabla para gestionar su ubicacion.",
                         "Informacion",
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
-                //paramos la ejecucion aqui para que no intente abrir la otra ventana
+                        JOptionPane.WARNING_MESSAGE);
+                //paramos la ejecucion aqui para que no salten los desplegables
                 return;
             }
 
-            //si llegamos aqui es que si hay una id, asi que cogemos su ubicacion actual
-            String ubiActual = panelConsulta.getIdUbicacionSeleccionada();
+            //instanciamos el dao de ubicaciones para sacar todos los sitios del taller
+            daoClasesSQL.UbicacionDAO ubiDAO = new daoClasesSQL.UbicacionDAO();
+            List<modelClasesTablas.Ubicacion> listaUbi = ubiDAO.listarTodos();
 
-            //abrimos la ventana de cambio de ubicacion pasando todos los datos necesarios
-            CambioUbicacion ventana = new CambioUbicacion(this, true, idSeleccionado, ubiActual);
-            ventana.setVisible(true);
+            //creamos una lista de strings para almacenar los nombres de los armarios
+            List<String> listaNombres = new ArrayList<>();
 
-            //una vez se cierre la ventana de gestion, refrescamos la tabla para ver los cambios
-            panelConsulta.refrescarListado();
+            //recorremos todas las ubicaciones para sacar los nombres de los armarios sin que se repitan
+            for (int i = 0; i < listaUbi.size(); i++) {
+                if (!listaNombres.contains(listaUbi.get(i).getUbicacion())) {
+                    listaNombres.add(listaUbi.get(i).getUbicacion());
+                }
+            }
+
+            //convertimos la lista limpia al array para el primer desplegable de armarios
+            String[] ubicaciones = listaNombres.toArray(new String[0]);
+            String armarioElegido = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Selecciona el nuevo armario de destino:",
+                    "Paso 1: Seleccionar Armario",
+                    javax.swing.JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    ubicaciones,
+                    ubicaciones[0]
+            );
+
+            //si el admin cancela la seleccion del armario, paramos la ejecucion
+            if (armarioElegido == null) {
+                return;
+            }
+
+            //creamos la lista para almacenar los cajones que pertenecen a ese armario elegido
+            List<String> cajonesArmario = new ArrayList<>();
+
+            //recorremos la lista completa buscando los cajones del armario seleccionado
+            for (int i = 0; i < listaUbi.size(); i++) {
+                if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
+                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
+                    if (!cajonesArmario.contains(textoCajon)) {
+                        cajonesArmario.add(textoCajon);
+                    }
+                }
+            }
+
+            //como ya no hay mesas, siempre pasamos directamente a pedir el cajon
+            String[] cajones = cajonesArmario.toArray(new String[0]);
+            String cajonElegido = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Selecciona el cajon:",
+                    "cajon",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    cajones,
+                    cajones[0]
+            );
+
+            //si cancela en el cuadro del cajon, cerramos la ejecucion sin aplicar cambios
+            if (cajonElegido == null) {
+                return;
+            }
+
+            //buscamos la id_ubicacion exacta en la lista que coincida con ese armario y ese cajon a la vez
+            int idNuevaUbi = -1;
+            for (int i = 0; i < listaUbi.size(); i++) {
+                if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
+                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
+                    if (textoCajon.equals(cajonElegido)) {
+                        idNuevaUbi = listaUbi.get(i).getId_ubicacion();
+                        break;
+                    }
+                }
+            }
+
+            //si hemos conseguido recuperar la id correcta de la base de datos procedemos a actualizar
+            if (idNuevaUbi != -1) {
+                //instanciamos vuestro dao de materiales para lanzar el update definitivo
+                MaterialDAO dao = new MaterialDAO();
+                if (dao.cambioUbicacionMaterial(idNuevaUbi, idSeleccionado)) {
+                    JOptionPane.showMessageDialog(this, "La ubicación del material se ha actualizado con éxito.");
+                    //refrescamos las filas de la tabla para que se vea el cambio al instante
+                    panelConsulta.refrescarListado();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al intentar actualizar la ubicación en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
 
         } else {
-            //en caso de que no este ni en la pantalla de consulta, le avisamos tambien
-            javax.swing.JOptionPane.showMessageDialog(this,
+            //en caso de que no este ni en la pantalla de consulta, le avisamos
+            JOptionPane.showMessageDialog(this,
                     "Abre primero la pantalla de 'Consulta' y selecciona un material.",
                     "Informacion",
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonGestionarActionPerformed
 
@@ -464,45 +541,43 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
 
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(MenuPrincipalAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                // Creamos un usuario de prueba para que el archivo compile
+                modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
+                uTest.setNombre("Admin Prueba");
+                uTest.setRol("administrador");
+
+                // IMPORTANTE: Pasamos el usuario de prueba al constructor
+                new MenuPrincipalAdmin(uTest).setVisible(true);
+
+            }
+        });
     }
-    //</editor-fold>
-
-    /* Create and display the form */
-    
-
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            // Creamos un usuario de prueba para que el archivo compile
-            modelClasesTablas.Usuario uTest = new modelClasesTablas.Usuario();
-            uTest.setNombre("Admin Prueba");
-            uTest.setRol("administrador");
-
-            // IMPORTANTE: Pasamos el usuario de prueba al constructor
-            new MenuPrincipalAdmin(uTest).setVisible(true);
-
-        }
-    });
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAlta;
