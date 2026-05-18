@@ -309,7 +309,8 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             String descripcion = campoDescripcion.getText().trim();
             int cantidad = (int) selectorCantidad.getValue();
             Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
-            Ubicacion ubi = (Ubicacion) desplegableArmario.getSelectedItem();
+            String armario = (String) desplegableArmario.getSelectedItem();
+            Ubicacion ubi = (Ubicacion) desplegableCajon.getSelectedItem();
             Estado estado = (Estado) desplegableEstado.getSelectedItem();
             
             //Creamos un nuevo material en base a los datos recogidos del formulario
