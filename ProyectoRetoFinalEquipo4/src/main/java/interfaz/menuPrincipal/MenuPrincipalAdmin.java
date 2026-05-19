@@ -520,7 +520,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             String armarioElegido = (String) JOptionPane.showInputDialog(
                     this,
                     "Selecciona el nuevo armario de destino:",
-                    "Paso 1: Seleccionar Armario",
+                    "armario",
                     javax.swing.JOptionPane.QUESTION_MESSAGE,
                     null,
                     ubicaciones,
@@ -538,7 +538,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             //recorremos la lista completa buscando los cajones del armario seleccionado
             for (int i = 0; i < listaUbi.size(); i++) {
                 if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
-                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
+                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
                     if (!cajonesArmario.contains(textoCajon)) {
                         cajonesArmario.add(textoCajon);
                     }
@@ -566,7 +566,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             int idNuevaUbi = -1;
             for (int i = 0; i < listaUbi.size(); i++) {
                 if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
-                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
+                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
                     if (textoCajon.equals(cajonElegido)) {
                         idNuevaUbi = listaUbi.get(i).getId_ubicacion();
                         break;
@@ -579,11 +579,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 //instanciamos vuestro dao de materiales para lanzar el update definitivo
                 MaterialDAO dao = new MaterialDAO();
                 if (dao.cambioUbicacionMaterial(idNuevaUbi, idSeleccionado)) {
-                    JOptionPane.showMessageDialog(this, "La ubicación del material se ha actualizado con éxito.");
+                    JOptionPane.showMessageDialog(this, "La ubicacion del material se ha actualizado.");
                     //refrescamos las filas de la tabla para que se vea el cambio al instante
                     panelConsulta.refrescarListado();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al intentar actualizar la ubicación en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error al intentar actualizar la ubicacion en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
