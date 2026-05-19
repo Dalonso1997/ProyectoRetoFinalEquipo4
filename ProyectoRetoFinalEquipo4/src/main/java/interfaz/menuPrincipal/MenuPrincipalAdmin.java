@@ -28,7 +28,7 @@ import viewFormularios.VentanaInformes;
  * Actúa como panel de control central cargando dinámicamente las pantallas de
  * gestión en el lado derecho.
  *
- * @author JavaLand_Equipo4
+ * @author Equipo4
  */
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 

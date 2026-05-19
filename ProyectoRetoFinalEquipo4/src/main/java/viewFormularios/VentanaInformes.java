@@ -377,9 +377,7 @@ public class VentanaInformes extends javax.swing.JDialog {
             }
         }
     }
-    /**
-     * @param args the command line arguments
-     */
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonInforme;
