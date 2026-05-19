@@ -143,13 +143,13 @@ Esto permite llevar un control completo de los movimientos del almacén.
 
 ---
  
-### Trigger para el control del estado en cantidad 0
+### ⚠️ Trigger para el control del estado en cantidad 0
 
 Este trigger se utiliza para que cuando un material queda en cantidad 0, automaticamente su estado pasa a 'prestado' delimitando asi que se pueda solicitar un prestamo de dicho material.
 
 ---
 
-### Trigger para el registro de alta de nuevo material
+### 📋 Trigger para el registro de alta de nuevo material
 
 Trigger para registrar el alta de un material nuevo, registrando:
 
