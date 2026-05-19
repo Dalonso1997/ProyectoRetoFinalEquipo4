@@ -108,7 +108,7 @@ public class PanelConsultaMateriales extends JPanel {
      *
      * * @return el id numérico del material seleccionado, o -1 si no ha
      * pinchado en ninguna fila.
-     * @author adrian gonzalez gil
+     * @author adrian gonzalez
      */
     public int getIdMaterialSeleccionado() {
         //si es -1 significa que no has seleccionado ninguna
@@ -127,7 +127,7 @@ public class PanelConsultaMateriales extends JPanel {
      *
      * * @return cadena de caracteres con la mesa o el armario y cajón, o un
      * texto vacío si no hay selección.
-     * @author adrian gonzalez gil
+     * @author adrian gonzalez
      */
     public String getIdUbicacionSeleccionada() {
         //si es -1 significa que no has seleccionado ninguna

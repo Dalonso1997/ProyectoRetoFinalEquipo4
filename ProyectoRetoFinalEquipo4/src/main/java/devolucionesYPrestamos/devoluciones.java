@@ -8,21 +8,37 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
+ * Ventana modal para gestionar las devoluciones de materiales del taller.
+ * Muestra una lista de todos los préstamos y permite cerrarlos actualizando el
+ * stock.
  *
- * @author DAM114
+ * * @author aday fernandez
  */
 public class devoluciones extends javax.swing.JDialog {
 
-    
     private daoClasesSQL.PrestamoDAO pDAO = new daoClasesSQL.PrestamoDAO();
     private javax.swing.DefaultListModel<Object[]> modeloLista = new javax.swing.DefaultListModel<>();
 
+    /**
+     * Constructor que crea la ventana de devoluciones y carga los datos de la
+     * base de datos.
+     *
+     * * @param parent ventana principal que actua como dueña de este dialogo.
+     * @param modal true para bloquear la pantalla de atras mientras esta
+     * ventana este abierta.
+     */
     public devoluciones(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        cargarPrestamosPendientes(); 
+        cargarPrestamosPendientes();
         configurarEventos();
     }
+
+    /**
+     * Busca todos los préstamos en la base de datos y los pinta en el JList.
+     * Usa un renderizado HTML propio para pintar en rojo los pendientes y en
+     * verde los devueltos.
+     */
     private void cargarPrestamosPendientes() {
         modeloLista.clear();
         // Llamamos al nuevo método que trae todos
@@ -53,23 +69,35 @@ public class devoluciones extends javax.swing.JDialog {
                         // Si hay fecha, está DEVUELTO
                         setText("<html><b style='color:green;'>[OK - DEVUELTO]</b> ID: " + id + " | " + usuario + " - " + material + "</html>");
                         // Opcional: Desactivar visualmente los devueltos para que no intentes clicar
-                        if (!isSelected) setForeground(java.awt.Color.GRAY);
+                        if (!isSelected) {
+                            setForeground(java.awt.Color.GRAY);
+                        }
                     }
                 }
                 return this;
             }
         });
     }
-    
+
+    /**
+     * Enlaza los botones visuales de la interfaz con sus respectivos métodos
+     * lógicos.
+     */
     private void configurarEventos() {
-    // BOTÓN: Marcar como devuelto
-    btnMarcarDevuelto.addActionListener(evt -> ejecutarDevolucion());
-    
-    // BOTÓN: Salir
-    btnSalir.addActionListener(evt -> dispose());
-    
-    // NOTA: Si tenías código en jButton2, bórralo o ignóralo, ya no lo usaremos.
+        // BOTÓN: Marcar como devuelto
+        btnMarcarDevuelto.addActionListener(evt -> ejecutarDevolucion());
+
+        // BOTÓN: Salir
+        btnSalir.addActionListener(evt -> dispose());
+
+        // NOTA: Si tenías código en jButton2, bórralo o ignóralo, ya no lo usaremos.
     }
+
+    /**
+     * Recupera el préstamo seleccionado por el administrador y procesa la
+     * devolución en la base de datos. Valida que haya selección y que el
+     * préstamo no esté cerrado previamente.
+     */
     private void ejecutarDevolucion() {
         Object[] seleccionado = (Object[]) jList1.getSelectedValue();
 
@@ -87,8 +115,8 @@ public class devoluciones extends javax.swing.JDialog {
         int idPrestamo = (int) seleccionado[0];
         String material = (String) seleccionado[2];
 
-        int confirmar = JOptionPane.showConfirmDialog(this, 
-                "¿Confirmar la devolución de: " + material + "?", 
+        int confirmar = JOptionPane.showConfirmDialog(this,
+                "¿Confirmar la devolución de: " + material + "?",
                 "Confirmar Devolución", JOptionPane.YES_NO_OPTION);
 
         if (confirmar == JOptionPane.YES_OPTION) {
@@ -97,13 +125,14 @@ public class devoluciones extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "¡Éxito! El stock ha sido actualizado.");
 
                 // RECARGA: Esto hará que el CellRenderer lo pinte en VERDE
-                cargarPrestamosPendientes(); 
-                jList1.repaint(); 
+                cargarPrestamosPendientes();
+                jList1.repaint();
             } else {
                 JOptionPane.showMessageDialog(this, "Error: No se pudo registrar la devolución.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -184,7 +213,7 @@ public class devoluciones extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

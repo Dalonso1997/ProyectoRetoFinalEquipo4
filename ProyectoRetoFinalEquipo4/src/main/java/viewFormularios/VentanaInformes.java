@@ -15,13 +15,21 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
+ * Ventana modal encargada de la configuración y generación de los diferentes
+ * tipos de informes. Permite realizar filtros combinados o por localización
+ * para exportar los datos del inventario a ficheros planos de texto.
  *
- * @author DAM126
+ * @author adrian gonzalez, sergio camacho, david alonso
  */
 public class VentanaInformes extends javax.swing.JDialog {
 
     /**
      * Creates new form VentanaInformes
+     *
+     * @param parent ventana principal frame que actúa como poseedora de este
+     * componente.
+     * @param modal true para bloquear la ventana de atrás mientras este diálogo
+     * esté activo.
      */
     public VentanaInformes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -129,12 +137,21 @@ public class VentanaInformes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción ejecutada al pulsar el botón de informe completo.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void botonInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformeActionPerformed
         // TODO add your handling code here:
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, null);
         generarInforme(datosInforme, "Informe_inventario_completo.txt");
     }//GEN-LAST:event_botonInformeActionPerformed
-
+    /**
+     * Acción ejecutada al pulsar el botón de filtrado por categoría y estado.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void botonPorCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorCategoriaActionPerformed
         //dao para las categorias
         daoClasesSQL.CategoriaDAO catDAO = new daoClasesSQL.CategoriaDAO();
@@ -195,7 +212,11 @@ public class VentanaInformes extends javax.swing.JDialog {
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, categoriaFiltro, estadoFiltro, null);
         generarInforme(datosInforme, "Informe_categoria_estado.txt");
     }//GEN-LAST:event_botonPorCategoriaActionPerformed
-
+    /**
+     * Acción ejecutada al pulsar el botón de filtrado por ubicación.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void botonPorUbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPorUbicacionActionPerformed
         //dao para coger las ubicaciones
         daoClasesSQL.UbicacionDAO ubiDAO = new daoClasesSQL.UbicacionDAO();
@@ -255,11 +276,23 @@ public class VentanaInformes extends javax.swing.JDialog {
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, ubicacionFiltro);
         generarInforme(datosInforme, "Informe_ubicacion.txt");
     }//GEN-LAST:event_botonPorUbicacionActionPerformed
-
+    /**
+     * Acción asociada al botón cancelar.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+    /**
+     * Abre un JFileChooser para escribir los registros procesados en un archivo
+     * de texto plano formateado.
+     *
+     * @param datosInforme la lista de filas con el inventario a exportar.
+     * @param nombreArchivo la cadena de texto con el nombre predeterminado para
+     * el archivo de salida.
+     */
     private void generarInforme(List<Object[]> datosInforme, String nombreArchivo) {
         //Vamos a usar JFileChooser
         //de esta manera cuando se vaya a crear un fichero de informe, el usuario podra elegir la ubicacion y el nombre del archivo

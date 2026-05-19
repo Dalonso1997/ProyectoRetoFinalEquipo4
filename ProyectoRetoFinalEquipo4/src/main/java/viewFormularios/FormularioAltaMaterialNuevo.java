@@ -16,6 +16,9 @@ import modelClasesTablas.Material;
 import modelClasesTablas.Ubicacion;
 
 /**
+ * Ventana de diálogo modal que funciona como formulario para dar de alta nuevos
+ * materiales. Carga de forma dinámica los armarios de almacenamiento y
+ * actualiza los cajones de forma encadenada.
  *
  * @author David Alonso Casaiz
  */
@@ -23,6 +26,11 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
 
     /**
      * Creates new form FormularioAltaMaterial
+     *
+     * @param parent ventana principal frame que actúa como dueña de este
+     * diálogo.
+     * @param modal true para bloquear la ventana de atrás mientras la de alta
+     * está activa.
      */
     public FormularioAltaMaterialNuevo(java.awt.Frame parent, boolean modal) {
         //LLamada al constructor de la ventana padre, el modal sirve para que la ventana
@@ -37,46 +45,46 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         cargarDatosIniciales();
 
     }
-    
-    
-    
-    //Metodo creado para cargar los datos de los desplegables
+
+    /**
+     * Recupera de forma centralizada las listas iniciales de estados,
+     * categorías y armarios de la base de datos.
+     */
     private void cargarDatosIniciales() {
         //Al iniciar el metodo vaciamos el desplegable del estado
         //Para asegurarnos de que cuando se recojan los datos no haya duplicados
         desplegableEstado.removeAllItems();
-        
+
         //Hacemos una instancia del DAO de estado y lo metemos en una lista usando el metodo para listar todos los elementos
         EstadoDAO estadoDAO = new daoClasesSQL.EstadoDAO();
         List<Estado> listaEstados = estadoDAO.listarTodos();
-        
+
         //Recorremos la lista y por cada uno de ellos anadimos al desplegable los datos que estan en la base de datos
         //De esta manera al usuario siempre le apareceran los tipos de estado que hay en la base de datos
         for (Estado est : listaEstados) {
             desplegableEstado.addItem(est);
         }
-        
+
         //Volvemos a eliminar el contenido esta vez de categoria, por el mismo motivo que el estado
         desplegableCategoria.removeAllItems();
-        
+
         //Instanciamos el DAO de categoria y lo anadimos a su lista
         CategoriaDAO categorias = new CategoriaDAO();
         List<Categoria> listaCategorias = categorias.listarTodos();
-        
+
         //Recorremos y anadimos cada categoria al desplegable
         for (Categoria categoria : listaCategorias) {
             desplegableCategoria.addItem(categoria);
         }
-        
-        
+
         //Instanciamos el DAO de ubicacion y lo metemos en una lista
         UbicacionDAO ubicacionDAO = new UbicacionDAO();
         desplegableArmario.removeAllItems();
-        
+
         for (String armario : ubicacionDAO.listarArmarios()) {
-            
+
             desplegableArmario.addItem(armario);
-            
+
         }
 
     }
@@ -287,7 +295,11 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
     private void desplegableEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_desplegableEstadoActionPerformed
-
+    /**
+     * Acción asociada al botón cancelar.
+     *
+     * @param evt evento de acción al hacer clic.
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         //Cerramos la ventana de alta y volvemos a la ventana principal
         this.dispose();
@@ -297,6 +309,11 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_desplegableCategoriaActionPerformed
 
+    /**
+     * Acción asociada al botón guardar.
+     *
+     * @param evt evento de acción al hacer clic.
+     */
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //Recibimos el nombre recogido en el campo del nombre del material al que dar de alta
         String nombre = campoNombre.getText().trim();
@@ -312,41 +329,48 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             String armario = (String) desplegableArmario.getSelectedItem();
             Ubicacion ubi = (Ubicacion) desplegableCajon.getSelectedItem();
             Estado estado = (Estado) desplegableEstado.getSelectedItem();
-            
+
             //Creamos un nuevo material en base a los datos recogidos del formulario
             Material nuevoMaterial = new Material(nombre, descripcion, cantidad, estado.getId_estado(), cat.getId_categoria(), ubi.getId_ubicacion());
-            
+
             // Creamos el DAO para gestionar el acceso a la base de datos
             MaterialDAO dao = new MaterialDAO();
-            
+
             //Insertamos el nuevo material en la base de datos
             dao.insertarMaterial(nuevoMaterial);
-            
+
             javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
             //Volvemos a la ventana princial.
             this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    /**
+     * Acción asociada al cambiar la opción en el combo de armarios.
+     *
+     * @param evt evento de acción al cambiar la selección.
+     */
     private void desplegableArmarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desplegableArmarioActionPerformed
         String armarioSeleccionado = (String) desplegableArmario.getSelectedItem();
-        
-        if (armarioSeleccionado == null){
+
+        if (armarioSeleccionado == null) {
             return;
         }
-        
+
         desplegableCajon.removeAllItems();
-        
+
         UbicacionDAO ubicacionDAO = new UbicacionDAO();
-        
+
         for (Ubicacion ubi : ubicacionDAO.listarCajonesPorArmario(armarioSeleccionado)) {
             desplegableCajon.addItem(ubi);
         }
-        
+
     }//GEN-LAST:event_desplegableArmarioActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método principal para lanzar y previsualizar de forma aislada el
+     * formulario de alta.
+     *
+     * @param args argumentos opcionales de la línea de comandos.
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

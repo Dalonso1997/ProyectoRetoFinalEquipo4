@@ -21,13 +21,21 @@ import modelClasesTablas.Material;
 import modelClasesTablas.Ubicacion;
 
 /**
+ * Ventana de búsqueda y localización avanzada de componentes del taller.
+ * Permite filtrar el inventario por texto, categoría, estado y ubicación física
+ * de forma combinada.
  *
- * @author DAM126
+ * @author alberto gonzalez
  */
 public class VentanaBusqueda extends javax.swing.JDialog {
 
     /**
      * Creates new form VentanaBusqueda
+     *
+     * @param parent ventana principal frame que actúa como poseedora de este
+     * componente.
+     * @param modal true para bloquear la ventana de atrás mientras este diálogo
+     * esté activo.
      */
     public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -59,7 +67,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
         Set<String> armariosUnicos = new java.util.LinkedHashSet<>();
         for (Ubicacion u : ubicaciones) {
-            armariosUnicos.add(u.getUbicacion()); 
+            armariosUnicos.add(u.getUbicacion());
         }
         for (String armario : armariosUnicos) {
             ElejirArmario.addItem(armario);
@@ -292,7 +300,12 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Acción principal encargada de recopilar los filtros visuales
+     * seleccionados y lanzar la búsqueda en el DAO.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
 
@@ -331,7 +344,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
             String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
             String ubicacionFiltro = null;
-            
+
             // Combinar armario y cajon para el filtro de ubicacion
             if (armarioSel != null && !armarioSel.equals("TODOS")) {
                 if (cajonSel != null && !cajonSel.equals("TODOS")) {
@@ -385,7 +398,12 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_botonCancelarActionPerformed
-
+    /**
+     * Intenta levantar el navegador web nativo del sistema para apuntar a la
+     * dirección IP pública del laboratorio.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void BotonPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPaginaWebActionPerformed
         // TODO add your handling code here:
         try {
@@ -400,12 +418,21 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_BotonPaginaWebActionPerformed
-
+    /**
+     * Cierra el diálogo modal y libera la ventana de la memoria.
+     *
+     * @param evt evento de acción del componente.
+     */
     private void BotonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_BotonCancelarActionPerformed
-
+    /**
+     * Filtra dinámicamente los cajones asociados al armario que se haya
+     * seleccionado en el primer combo.
+     *
+     * @param evt evento de acción al alternar de armario.
+     */
     private void ElejirArmarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElejirArmarioActionPerformed
         // TODO add your handling code here:
         String armarioSel = (String) ElejirArmario.getSelectedItem();
@@ -426,7 +453,10 @@ public class VentanaBusqueda extends javax.swing.JDialog {
     }//GEN-LAST:event_ElejirArmarioActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Método principal utilizado para lanzar de manera aislada la ventana de
+     * búsquedas.
+     *
+     * @param args argumentos opcionales de consola.
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
