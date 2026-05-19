@@ -390,19 +390,19 @@ Diferenciación entre:
 
 ### Pantalla de Login
 
-![Login](ruta/login.png)
+![Captura guía usuario](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20151332.png)
 
 ---
 
 ### Gestión de Inventario
 
-![Inventario Java](ruta/inventario-java.png)
+![Captura](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20151502.png)
 
 ---
 
 ### Gestión de Préstamos
 
-![Préstamos](ruta/prestamos.png)
+![Captura](Documentaciones/Imagenes-guia-usuario/captura-inventario.png)
 
 ---
 
