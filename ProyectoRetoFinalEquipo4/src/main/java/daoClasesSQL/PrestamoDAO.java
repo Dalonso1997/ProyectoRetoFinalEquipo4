@@ -18,7 +18,7 @@ import utilsClasesApoyo.ConexionBD;
  * taller. Utiliza transacciones SQL para asegurar que el stock de los
  * materiales se actualice a la vez.
  *
- * * @author aday fernandez
+ * @author aday fernandez
  */
 public class PrestamoDAO {
 

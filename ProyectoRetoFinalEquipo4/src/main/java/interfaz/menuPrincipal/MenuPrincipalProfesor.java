@@ -14,7 +14,7 @@ import viewFormularios.VentanaBusqueda;
  * los accesos ocultando los botones de alta, baja, modificación e informes que
  * son de administrador.
  *
- * * @author Equipo4
+ * @author Equipo4
  */
 public class MenuPrincipalProfesor extends javax.swing.JFrame {
 

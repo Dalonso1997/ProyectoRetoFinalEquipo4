@@ -15,7 +15,7 @@ import modelClasesTablas.Ubicacion;
  * concreto. Filtra las opciones del desplegable para que no aparezca el sitio
  * donde ya está guardado.
  *
- * * @author adrian gonzalez
+ * @author adrian gonzalez
  */
 public class CambioUbicacion extends javax.swing.JDialog {
 

@@ -476,7 +476,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
      * por separado mediante cuadros de diálogo encadenados.
      *
      * @param evt evento de accion al pulsar el boton gestionar ubicacion.
-     * @author adrian gonzalez gil
+     * @author adrian gonzalez
      */
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
         //cogemos lo que el usuario esta viendo ahora mismo en el panel derecho

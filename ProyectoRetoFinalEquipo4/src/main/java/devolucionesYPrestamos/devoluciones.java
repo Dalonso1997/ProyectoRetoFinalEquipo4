@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * Muestra una lista de todos los préstamos y permite cerrarlos actualizando el
  * stock.
  *
- * * @author aday fernandez
+ * @author aday fernandez
  */
 public class devoluciones extends javax.swing.JDialog {
 

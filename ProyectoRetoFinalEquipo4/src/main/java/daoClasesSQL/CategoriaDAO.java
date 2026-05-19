@@ -17,7 +17,7 @@ import utilsClasesApoyo.ConexionBD;
  * Clase del DAO para gestionar todas las consultas SQL de las categorías.
  * Conecta la base de datos de MySQL con los objetos de la interfaz de usuario.
  *
- * * @author alberto gonzalez
+ * @author alberto gonzalez
  */
 public class CategoriaDAO {
 

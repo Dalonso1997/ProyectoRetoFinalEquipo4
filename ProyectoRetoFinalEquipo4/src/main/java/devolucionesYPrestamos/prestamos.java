@@ -16,7 +16,7 @@ import modelClasesTablas.Prestamo;
  * informática. Controla que los profesores solo puedan pedirse cosas a sí
  * mismos y que el administrador gestione a todos.
  *
- * * @author aday fernandez
+ * @author aday fernandez
  */
 public class prestamos extends javax.swing.JDialog {
 

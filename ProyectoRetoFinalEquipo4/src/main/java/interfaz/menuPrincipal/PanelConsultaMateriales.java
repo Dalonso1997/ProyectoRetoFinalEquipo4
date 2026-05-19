@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * taller. Dibuja una tabla automática que muestra las cantidades, categorías,
  * estados y ubicaciones en tiempo real.
  *
- * * @author sergio camacho
+ * @author sergio camacho
  */
 public class PanelConsultaMateriales extends JPanel {
 

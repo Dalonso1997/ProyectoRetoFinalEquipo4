@@ -17,7 +17,7 @@ import viewFormularios.VentanaBusqueda;
  * vuestro sistema del taller. Recoge las credenciales del formulario y
  * comprueba el rol para redirigir al menú correcto.
  *
- * * @author Sergio Camacho
+ * @author Sergio Camacho
  */
 public class login extends javax.swing.JFrame {
 

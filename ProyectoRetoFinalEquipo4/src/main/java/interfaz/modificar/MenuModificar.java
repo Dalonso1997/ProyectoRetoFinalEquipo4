@@ -18,7 +18,7 @@ import modelClasesTablas.Material;
  * taller. Carga dinámicamente las categorías y estados reales para
  * actualizarlos en la base de datos.
  *
- * * @author sergio camacho
+ * @author sergio camacho
  */
 public class MenuModificar extends javax.swing.JDialog {
 
