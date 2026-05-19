@@ -328,13 +328,13 @@ La aplicación desplegada está disponible en:
 
 ### Página principal
 
-![Página Principal](ruta/pagina-principal.png)
+![Página Principal](Documentaciones/Lenguaje%20de%20Marcas/CapturaPaginaPrincipal.png)
 
 ---
 
 ### Inventario
 
-![Inventario](ruta/inventario.png)
+![Inventario](Documentaciones/Lenguaje%20de%20Marcas/CapturaInventario.png)
 
 ---
 
