@@ -270,7 +270,7 @@ La sección `inventario_3d.html` incluye:
 ---
 </details>
 <details>
-<summary>⚙️ Explicación del JavaScript</summary>
+<summary>⚙️ Explicación del Script</summary>
 
 La lógica interactiva está implementada en `script.js`.
 
@@ -404,6 +404,17 @@ Diferenciación entre:
 
 ---
 
+## 📐 Diagrama de clases
+
+📄 [Ver diagrama de clases](Documentaciones/Entornos%20de%20Desarrollo/Diagrama%20de%20clases.png)
+
+---
+
+## 🔄 Casos de uso
+
+📄 [Ver casos de uso](Documentaciones/Entornos%20de%20Desarrollo/Diagrama%20de%20casos%20de%20uso.jpg)
+
+---
 ## 📸 Capturas de la Aplicación
 
 ### Pantalla de Login
