@@ -362,7 +362,7 @@ La aplicación permite administrar materiales, localizar componentes y gestionar
 - Gestión de préstamos
 - Localización de material
 - Generación de informes
-- Importación/exportación CSV
+- Importación/exportación CSV Y TXT
 
 ---
 
