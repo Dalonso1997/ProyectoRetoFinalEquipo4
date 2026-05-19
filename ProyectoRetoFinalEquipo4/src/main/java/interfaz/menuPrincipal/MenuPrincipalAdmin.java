@@ -25,10 +25,12 @@ import viewFormularios.VentanaInformes;
 
 /**
  * Ventana del menú principal para los usuarios con el rol de administrador.
- * Actúa como panel de control central cargando dinámicamente las pantallas de
- * gestión en el lado derecho.
- *
- * @author Equipo4
+ * Actúa como panel de control central cargando dinámicamente las pantallas de gestión en el lado derecho.
+ * * @author adrian gonzalez gil
+ * @author sergio camacho
+ * @author david alonso
+ * @author alberto gonzalez
+ * @author aday fernandez
  */
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 

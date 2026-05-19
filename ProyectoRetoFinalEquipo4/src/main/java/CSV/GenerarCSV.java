@@ -11,9 +11,8 @@ import javax.xml.transform.stream.*;
 /**
  * Clase para transformar el archivo XML de inventario en un documento CSV.
  * Utiliza una plantilla XSLT para hacer la conversión de formato.
- *
  * * @author Sergio Camacho
- * * @author David Alonso
+ * @author David Alonso
  */
 public class GenerarCSV {
 
