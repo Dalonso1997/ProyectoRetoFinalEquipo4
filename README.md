@@ -159,6 +159,9 @@ Trigger para registrar el alta de un material nuevo, registrando:
   
 ---
 
+### Scripts triggers
+[Ver Triggers](Documentaciones/Base%Datos/ScriptTriggers(DEFINITIVO).sql)
+
 ## 🌐 Sitio Web
 # Gestión de Taller - Equipo 4
 
