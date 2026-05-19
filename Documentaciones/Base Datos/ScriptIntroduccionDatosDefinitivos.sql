@@ -524,3 +524,11 @@ SELECT * FROM ubicacion;
 SELECT * FROM prestamos;
 
 SELECT * FROM registro;
+
+SELECT nombre from ubicacion group by nombre;
+
+SELECT cajon from ubicacion where nombre = 'Armario 2';
+
+
+
+SELECT * FROM materiales where id_estado = (SELECT id_estado from estado where nombre = 'baja');
