@@ -17,7 +17,7 @@ import utilsClasesApoyo.ConexionBD;
  * Clase del DAO para gestionar todas las consultas SQL de las categorías.
  * Conecta la base de datos de MySQL con los objetos de la interfaz de usuario.
  *
- * @author alberto gonzalez
+ * * @author alberto gonzalez
  */
 public class CategoriaDAO {
 
@@ -25,7 +25,8 @@ public class CategoriaDAO {
      * Método que busca y devuelve una lista con todas las categorías guardadas
      * en el sistema.
      *
-     * @return una lista de objetos Categoria con todos los registros de la tabla.
+     * * @return una lista de objetos Categoria con todos los registros de la
+     * tabla.
      */
     //Metodo que devuelve una lista con todas las categorias de la base de datos
     public List<Categoria> listarTodos() {

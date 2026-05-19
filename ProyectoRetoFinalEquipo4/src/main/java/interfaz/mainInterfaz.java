@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
  * taller. Se encarga de iniciar el hilo de ejecución para mostrar la interfaz
  * gráfica de forma segura.
  *
- * @author Sergio Camacho
+ * * @author Sergio Camacho
  */
 public class mainInterfaz extends JFrame {
 

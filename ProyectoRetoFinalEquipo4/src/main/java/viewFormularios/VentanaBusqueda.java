@@ -21,18 +21,13 @@ import modelClasesTablas.Material;
 import modelClasesTablas.Ubicacion;
 
 /**
- * Ventana de búsqueda y localización avanzada de componentes del taller.
- * Permite filtrar el inventario por texto, categoría, estado y ubicación física
- * de forma combinada.
  *
- * @author alberto gonzalez
+ * @author DAM126
  */
 public class VentanaBusqueda extends javax.swing.JDialog {
 
-/**
+    /**
      * Creates new form VentanaBusqueda
-     * @param parent ventana principal frame que actúa como poseedora de este componente.
-     * @param modal true para bloquear la ventana de atrás mientras este diálogo esté activo.
      */
     public VentanaBusqueda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -64,7 +59,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
         Set<String> armariosUnicos = new java.util.LinkedHashSet<>();
         for (Ubicacion u : ubicaciones) {
-            armariosUnicos.add(u.getUbicacion());
+            armariosUnicos.add(u.getUbicacion()); 
         }
         for (String armario : armariosUnicos) {
             ElejirArmario.addItem(armario);
@@ -230,14 +225,14 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             .addComponent(BotonPaginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 6, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1159, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Categoria)
                     .addComponent(ElejirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,7 +259,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
                             .addGap(22, 22, 22)
                             .addComponent(BotonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -273,22 +269,22 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(31, 31, 31))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,10 +293,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/**
-     * Acción principal encargada de recopilar los filtros visuales seleccionados y lanzar la búsqueda en el DAO.
-     * @param evt evento de acción del componente.
-     */
+
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
 
@@ -339,7 +332,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
             String categoriaFiltro = (categoriaSel != null && categoriaSel.equals("TODAS")) ? null : categoriaSel;
             String estadoFiltro = (estadoSel != null && estadoSel.equals("TODOS")) ? null : estadoSel;
             String ubicacionFiltro = null;
-
+            
             // Combinar armario y cajon para el filtro de ubicacion
             if (armarioSel != null && !armarioSel.equals("TODOS")) {
                 if (cajonSel != null && !cajonSel.equals("TODOS")) {
@@ -393,10 +386,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_botonCancelarActionPerformed
-/**
-     * Intenta levantar el navegador web nativo del sistema para apuntar a la dirección IP pública del laboratorio.
-     * @param evt evento de acción del componente.
-     */
+
     private void BotonPaginaWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPaginaWebActionPerformed
         // TODO add your handling code here:
         try {
@@ -411,18 +401,12 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_BotonPaginaWebActionPerformed
-/**
-     * Cierra el diálogo modal y libera la ventana de la memoria.
-     * @param evt evento de acción del componente.
-     */
+
     private void BotonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_BotonCancelarActionPerformed
-/**
-     * Filtra dinámicamente los cajones asociados al armario que se haya seleccionado en el primer combo.
-     * @param evt evento de acción al alternar de armario.
-     */
+
     private void ElejirArmarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElejirArmarioActionPerformed
         // TODO add your handling code here:
         String armarioSel = (String) ElejirArmario.getSelectedItem();
@@ -442,9 +426,8 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_ElejirArmarioActionPerformed
 
-/**
-     * Método principal utilizado para lanzar de manera aislada la ventana de búsquedas.
-     * @param args argumentos opcionales de consola.
+    /**
+     * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

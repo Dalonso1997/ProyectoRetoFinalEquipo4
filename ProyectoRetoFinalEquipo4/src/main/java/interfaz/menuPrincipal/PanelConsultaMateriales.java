@@ -18,8 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * taller. Dibuja una tabla automática que muestra las cantidades, categorías,
  * estados y ubicaciones en tiempo real.
  *
- * @author sergio camacho
- * @author adrian gonzalez
+ * * @author sergio camacho
  */
 public class PanelConsultaMateriales extends JPanel {
 
@@ -37,6 +36,7 @@ public class PanelConsultaMateriales extends JPanel {
         inicializarTabla();
 
         cargarMateriales();
+
     }
 
     /**
@@ -70,6 +70,53 @@ public class PanelConsultaMateriales extends JPanel {
         JScrollPane scroll = new JScrollPane(tabla);
 
         add(scroll, BorderLayout.CENTER);
+
+        //Creo un evento para escuchar dobles clicks en la tabla
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                //Cuando se hace doble click sobre un material
+                if (evt.getClickCount() == 2) {
+
+                    //Uso el metodo para recoger el ID en el que se ha pulsado dos veces
+                    int idMaterial = getIdMaterialSeleccionado();
+
+                    if (idMaterial != 1) {
+
+                        System.out.println("Doble click detectado id: " + idMaterial);
+                        MaterialDAO dao = new MaterialDAO();
+                        byte[] imagen = dao.obtenerImagen(idMaterial);
+
+                        if (imagen != null && imagen.length > 0) {
+
+                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "",
+                                    "Vista previa del material",
+                                    JOptionPane.PLAIN_MESSAGE,
+                                    icono
+                            );
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "Este material todavía no tiene una imagen asignada en la base de datos.",
+                                    "Sin imagen",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+
+                        }
+
+                    }
+                }
+            }
+        });
+
     }
 
     /**
@@ -109,7 +156,7 @@ public class PanelConsultaMateriales extends JPanel {
      *
      * * @return el id numérico del material seleccionado, o -1 si no ha
      * pinchado en ninguna fila.
-     * @author adrian gonzalez
+     * @author adrian gonzalez gil
      */
     public int getIdMaterialSeleccionado() {
         //si es -1 significa que no has seleccionado ninguna
@@ -128,7 +175,7 @@ public class PanelConsultaMateriales extends JPanel {
      *
      * * @return cadena de caracteres con la mesa o el armario y cajón, o un
      * texto vacío si no hay selección.
-     * @author adrian gonzalez
+     * @author adrian gonzalez gil
      */
     public String getIdUbicacionSeleccionada() {
         //si es -1 significa que no has seleccionado ninguna
@@ -145,7 +192,7 @@ public class PanelConsultaMateriales extends JPanel {
      * Método público para forzar la recarga visual de las filas llamando al
      * cargador privado de materiales.
      *
-     * * @author adrian gonzalez
+     * * @author adrian gonzalez gil
      */
     public void refrescarListado() {
         cargarMateriales();

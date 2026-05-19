@@ -24,26 +24,15 @@ import viewFormularios.VentanaBusqueda;
 import viewFormularios.VentanaInformes;
 
 /**
- * Ventana del menú principal para los usuarios con el rol de administrador.
- * Actúa como panel de control central cargando dinámicamente las pantallas de
- * gestión en el lado derecho.
  *
- * @author adrian gonzalez
- * @author sergio camacho
- * @author david alonso
- * @author alberto gonzalez
- * @author aday fernandez
+ * @author DAM119
  */
 public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
     private modelClasesTablas.Usuario userSesion;
 
     /**
-     * Constructor que inicia el menú principal del administrador y guarda su
-     * sesión.
-     *
-     * @param usuarioLogin objeto con los datos de la cuenta que acaba de
-     * iniciar sesión.
+     * Creates new form MenuPrincipal
      */
     public MenuPrincipalAdmin(modelClasesTablas.Usuario usuarioLogin) { // Cambia el nombre según el menú
         initComponents();
@@ -246,10 +235,10 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(panelDerecha, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(panelDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -258,10 +247,10 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelDerecha)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(29, 29, 29))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,13 +266,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     /**
-     * Abre la ventana flotante para buscar la localización exacta de las
-     * herramientas del taller.
-     *
-     * @param evt evento de accion al pulsar el boton localizacion.
-     * @author alberto gonzalez
-     */
+
     private void botonLocalizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLocalizacionActionPerformed
         // TODO add your handling code here:
 
@@ -296,28 +279,16 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         panelDerecha.repaint();
 
     }//GEN-LAST:event_botonLocalizacionActionPerformed
-    /**
-     * Carga de forma dinámica el panel de consulta general de materiales en el
-     * lado derecho.
-     *
-     * @param evt evento de accion al pulsar el boton consulta.
-     * @author sergio camacho
-     */
+
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
         // TODO add your handling code here:
 
         PanelConsultaMateriales panel = new PanelConsultaMateriales();
-
+        
         panelDerecha.setViewportView(panel);
-
+        
     }//GEN-LAST:event_botonConsultaActionPerformed
-    /**
-     * Abre el diálogo modal de gestión de salidas y solicitudes de préstamos de
-     * herramientas.
-     *
-     * @param evt evento de accion al pulsar el boton prestamos.
-     * @author aday fernandez
-     */
+
     private void botonPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrestamosActionPerformed
         // TODO add your handling code here:
 
@@ -328,13 +299,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         panelDerecha.repaint();
 
     }//GEN-LAST:event_botonPrestamosActionPerformed
-    /**
-     * Abre la ventana flotante para registrar la entrega de materiales
-     * prestados.
-     *
-     * @param evt evento de accion al pulsar el boton devoluciones.
-     * @author aday fernandez
-     */
+
     private void botonDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDevolucionesActionPerformed
         // TODO add your handling code here:
 
@@ -345,12 +310,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         panelDerecha.repaint();
 
     }//GEN-LAST:event_botonDevolucionesActionPerformed
-    /**
-     * Abre la ventana de filtros de informes configurados.
-     *
-     * @param evt evento de accion al pulsar el boton informes.
-     * @author david alonso, alberto gonzalez, adrian gonzalez
-     */
+
     private void botonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformesActionPerformed
 
         VentanaInformes ventanaInformes = new VentanaInformes(this, true);
@@ -358,13 +318,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_botonInformesActionPerformed
-    /**
-     * Recupera el material marcado en la tabla de consulta y abre el menú para
-     * editar sus datos.
-     *
-     * @param evt evento de accion al pulsar el boton modificar datos.
-     * @author sergio camacho
-     */
+
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         //cogemos lo que el usuario esta viendo ahora mismo en el panel
         java.awt.Component componenteActual = panelDerecha.getViewport().getView();
@@ -406,13 +360,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                     javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonModificarActionPerformed
-    /**
-     * Tramita la baja lógica de un material marcado en la tabla cambiando su
-     * estado a inactivo en MySQL (ID 4).
-     *
-     * @param evt evento de accion al pulsar el boton baja.
-     * @author adrian gonzalez
-     */
+
     private void botonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBajaActionPerformed
         //cogemos lo que ve el usuario en el panel
         java.awt.Component componenteActual = panelDerecha.getViewport().getView();
@@ -456,13 +404,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                     "Informacion", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBajaActionPerformed
-    /**
-     * Abre la ventana flotante del selector de altas para registrar la entrada
-     * de nuevo material.
-     *
-     * @param evt evento de accion al pulsar el boton alta.
-     * @author david alonso
-     */
+
     private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
 
         //Abrimos la ventana de alta de material
@@ -475,13 +417,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
         panelDerecha.repaint();    // Vuelve a pintar los píxeles
 
     }//GEN-LAST:event_botonAltaActionPerformed
-    /**
-     * Modifica la ubicación física de un material solicitando armario y cajón
-     * por separado mediante cuadros de diálogo encadenados.
-     *
-     * @param evt evento de accion al pulsar el boton gestionar ubicacion.
-     * @author adrian gonzalez
-     */
+
     private void botonGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGestionarActionPerformed
         //cogemos lo que el usuario esta viendo ahora mismo en el panel derecho
         Component componenteActual = panelDerecha.getViewport().getView();
@@ -524,7 +460,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             String armarioElegido = (String) JOptionPane.showInputDialog(
                     this,
                     "Selecciona el nuevo armario de destino:",
-                    "armario",
+                    "Paso 1: Seleccionar Armario",
                     javax.swing.JOptionPane.QUESTION_MESSAGE,
                     null,
                     ubicaciones,
@@ -542,7 +478,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             //recorremos la lista completa buscando los cajones del armario seleccionado
             for (int i = 0; i < listaUbi.size(); i++) {
                 if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
-                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
+                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
                     if (!cajonesArmario.contains(textoCajon)) {
                         cajonesArmario.add(textoCajon);
                     }
@@ -570,7 +506,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             int idNuevaUbi = -1;
             for (int i = 0; i < listaUbi.size(); i++) {
                 if (listaUbi.get(i).getUbicacion().equals(armarioElegido)) {
-                    String textoCajon = "Cajon " + listaUbi.get(i).getCajon();
+                    String textoCajon = "Cajón " + listaUbi.get(i).getCajon();
                     if (textoCajon.equals(cajonElegido)) {
                         idNuevaUbi = listaUbi.get(i).getId_ubicacion();
                         break;
@@ -583,11 +519,11 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
                 //instanciamos vuestro dao de materiales para lanzar el update definitivo
                 MaterialDAO dao = new MaterialDAO();
                 if (dao.cambioUbicacionMaterial(idNuevaUbi, idSeleccionado)) {
-                    JOptionPane.showMessageDialog(this, "La ubicacion del material se ha actualizado.");
+                    JOptionPane.showMessageDialog(this, "La ubicación del material se ha actualizado con éxito.");
                     //refrescamos las filas de la tabla para que se vea el cambio al instante
                     panelConsulta.refrescarListado();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error al intentar actualizar la ubicacion en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error al intentar actualizar la ubicación en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 

@@ -1,21 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package modelClasesTablas;
 
 /**
- * Entidad secundaria para gestionar los recuentos globales de existencias.
  *
- * @author sergio camacho
+ * @author DAM126
  */
 public class Inventario {
-
     private int id_inventario;
     private int cantidad;
 
-    /**
-     * Constructor completo de la entidad inventario.
-     *
-     * @param id_inventario el identificador numérico de la fila.
-     * @param cantidad el número de unidades en stock.
-     */
     public Inventario(int id_inventario, int cantidad) {
         this.id_inventario = id_inventario;
         this.cantidad = cantidad;
@@ -41,4 +37,6 @@ public class Inventario {
     public String toString() {
         return "Inventario{" + "id_inventario=" + id_inventario + ", cantidad=" + cantidad + '}';
     }
+    
+    
 }

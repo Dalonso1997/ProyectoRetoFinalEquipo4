@@ -1,24 +1,18 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package modelClasesTablas;
 
 /**
- * Entidad que representa una categoría de material en el taller de informática.
- * Corresponde con la tabla 'categorias' de la base de datos.
  *
- * @author sergio camacho
+ * @author DAM126
  */
 public class Categoria {
-
     private int id_categoria;
     private String nombre;
     private String descripcion;
 
-    /**
-     * Constructor completo para instanciar una categoría con todos sus datos.
-     *
-     * @param id_categoria el identificador único numérico de la categoría.
-     * @param nombre el nombre representativo del tipo de material.
-     * @param descripcion detalles adicionales sobre los materiales incluidos.
-     */
     public Categoria(int id_categoria, String nombre, String descripcion) {
         this.id_categoria = id_categoria;
         this.nombre = nombre;
@@ -49,14 +43,9 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    /**
-     * Devuelve el nombre de la categoría para pintarlo directamente en los
-     * desplegables.
-     *
-     * @return el nombre de la categoría.
-     */
     @Override
     public String toString() {
         return nombre;
     }
+    
 }

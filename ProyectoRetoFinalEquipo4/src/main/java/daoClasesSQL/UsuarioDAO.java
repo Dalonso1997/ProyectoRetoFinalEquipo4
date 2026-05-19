@@ -18,7 +18,7 @@ import utilsClasesApoyo.ConexionBD;
  * usuarios. Se encarga de comprobar las credenciales del login y listar los
  * usuarios del taller.
  *
- * @author alberto gonzalez
+ * * @author alberto gonzalez
  */
 public class UsuarioDAO {
 
