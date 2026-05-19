@@ -111,13 +111,12 @@ Se registran:
 
 ---
 
-## 📄 Script SQL
+<details>
+<summary>📄 Script SQL</summary>
 
-El script SQL de creación de la base de datos se encuentra en:
+📄 [Ver Script SQL](Documentaciones/Base%20Datos/ScriptCreacionBaseDeDatosDefinitivo.sql)
 
-```text
-/Database/script.sql
-```
+</details>
 
 ---
 
@@ -442,7 +441,7 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 
 
-<summary>📘 Guía de Despliegue</summary>
+📘 Guía de Despliegue
 
 La guía completa se encuentra en:
 
@@ -453,7 +452,7 @@ La guía completa se encuentra en:
 ---
 
 
-<summary>📗 Manual de Usuario</summary>
+📗 Manual de Usuario
 
 El manual de usuario se encuentra en:
 
