@@ -297,15 +297,12 @@ La web contiene:
 - Visualización 3D.
 - Paneles informativos y estadísticas.
 
-```
+## 🌐 Ruta o enlace de la web
 
-# Ruta o enlace de la web
+La aplicación desplegada está disponible en:
 
-## Archivo principal
+🔗 http://3.224.141.230/
 
----
----
-```
 ## 🖼️ Capturas
 
 ### Página principal
