@@ -525,10 +525,11 @@ El proyecto cubre todas las funcionalidades planteadas. De cara a una versión f
 ---
 # 🌍 Webgrafía
 
-- AWS Documentation
-- Oracle Java Documentation
-- MySQL Documentation
-- MDN Web Docs
-- GitHub Docs
-
-```
+- [AWS Documentation](https://docs.aws.amazon.com/)
+- [Amazon EC2 Documentation](https://docs.aws.amazon.com/ec2/)
+- [Oracle Java Documentation](https://docs.oracle.com/en/java/)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [GitHub Docs](https://docs.github.com/)
+- [Apache HTTP Server Documentation](https://httpd.apache.org/docs/)
+- [Draw.io](https://www.drawio.com/)
