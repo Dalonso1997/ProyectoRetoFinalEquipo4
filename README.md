@@ -99,7 +99,7 @@ Se registran:
 
 <summary>📌 Diagrama E/R</summary>
 
-![Diagrama E/R](Documentaciones/Base%20Datos/Diagrama%20E%20R.jpg)
+![Diagrama E/R](Documentaciones/Base%20Datos/Diagrama%20ER.jpg)
 </details>
 <details>
 
