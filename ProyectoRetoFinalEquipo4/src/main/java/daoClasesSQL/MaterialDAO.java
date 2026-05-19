@@ -49,7 +49,7 @@ public class MaterialDAO {
                 .append("e.nombre AS estado_nombre, ") // Obtenemos el nombre del estado
                 .append("CASE ")
                 .append("  WHEN u.tipo = 'mesa' THEN u.nombre ")
-                .append("  ELSE CONCAT(u.nombre, ' - Cajon ', u.cajon) ")
+                .append("  ELSE CONCAT(u.nombre, ' - Cajón ', u.cajon) ")
                 .append("END AS ubicacion, m.cantidad ")
                 .append("FROM materiales m ")
                 .append("JOIN categorias c ON m.id_categoria = c.id_categoria ")
