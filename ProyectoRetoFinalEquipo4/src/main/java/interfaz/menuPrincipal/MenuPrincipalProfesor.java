@@ -13,8 +13,9 @@ import viewFormularios.VentanaBusqueda;
  * Ventana del menú principal para los usuarios con el rol de profesor. Limita
  * los accesos ocultando los botones de alta, baja, modificación e informes que
  * son de administrador.
- *
- * @author Equipo4
+ * @author sergio camacho
+ * @author alberto gonzalez
+ * @author aday fernandez
  */
 public class MenuPrincipalProfesor extends javax.swing.JFrame {
 

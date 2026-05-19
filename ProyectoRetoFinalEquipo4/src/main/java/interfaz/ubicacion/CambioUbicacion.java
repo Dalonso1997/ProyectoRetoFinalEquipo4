@@ -26,7 +26,7 @@ public class CambioUbicacion extends javax.swing.JDialog {
      * Constructor que monta la ventana flotante de actualización e inyecta los
      * datos del material.
      *
-     * * @param parent ventana principal de la interfaz que posee y centra este
+     * @param parent ventana principal de la interfaz que posee y centra este
      * diálogo.
      * @param modal bloquea el control de la pantalla de atrás si se establece
      * en true.

@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * estados y ubicaciones en tiempo real.
  *
  * @author sergio camacho
+ * @author adrian gonzalez
  */
 public class PanelConsultaMateriales extends JPanel {
 
@@ -144,7 +145,7 @@ public class PanelConsultaMateriales extends JPanel {
      * Método público para forzar la recarga visual de las filas llamando al
      * cargador privado de materiales.
      *
-     * * @author adrian gonzalez gil
+     * * @author adrian gonzalez
      */
     public void refrescarListado() {
         cargarMateriales();

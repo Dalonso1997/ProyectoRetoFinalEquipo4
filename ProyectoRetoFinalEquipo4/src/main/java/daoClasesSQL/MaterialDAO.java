@@ -18,8 +18,11 @@ import utilsClasesApoyo.ConexionBD;
  * Clase central del DAO para gestionar el inventario de materiales en la base
  * de datos. Centraliza las altas, bajas, modificaciones y búsquedas con filtros
  * avanzados del taller.
- *
- * @author equipo 4
+ * @author adrian gonzalez
+ * @author sergio camacho
+ * @author david alonso
+ * @author alberto gonzalez
+ * @author aday fernandez
  */
 public class MaterialDAO {
 

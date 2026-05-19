@@ -25,8 +25,7 @@ public class CategoriaDAO {
      * Método que busca y devuelve una lista con todas las categorías guardadas
      * en el sistema.
      *
-     * * @return una lista de objetos Categoria con todos los registros de la
-     * tabla.
+     * @return una lista de objetos Categoria con todos los registros de la tabla.
      */
     //Metodo que devuelve una lista con todas las categorias de la base de datos
     public List<Categoria> listarTodos() {

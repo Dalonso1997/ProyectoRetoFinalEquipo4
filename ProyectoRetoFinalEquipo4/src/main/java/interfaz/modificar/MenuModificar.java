@@ -273,7 +273,7 @@ public class MenuModificar extends javax.swing.JDialog {
      * través de vuestro MaterialDAO. Extrae las claves primarias de los objetos
      * seleccionados en los JComboBox.
      *
-     * * @param evt evento de acción al pulsar el botón confirmar.
+     * @param evt evento de acción al pulsar el botón confirmar.
      * @author sergio camacho
      */
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConfirmarActionPerformed

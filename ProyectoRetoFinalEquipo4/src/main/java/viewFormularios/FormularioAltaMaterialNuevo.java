@@ -20,7 +20,7 @@ import modelClasesTablas.Ubicacion;
  * materiales. Carga de forma dinámica los armarios de almacenamiento y
  * actualiza los cajones de forma encadenada.
  *
- * @author David Alonso Casaiz
+ * @author David Alonso
  */
 public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
 

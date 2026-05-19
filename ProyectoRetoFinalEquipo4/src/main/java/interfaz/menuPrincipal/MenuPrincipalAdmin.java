@@ -25,8 +25,10 @@ import viewFormularios.VentanaInformes;
 
 /**
  * Ventana del menú principal para los usuarios con el rol de administrador.
- * Actúa como panel de control central cargando dinámicamente las pantallas de gestión en el lado derecho.
- * * @author adrian gonzalez gil
+ * Actúa como panel de control central cargando dinámicamente las pantallas de
+ * gestión en el lado derecho.
+ *
+ * @author adrian gonzalez
  * @author sergio camacho
  * @author david alonso
  * @author alberto gonzalez

@@ -19,7 +19,9 @@ import javax.swing.JOptionPane;
  * tipos de informes. Permite realizar filtros combinados o por localización
  * para exportar los datos del inventario a ficheros planos de texto.
  *
- * @author adrian gonzalez, sergio camacho, david alonso
+ * @author adrian gonzalez
+ * @author sergio camacho
+ * @author david alonso
  */
 public class VentanaInformes extends javax.swing.JDialog {
 

@@ -12,8 +12,8 @@ import java.io.IOException;
  * Clase para leer y mostrar por consola el contenido del archivo CSV generado.
  * Trocea las líneas usando las comas como separador de columnas.
  *
- * * @author Sergio Camacho
- * * @author David Alonso
+ * @author Sergio Camacho
+ * @author David Alonso
  */
 public class LeerCSV {
 

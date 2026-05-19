@@ -16,7 +16,8 @@ import java.util.Properties;
  * Implementa el patrón de diseño Singleton para garantizar que todo el programa
  * utilice un canal único y seguro de comunicación.
  *
- * @author David Alonso, Alberto Gonzalez
+ * @author David Alonso
+ * @author Alberto Gonzalez
  */
 public class ConexionBD {
 
