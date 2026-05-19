@@ -332,7 +332,7 @@ La aplicación desplegada está disponible en:
 
 ---
 
-### Inventario
+### Inventario 3D
 
 ![Inventario](Documentaciones/Lenguaje%20de%20Marcas/CapturaInventario.png)
 
