@@ -511,6 +511,14 @@ LICENSE
 
 ---
 
+###✅ Valoración de lo realizado
+##El equipo ha cumplido satisfactoriamente todos los objetivos principales del reto. Las partes que mejor resultado han dado han sido la aplicación Java, la base de datos con sus triggers y la infraestructura desplegada en AWS. El trabajo en equipo ha fluido de forma coordinada desde el principio, lo que ha permitido avanzar con ritmo constante a lo largo de las dos semanas.
+Lo más desafiante a nivel técnico ha sido trabajar con conceptos de programación y bases de datos que aún no habíamos visto en clase, como los triggers o ciertos patrones de diseño, lo que nos ha obligado a investigar y aprender de forma autónoma durante el desarrollo del proyecto.
+🔧 Mejoras propuestas
+El proyecto cubre todas las funcionalidades planteadas. De cara a una versión futura, se podrían explorar mejoras como la exportación de datos en formatos adicionales, la implementación de alta disponibilidad en AWS o una interfaz web más dinámica con conexión directa a la base de datos en tiempo real.
+
+
+---
 # 🌍 Webgrafía
 
 - AWS Documentation
