@@ -416,8 +416,6 @@ Diferenciación entre:
 
 ## 📝 Documentación Técnica (JavaDoc)
 
-La documentación técnica completa de las clases, métodos y reparto de autorías del código fuente ha sido compilada y desplegada en el servidor del laboratorio.
-
 🔗 [Explorar JavaDoc Interactivo del Equipo 4](http://3.224.141.230/apidocs/index.html)
 
 ---
