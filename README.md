@@ -111,13 +111,12 @@ Se registran:
 
 ---
 
-## 📄 Script SQL
+<details>
+<summary>📄 Script SQL</summary>
 
-El script SQL de creación de la base de datos se encuentra en:
+📄 [Ver Script SQL](Documentaciones/Base%20Datos/ScriptCreacionBaseDeDatosDefinitivo.sql)
 
-```text
-/Database/script.sql
-```
+</details>
 
 ---
 
@@ -298,15 +297,12 @@ La web contiene:
 - Visualización 3D.
 - Paneles informativos y estadísticas.
 
-```
+## 🌐 Ruta o enlace de la web
 
-# Ruta o enlace de la web
+La aplicación desplegada está disponible en:
 
-## Archivo principal
+🔗 http://3.224.141.230/
 
----
----
-```
 ## 🖼️ Capturas
 
 ### Página principal
@@ -391,19 +387,19 @@ Diferenciación entre:
 
 ### Pantalla de Login
 
-![Login](ruta/login.png)
+![Captura guía usuario](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20151332.png)
 
 ---
 
 ### Gestión de Inventario
 
-![Inventario Java](ruta/inventario-java.png)
+![Captura](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20151502.png)
 
 ---
 
 ### Gestión de Préstamos
 
-![Préstamos](ruta/prestamos.png)
+![Captura](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20152050.png)
 
 ---
 
@@ -440,27 +436,27 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 
 ---
 
-<details>
 
-<summary>📘 Guía de Despliegue</summary>
+
+📘 Guía de Despliegue
 
 La guía completa se encuentra en:
 
 
-📄 [Ver Guía de Despliegue](Documentaciones/Sistemas/Guia-despliegue-Equipo4.docx)
+📄 [Ver Guía de Despliegue](Documentaciones/Sistemas/Guia-despliegue-Equipo4%20(Finalizado).pdf)
 
 
 ---
-</details>
-<details>
-<summary>📗 Manual de Usuario</summary>
+
+
+📗 Manual de Usuario
 
 El manual de usuario se encuentra en:
 
-📄 [Abrir Manual de Usuario](Documentaciones/Sistemas/Manual-usuario-Equipo4.docx)
+📄 [Abrir Manual de Usuario](Documentaciones/Manual-usuario-Equipo4.pdf)
 
 ---
-</details>
+
 
 # 🚀 Resultados Obtenidos
 
