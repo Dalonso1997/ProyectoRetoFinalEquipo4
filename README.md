@@ -338,13 +338,11 @@ La aplicación desplegada está disponible en:
 
 ---
 
-<details>
 
-<summary>📄 Vista 3D</summary>
+📄 Vista 3D
 
 📄 [Abrir Inventario 3D](Web/inventario_3d.html)
 
-</details>
 
 
 # 💻 Aplicación Java
