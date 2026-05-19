@@ -1,5 +1,4 @@
 devolucionesYPrestamos\prestamos$Material.class
-viewFormularios\VentanaBusqueda$7$1.class
 viewFormularios\FormularioAltaMaterialNuevo$6$1.class
 viewFormularios\FormularioAltaMaterialNuevo$3.class
 pruebas\Pruebas.class
@@ -23,6 +22,7 @@ daoClasesSQL\MaterialDAO.class
 controllerClasesGestionModelVista\NewClass.class
 modelClasesTablas\Prestamo.class
 interfaz\modificar\MenuModificar$1.class
+viewFormularios\VentanaBusqueda$8$1.class
 viewFormularios\VentanaInformes.class
 devolucionesYPrestamos\prestamos$4.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$7.class
@@ -49,6 +49,7 @@ viewFormularios\VentanaInformes$1.class
 daoClasesSQL\EstadoDAO.class
 interfaz\modificar\MenuModificar$2.class
 interfaz\menuPrincipal\PanelConsultaMateriales$1.class
+viewFormularios\VentanaBusqueda$8.class
 interfaz\menuPrincipal\MenuPrincipalAdmin.class
 viewFormularios\FormularioAltaMaterialNuevo$4.class
 interfaz\ubicacion\CambioUbicacion$1.class
