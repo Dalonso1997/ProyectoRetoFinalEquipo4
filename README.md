@@ -402,7 +402,7 @@ Diferenciación entre:
 
 ### Gestión de Préstamos
 
-![Captura](Documentaciones/Imagenes-guia-usuario/captura-inventario.png)
+![Captura](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20152050.png)
 
 ---
 
