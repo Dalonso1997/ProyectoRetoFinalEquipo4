@@ -58,3 +58,38 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- Trigger para cambiar estado de producto a prestado cuando el material quede en 0
+
+DELIMITER //
+
+CREATE TRIGGER trg_actualizar_estado
+BEFORE UPDATE ON materiales
+FOR EACH ROW
+BEGIN
+    -- comprobamos si la cantidad nueva que se va a guardar es exactamente cero
+    IF NEW.cantidad = 0 THEN
+        -- buscamos de forma dinamica la id del estado 'prestado' y se la asignamos al material
+        SET NEW.id_estado = (SELECT id_estado FROM estado WHERE nombre = 'prestado');
+    END IF;
+END //
+
+DELIMITER ;
+
+-- Trigger para cambiar estado cuando pasa cantidad a 0 o de 0 a mas
+
+DELIMITER //
+
+CREATE TRIGGER trg_actualizar_estado
+BEFORE UPDATE ON materiales
+FOR EACH ROW
+BEGIN
+    IF NEW.cantidad = 0 THEN
+        SET NEW.id_estado = (SELECT id_estado FROM estado WHERE nombre = 'prestado');
+	ELSE IF OLD.cantidad = 0 AND NEW.cantidad>0 THEN
+		SET NEW.id_estado = (SELECT id_estado FROM estado WHERE nombre = 'disponible');
+    END IF;
+    END IF;
+END //
+
+DELIMITER ;
