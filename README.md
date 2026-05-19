@@ -1,4 +1,4 @@
-# RETO MH – Historia del Software
+# RETO MH – Gestión y Localización del Material del Taller
 
 ## 📝 Descripción
 Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consiste en el desarrollo y despliegue de una solución técnica que integra una infraestructura segura en la nube (AWS) y una base de datos gestionada, sirviendo como soporte para la aplicación del reto. El enfoque principal es la seguridad perimetral y el trabajo colaborativo bajo estándares de industria.
