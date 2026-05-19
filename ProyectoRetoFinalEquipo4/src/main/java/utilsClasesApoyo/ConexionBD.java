@@ -6,6 +6,7 @@ package utilsClasesApoyo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,7 +37,12 @@ public class ConexionBD {
         //objeto para leer el archivo de configuración creado de manera externa con las propiedades para la conexion
         Properties props = new Properties();
 
-        try (FileInputStream fis = new FileInputStream("config.properties")) {
+        //usamos getResourceAsStream para que funcione dentro del JAR
+        try (InputStream fis = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            if (fis == null) {
+                System.out.println(" ERROR: No se encuentra el archivo config.properties.");
+                return;
+            }
             //cargamos el archivo en memoria
             props.load(fis);
 
