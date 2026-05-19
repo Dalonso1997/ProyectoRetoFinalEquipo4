@@ -447,7 +447,7 @@ La infraestructura se desplegó utilizando AWS Academy con dos instancias EC2 se
 La guía completa se encuentra en:
 
 
-📄 [Ver documento](Documentaciones/Sistemas/SI-15_Comparar%20licencias%20y%20añadir%20LICENSE.pdf)
+📄 [Ver Guía de Despliegue](Documentaciones/Sistemas/Guia-despliegue-Equipo4%20(Finalizado).pdf)
 
 
 ---
