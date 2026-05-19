@@ -111,12 +111,12 @@ Se registran:
 
 ---
 
-<details>
-<summary>📄 Script SQL</summary>
+
+📄 Script SQL
 
 📄 [Ver Script SQL](Documentaciones/Base%20Datos/ScriptCreacionBaseDeDatosDefinitivo.sql)
 
-</details>
+
 
 ---
 
