@@ -341,7 +341,7 @@ La aplicación desplegada está disponible en:
 
 📄 Vista 3D
 
-📄 [Abrir Inventario 3D](Web/inventario_3d.html)
+📄 [Abrir Codigo Inventario 3D](Web/inventario_3d.html)
 
 
 
