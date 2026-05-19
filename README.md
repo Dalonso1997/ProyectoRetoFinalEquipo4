@@ -141,7 +141,23 @@ Cada vez que se modifica la cantidad de un material, se guarda un histórico con
 
 Esto permite llevar un control completo de los movimientos del almacén.
 
+---
+ 
+### ⚠️ Trigger para el control del estado en cantidad 0
 
+Este trigger se utiliza para que cuando un material queda en cantidad 0, automaticamente su estado pasa a 'prestado' delimitando asi que se pueda solicitar un prestamo de dicho material.
+
+---
+
+### 📋 Trigger para el registro de alta de nuevo material
+
+Trigger para registrar el alta de un material nuevo, registrando:
+
+- Identificador del material
+- Cantidad del material
+- Estado del material
+  
+---
 
 ## 🌐 Sitio Web
 # Gestión de Taller - Equipo 4
