@@ -456,7 +456,7 @@ La guía completa se encuentra en:
 
 El manual de usuario se encuentra en:
 
-📄 [Abrir Manual de Usuario](Documentaciones/Sistemas/Manual-usuario-Equipo4.docx)
+📄 [Abrir Manual de Usuario](Documentaciones/Manual-usuario-Equipo4.pdf)
 
 ---
 
