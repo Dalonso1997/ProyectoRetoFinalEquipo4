@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Ventana modal encargada de la configuración y generación de los diferentes
@@ -147,7 +149,7 @@ public class VentanaInformes extends javax.swing.JDialog {
     private void botonInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInformeActionPerformed
         // TODO add your handling code here:
         List<Object[]> datosInforme = new MaterialDAO().buscar(null, null, null, null);
-        generarInforme(datosInforme, "Informe_inventario_completo.txt");
+        generarInforme(datosInforme, "Informe_inventario_completo");
     }//GEN-LAST:event_botonInformeActionPerformed
     /**
      * Acción ejecutada al pulsar el botón de filtrado por categoría y estado.
@@ -287,6 +289,7 @@ public class VentanaInformes extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+<<<<<<< Updated upstream
     /**
      * Abre un JFileChooser para escribir los registros procesados en un archivo
      * de texto plano formateado.
@@ -298,80 +301,117 @@ public class VentanaInformes extends javax.swing.JDialog {
     private void generarInforme(List<Object[]> datosInforme, String nombreArchivo) {
         //Vamos a usar JFileChooser
         //de esta manera cuando se vaya a crear un fichero de informe, el usuario podra elegir la ubicacion y el nombre del archivo
+=======
+   private void generarInforme(List<Object[]> datosInforme, String nombreArchivo) {
+>>>>>>> Stashed changes
         JFileChooser selector = new JFileChooser();
         selector.setDialogTitle("Guardar informe de inventario");
-        selector.setSelectedFile(new File(nombreArchivo)); //Nombre por defecto
+        
+        // Configurar los filtros de extensión
+        FileNameExtensionFilter filterTxt = new FileNameExtensionFilter("Archivo de Texto (*.txt)", "txt");
+        FileNameExtensionFilter filterCsv = new FileNameExtensionFilter("Archivo CSV (*.csv)", "csv");
+        
+        // Anadimos las opciones en el desplegable del JfileChooser
+        selector.addChoosableFileFilter(filterTxt);
+        selector.addChoosableFileFilter(filterCsv);
+        selector.setFileFilter(filterTxt); // TXT por defecto
+        selector.setAcceptAllFileFilterUsed(false); // Obliga a elegir uno de los dos
 
-        //Mostramos la ventana del JFileChoose y comprobamos si el usuario acepta
+        selector.setSelectedFile(new File(nombreArchivo)); // Nombre por defecto sin extensión
+        
+        
         int respuesta = selector.showSaveDialog(this);
-
+        
+        // Si el usuario ha dado a guardar
         if (respuesta == JFileChooser.APPROVE_OPTION) {
 
             File archivoDestino = selector.getSelectedFile();
             String ruta = archivoDestino.getAbsolutePath();
+            FileFilter filtroSeleccionado = selector.getFileFilter();
+            
+            // Determinar la extensión elegida
+            String extension = (filtroSeleccionado == filterCsv) ? ".csv" : ".txt";
 
-            //Revisamos que el archivo tenga la extension .txt
-            if (!ruta.toLowerCase().endsWith(".txt")) {
-                ruta += ".txt";
+            // Revisamos que el archivo tenga la extensión correcta elegida
+            if (!ruta.toLowerCase().endsWith(extension)) {
+                ruta += extension;
             }
-
-            //Creamos dos variables de string para dar formato a la tabla que aparecera en el archivo.
-            String formato = "%-5s | %-30s | %-25s | %-15s | %-25s | %-6s";
-            String lineaDiv = "-----------------------------------------------------------------------------------------------------------------------";
 
             try (BufferedWriter informe = new BufferedWriter(new FileWriter(ruta))) {
 
-                // Encabezado del archivo txt
-                informe.write("IES MIGUEL HERRERO PEREDA - INFORME DE INVENTARIO");
-                informe.newLine();
-                informe.write("Fecha de creacion: " + new java.util.Date());
-                informe.newLine();
-                informe.write(lineaDiv);
-                informe.newLine();
-
-                // Escribimos los títulos de las columnas usando el formato definido
-                informe.write(String.format(formato, "ID", "NOMBRE", "CATEGORIA", "ESTADO", "UBICACION", "CANT."));
-                informe.newLine();
-                informe.write(lineaDiv);
-                informe.newLine();
-
-                // Recorremos los registros de la lista creada uno a uno para gestionarlos y anadirlos al archivo de text
-                for (Object[] fila : datosInforme) {
-                    // Limpiamos y limitamos la longitud de los textos para no desalinear las columnas
-                    String nombre = (fila[1] != null) ? fila[1].toString() : "";
-                    if (nombre.length() > 30) {
-                        nombre = nombre.substring(0, 27) + "...";
-                    }
-
-                    String categoria = (fila[3] != null) ? fila[3].toString() : "";
-                    if (categoria.length() > 25) {
-                        categoria = categoria.substring(0, 22) + "...";
-                    }
-
-                    String ubicacion = (fila[5] != null) ? fila[5].toString() : "";
-                    if (ubicacion.length() > 25) {
-                        ubicacion = ubicacion.substring(0, 22) + "...";
-                    }
-
-                    // Escribimos la fila con el formato idéntico a la cabecera
-                    informe.write(String.format(formato,
-                            fila[0].toString(), // ID
-                            nombre, // Nombre
-                            categoria, // Categoría
-                            fila[4].toString(), // Estado
-                            ubicacion, // Ubicación
-                            fila[6].toString() // Cantidad
-                    ));
+                // Lógica según el formato
+                if (extension.equals(".csv")) {
+                    
+                    // --- FORMATO CSV ---
+                    // Escribimos la cabecera separada por punto y coma
+                    informe.write("ID;NOMBRE;CATEGORIA;ESTADO;UBICACION;CANTIDAD");
                     informe.newLine();
+                    
+                    for (Object[] fila : datosInforme) {
+                        // Protegemos contra posibles valores nulos
+                        String id = (fila[0] != null) ? fila[0].toString() : "";
+                        String nombre = (fila[1] != null) ? fila[1].toString() : "";
+                        String categoria = (fila[3] != null) ? fila[3].toString() : "";
+                        String estado = (fila[4] != null) ? fila[4].toString() : "";
+                        String ubicacion = (fila[5] != null) ? fila[5].toString() : "";
+                        String cantidad = (fila[6] != null) ? fila[6].toString() : "";
+                        
+                        // Escribimos los datos separados por punto y coma
+                        informe.write(id + ";" + nombre + ";" + categoria + ";" + estado + ";" + ubicacion + ";" + cantidad);
+                        informe.newLine();
+                    }
+                    
+                } else {
+                    
+                    // --- FORMATO TXT ORIGINAL ---
+                    String formato = "%-5s | %-30s | %-25s | %-15s | %-25s | %-6s";
+                    String lineaDiv = "-----------------------------------------------------------------------------------------------------------------------";
+
+                    informe.write("IES MIGUEL HERRERO PEREDA - INFORME DE INVENTARIO");
+                    informe.newLine();
+                    informe.write("Fecha de creacion: " + new java.util.Date());
+                    informe.newLine();
+                    informe.write(lineaDiv);
+                    informe.newLine();
+
+                    informe.write(String.format(formato, "ID", "NOMBRE", "CATEGORIA", "ESTADO", "UBICACION", "CANT."));
+                    informe.newLine();
+                    informe.write(lineaDiv);
+                    informe.newLine();
+
+                    for (Object[] fila : datosInforme) {
+                        String nombre = (fila[1] != null) ? fila[1].toString() : "";
+                        if (nombre.length() > 30) {
+                            nombre = nombre.substring(0, 27) + "...";
+                        }
+
+                        String categoria = (fila[3] != null) ? fila[3].toString() : "";
+                        if (categoria.length() > 25) {
+                            categoria = categoria.substring(0, 22) + "...";
+                        }
+
+                        String ubicacion = (fila[5] != null) ? fila[5].toString() : "";
+                        if (ubicacion.length() > 25) {
+                            ubicacion = ubicacion.substring(0, 22) + "...";
+                        }
+
+                        informe.write(String.format(formato,
+                                fila[0].toString(), // ID
+                                nombre, // Nombre
+                                categoria, // Categoría
+                                fila[4].toString(), // Estado
+                                ubicacion, // Ubicación
+                                fila[6].toString() // Cantidad
+                        ));
+                        informe.newLine();
+                    }
+
+                    informe.write(lineaDiv);
+                    informe.newLine();
+                    informe.write("Fin del informe. Total de registros: " + datosInforme.size());
                 }
 
-                // Cierre del informe
-                informe.write(lineaDiv);
-                informe.newLine();
-                informe.write("Fin del informe. Total de registros: " + datosInforme.size());
-
-                //Mostramos al usuario una ventana informando de que se ha generado el archivo correctamente.
-                JOptionPane.showMessageDialog(this, "Informe generado con éxito en: " + ruta);
+                JOptionPane.showMessageDialog(this, "Informe generado con éxito en:\n" + ruta);
                 this.dispose();
 
             } catch (IOException e) {
