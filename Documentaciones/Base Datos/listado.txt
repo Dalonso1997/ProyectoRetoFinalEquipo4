@@ -1,0 +1,411 @@
+Aquí tienes el listado completo y revisado paso a paso para el taller de informática. Se han filtrado los elementos para asegurar que **únicamente** contengan materiales que coincidan de forma estricta con las etiquetas oficiales del plano. En el Armario 2, Cajón 1 se ha eliminado por completo cualquier elemento ajeno a la soldadura conforme a tus indicaciones.
+
+---
+
+## ## Armario 2
+
+*(Disposición en una sola columna: numeración de arriba a abajo)* 
+
+### **Cajón 1: Material soldadura Regletas** 
+
+*(Filtrado para contener exclusivamente elementos puros de soldadura)*
+
+* 
+**Soldador de lápiz** - Herramienta eléctrica con punta metálica para calentar los terminales de los componentes.
+
+
+* 
+**Hilo de estaño** - Carrete de metal de aportación que se funde para realizar las uniones eléctricas.
+
+
+* 
+**Desoldador de bomba** - Herramienta manual de succión para retirar el estaño derretido al corregir circuitos.
+
+
+* 
+**Pasta de soldar (Flux)** - Compuesto químico para limpiar las pistas de cobre y facilitar la distribución del estaño.
+
+
+
+### **Cajón 2: Cableado (SATA, VGA, Alimentación)** 
+
+* 
+**Cable SATA de datos** - Cable plano interno para comunicar unidades de almacenamiento con la placa base.
+
+
+* 
+**Cable VGA** - Cable analógico estándar para enviar la señal de vídeo desde la torre hacia el monitor.
+
+
+* 
+**Cable de alimentación ATX (IEC)** - Cable de corriente externo para dar suministro desde el enchufe a la fuente de alimentación.
+
+
+* 
+**Cable de alimentación Molex** - Cable interno de la fuente para alimentar componentes complementarios o antiguos.
+
+
+
+### ### Cajón 3: Material soldadura: Alombrillas, soportes, soldadores | 
+
+Memorias RAM 
+
+* 
+**Alfombrilla térmica antiestática** - Superficie protectora de trabajo que soporta el calor y evita descargas.
+
+
+* 
+**Soporte metálico para soldador** - Base pesada de seguridad donde descansar el soldador mientras permanece caliente.
+
+
+* 
+**Módulo de memoria RAM DDR4** - Memoria de acceso aleatorio para prácticas de montaje en placas base modernas.
+
+
+* 
+**Módulo de memoria RAM DDR3** - Memoria de acceso aleatorio destinada al mantenimiento de equipos informáticos anteriores.
+
+
+
+### **Cajón 4: Discos duros** 
+
+* 
+**Disco duro mecánico (HDD) de 3.5"** - Unidad de almacenamiento magnético interno para ordenadores de sobremesa.
+
+
+* 
+**Disco duro mecánico (HDD) de 2.5"** - Unidad de almacenamiento magnético de tamaño reducido orientada a portátiles.
+
+
+* 
+**Disco duro externo USB** - Unidad rígida de almacenamiento equipada con interfaz externa para transporte de datos.
+
+
+* 
+**Disco duro SAS** - Unidad de almacenamiento magnético de alta velocidad orientada a servidores de prácticas.
+
+
+
+---
+
+## ## Armario 3
+
+*(Disposición en una sola columna: numeración de arriba a abajo)* 
+
+### **Cajón 1: T. gráficas/ T. de red** 
+
+* 
+**Tarjeta gráfica dedicada PCIe** - Tarjeta de expansión en ranura PCI Express para el procesamiento de gráficos.
+
+
+* 
+**Tarjeta de red Ethernet PCI** - Tarjeta interna para añadir un puerto de conexión por cable RJ45 adicional.
+
+
+* 
+**Tarjeta de red Wi-Fi PCIe** - Tarjeta de expansión con antenas externas para dotar de conectividad inalámbrica al PC.
+
+
+* 
+**Tarjeta gráfica de interfaz AGP** - Componente de vídeo antiguo para el estudio de arquitecturas de hardware clásicas.
+
+
+
+### **Cajón 2: Pasta térmica** 
+
+* 
+**Jeringa de pasta térmica gris** - Compuesto con base metálica para optimizar la transferencia de calor en el procesador.
+
+
+* 
+**Jeringa de pasta térmica de silicona** - Compuesto conductor básico de color blanco para disipadores estándar.
+
+
+* 
+**Almohadilla térmica (Thermal pad)** - Lámina conductora sólida y recortable para chipsets o fases de alimentación.
+
+
+* 
+**Tubo de pasta térmica cerámica** - Compuesto disipador cerámico libre de conductividad eléctrica para evitar cortos.
+
+
+
+### ### Cajón 3: Fuentes de alimentación | 
+
+Herramientas: Destornilladores, tijeras 
+
+* 
+**Fuente de alimentación formato ATX** - Componente eléctrico principal para energizar los componentes de la torre.
+
+
+* 
+**Fuente de alimentación formato SFX** - Suministro de energía en formato compacto diseñado para chasis de tamaño reducido.
+
+
+* 
+**Destornillador de estrella (Phillips)** - Herramienta manual básica para atornillar los elementos internos del PC.
+
+
+* 
+**Tijeras de electricista** - Herramienta de corte con mangos aislados apta para sanear cableado o cortar bridas.
+
+
+
+### **Cajón 4: Herramientas: Crimpadoras** 
+
+* 
+**Crimpadora para conectores RJ45** - Herramienta específica para fijar las clavijas de red a los extremos del cable UTP.
+
+
+* 
+**Crimpadora para conectores RJ11** - Herramienta de presión adaptada a los terminales pequeños de telefonía.
+
+
+* 
+**Crimpadora de impacto** - Herramienta de inserción para fijar de forma individual los hilos de red en las rosetas murales.
+
+
+* 
+**Crimpadora de red multifunción** - Herramienta universal con guías de corte apta para conectores RJ45, RJ11 y RJ12.
+
+
+
+---
+
+## ## Armario 4
+
+*(Disposición en una sola columna: numeración de arriba a abajo)* 
+
+### **Cajón 1: Material para placas base** 
+
+* 
+**Pila de botón CR2032** - Batería de litio dedicada a alimentar la memoria CMOS de la placa base.
+
+
+* 
+**Altavoz interno de diagnóstico (PC Speaker)** - Componente que emite los pitidos de error de la placa durante el arranque.
+
+
+* 
+**Jumpers de configuración** - Puentes plásticos conductores para puentear pines y realizar el reset manual de la BIOS.
+
+
+* 
+**Separadores de latón** - Postes roscados encargados de elevar la placa para que no toque directamente el metal del chasis.
+
+
+
+### **Cajón 2: Placas base** 
+
+* 
+**Placa base formato ATX** - Tarjeta madre de dimensiones estándar útil para montajes completos en torre.
+
+
+* 
+**Placa base formato Micro-ATX** - Tarjeta madre de tamaño mediano con menor cantidad de ranuras de expansión.
+
+
+* 
+**Placa base formato Mini-ITX** - Tarjeta madre ultra compacta integrada para sistemas de dimensiones mínimas.
+
+
+* 
+**Placa base formato E-ATX** - Tarjeta madre de perfil extendido orientada a estaciones de trabajo o servidores.
+
+
+
+### ### Cajón 3: Router 4G | Portátiles | 
+
+Tornillería 
+
+* 
+**Router 4G LTE** - Dispositivo de red para crear redes inalámbricas a través de una tarjeta SIM de telefonía móvil.
+
+
+* 
+**Ordenador portátil de prácticas** - Equipo informático portátil completo destinado a tareas de reparación o diagnóstico.
+
+
+* 
+**Tornillos de rosca fina M3** - Tornillería específica necesaria para asegurar las unidades ópticas y placas base.
+
+
+* 
+**Tornillos de cabeza hexagonal** - Tornillería estándar del chasis usada para fijar las fuentes de alimentación.
+
+
+
+### **Cajón 4: Tarjetas gráficas** 
+
+* 
+**Tarjeta gráfica de perfil bajo (Low Profile)** - Tarjeta de vídeo de dimensiones estrechas adaptada a ordenadores compactos.
+
+
+* 
+**Tarjeta gráfica con ventilador simple** - Unidad de procesamiento gráfico convencional con disipación activa por aire.
+
+
+* 
+**Tarjeta gráfica con refrigeración pasiva** - Tarjeta equipada con un bloque de disipación silencioso sin ventiladores.
+
+
+* 
+**Tarjeta gráfica de doble ranura (Dual Slot)** - Tarjeta de vídeo de gran grosor que requiere dos espacios traseros en la caja.
+
+
+
+---
+
+## ## Armario 5
+
+*(Disposición en dos columnas: numeración de izquierda a derecha, fila por fila)* 
+
+### **Cajón 1 (Fila 1 - Izquierda): Destornilladores de precisión** 
+
+* 
+**Destornillador plano milimétrico** - Herramienta de precisión para tornillos diminutos de ranura recta.
+
+
+* 
+**Destornillador de estrella PH00** - Herramienta de precisión idónea para los microtornillos de equipos portátiles.
+
+
+* 
+**Destornillador Torx T6** - Herramienta de precisión con punta de estrella de seis puntas común en carcasas rígidas.
+
+
+* 
+**Destornillador Pentalobe** - Herramienta de seguridad con punta de cinco estrellas para electrónica de consumo compacta.
+
+
+
+### **Cajón 2 (Fila 1 - Derecha): T. Gráficas** 
+
+* 
+**Tarjeta gráfica dedicada PCIe** - Tarjeta de expansión de vídeo convencional para las configuraciones básicas de clase.
+
+
+* 
+**Tarjeta gráfica con salida DVI** - Tarjeta de vídeo provista de conectores digitales de generaciones anteriores.
+
+
+* 
+**Tarjeta gráfica con triple ventilador** - Unidad gráfica de alto rendimiento equipada con un armazón de ventilación avanzado.
+
+
+* 
+**Tarjeta gráfica de perfil modular** - Unidad de vídeo básica desmontable destinada a pruebas rápidas en banco.
+
+
+
+### **Cajón 3 (Fila 2 - Izquierda): Placas base AMD** 
+
+* 
+**Placa base con socket AM4** - Tarjeta madre compatible con la arquitectura de procesadores AMD Ryzen.
+
+
+* 
+**Placa base con socket AM3+** - Tarjeta madre dedicada a los microprocesadores AMD de la gama FX.
+
+
+* 
+**Placa base con socket FM2+** - Tarjeta madre diseñada para albergar unidades de procesamiento acelerado (APU) de AMD.
+
+
+* 
+**Placa base con socket TR4** - Tarjeta de gran formato para procesadores de gama entusiasta AMD Threadripper.
+
+
+
+### **Cajón 4 (Fila 2 - Derecha): T. Gráficas** 
+
+* 
+**Tarjeta gráfica de gama media** - Dispositivo de procesamiento de vídeo empleado para testeo de software informático.
+
+
+* 
+**Tarjeta gráfica con puertos DisplayPort** - Tarjeta equipada con conectores de vídeo digital de alta resolución.
+
+
+* 
+**Tarjeta gráfica externa (eGPU)** - Dispositivo gráfico independiente en chasis externo conectable por interfaz rápida.
+
+
+* 
+**Tarjeta gráfica de doble núcleo (Dual GPU)** - Tarjeta de expansión especial que incorpora dos procesadores de vídeo en el mismo circuito.
+
+
+
+### **Cajón 5 (Fila 3 - Izquierda): Placas base Intel / Discos SSD/WebCam** 
+
+* 
+**Placa base con socket LGA 1200** - Tarjeta madre optimizada para albergar procesadores Intel Core.
+
+
+* 
+**Unidad de estado sólido (SSD) SATA de 2.5"** - Dispositivo de almacenamiento rápido basado en chips de memoria flash.
+
+
+* 
+**Unidad de almacenamiento SSD M.2 NVMe** - Unidad sólida de altas prestaciones que se instala directo en la interfaz PCIe.
+
+
+* 
+**Cámara web USB (WebCam)** - Periférico de captura de vídeo externo provisto de interfaz de conexión USB.
+
+
+
+### **Cajón 6 (Fila 3 - Derecha): Placas base Intel / Fuentes de alimentación** 
+
+* 
+**Placa base con socket LGA 1151** - Tarjeta madre compatible con procesadores Intel de generaciones clásicas.
+
+
+* 
+**Placa base con socket LGA 1700** - Tarjeta madre preparada para albergar procesadores Intel Core de arquitectura reciente.
+
+
+* 
+**Fuente de alimentación totalmente modular** - Unidad de energía en la que todo el cableado interno se puede desconectar.
+
+
+* 
+**Fuente de alimentación formato TFX** - Suministro eléctrico alargado y específico utilizado en chasis de marcas concretas.
+
+
+
+### **Cajón 7 (Fila 4 - Izquierda): Microprocesadores Intel / Multímetros** 
+
+* 
+**Procesador Intel Core i5 (LGA 1151)** - Unidad central de procesamiento Intel de contactos planos para prácticas de inserción.
+
+
+* 
+**Procesador Intel Core i3 (LGA 1200)** - Unidad central de procesamiento Intel de gama de entrada para ensamblajes básicos.
+
+
+* 
+**Multímetro digital de rango manual** - Instrumento de medición eléctrica para comprobar voltajes, diodos y resistencias.
+
+
+* 
+**Multímetro digital autorrango** - Instrumento electrónico de medición que ajusta de forma automática la escala del taller.
+
+
+
+### **Cajón 8 (Fila 4 - Derecha): Microprocesadores AMD / Fuentes de alimentación** 
+
+* 
+**Procesador AMD Ryzen 5 (AM4)** - Unidad central de procesamiento AMD equipada con pines inferiores de contacto (PGA).
+
+
+* 
+**Procesador AMD Athlon (AM4)** - Unidad de procesamiento AMD de bajo consumo idónea para montar equipos ofimáticos.
+
+
+* 
+**Fuente de alimentación ATX estándar** - Suministro eléctrico complementario para la realización de pruebas de componentes en mesa.
+
+
+* 
+**Fuente de alimentación con certificación 80 Plus** - Unidad de energía eficiente empleada en el montaje de servidores de aula.
