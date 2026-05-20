@@ -171,6 +171,11 @@ public class PanelConsultaMateriales extends JPanel {
         }
     }
     
+    /**
+     * Recupera el nombre del material seleccionado por el usuario.
+     * @return el nombre del material o " " si no ha pinchado en nada.
+     * @author sergio camacho
+     */
     public String getNombreMaterialSeleccionado() {
         //si es -1 significa que no has seleccionado ninguna
         int filaSeleccionada = tabla.getSelectedRow();
@@ -179,6 +184,21 @@ public class PanelConsultaMateriales extends JPanel {
         } else {
             //devolvemos el id del seleccionado, que esta en la columna 0
             return modelo.getValueAt(filaSeleccionada, 1).toString();
+        }
+    }
+    /**
+     * Recupera la descripción del material seleccionado por el usuario.
+     * @return la descripción del material o " " si no ha pinchado en nada.
+     * @author sergio camacho
+     */
+    public String getDescripcionMaterialSeleccionado() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return " ";
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return modelo.getValueAt(filaSeleccionada, 2).toString();
         }
     }
 
