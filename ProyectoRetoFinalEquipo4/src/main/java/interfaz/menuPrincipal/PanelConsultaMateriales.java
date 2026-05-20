@@ -170,6 +170,17 @@ public class PanelConsultaMateriales extends JPanel {
             return (int) modelo.getValueAt(filaSeleccionada, 0);
         }
     }
+    
+    public String getNombreMaterialSeleccionado() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return " ";
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return modelo.getValueAt(filaSeleccionada, 1).toString();
+        }
+    }
 
     /**
      * Recupera el texto completo de la columna de ubicaciones de la fila que
