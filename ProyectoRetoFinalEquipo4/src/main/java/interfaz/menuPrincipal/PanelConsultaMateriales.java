@@ -77,43 +77,43 @@ public class PanelConsultaMateriales extends JPanel {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-//                Cuando se hace doble click sobre un material
-//                if (evt.getClickCount() == 2) {
-//
-//                    //Uso el metodo para recoger el ID en el que se ha pulsado dos veces
-//                    int idMaterial = getIdMaterialSeleccionado();
-//
-//                    if (idMaterial != 1) {
-//
-//                        System.out.println("Doble click detectado id: " + idMaterial);
-//                        MaterialDAO dao = new MaterialDAO();
-//                        byte[] imagen = dao.obtenerImagen(idMaterial);
-//
-//                        if (imagen != null && imagen.length > 0) {
-//
-//                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
-//
-//                            JOptionPane.showMessageDialog(
-//                                    PanelConsultaMateriales.this,
-//                                    "",
-//                                    "Vista previa del material",
-//                                    JOptionPane.PLAIN_MESSAGE,
-//                                    icono
-//                            );
-//
-//                        } else {
-//
-//                            JOptionPane.showMessageDialog(
-//                                    PanelConsultaMateriales.this,
-//                                    "Este material todavía no tiene una imagen asignada en la base de datos.",
-//                                    "Sin imagen",
-//                                    JOptionPane.INFORMATION_MESSAGE
-//                            );
-//
-//                        }
-//
-//                    }
-//                }
+                //Cuando se hace doble click sobre un material
+                if (evt.getClickCount() == 2) {
+
+                    //Uso el metodo para recoger el ID en el que se ha pulsado dos veces
+                    int idMaterial = getIdMaterialSeleccionado();
+
+                    if (idMaterial != -1) {
+
+                        System.out.println("Doble click detectado id: " + idMaterial);
+                        MaterialDAO dao = new MaterialDAO();
+                        byte[] imagen = dao.obtenerImagen(idMaterial);
+
+                        if (imagen != null && imagen.length > 0) {
+
+                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "",
+                                    "Vista previa del material",
+                                    JOptionPane.PLAIN_MESSAGE,
+                                    icono
+                            );
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "Este material todavía no tiene una imagen asignada en la base de datos.",
+                                    "Sin imagen",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+
+                        }
+
+                    }
+                }
                 // Comprobamos si el usuario ha hecho exactamente 2 clics
                 
             }
