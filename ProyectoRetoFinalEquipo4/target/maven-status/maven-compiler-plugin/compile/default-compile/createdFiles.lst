@@ -1,4 +1,5 @@
 devolucionesYPrestamos\prestamos$Material.class
+viewFormularios\FormularioAltaMaterialNuevo$6$1.class
 viewFormularios\FormularioAltaMaterialNuevo$3.class
 pruebas\Pruebas.class
 CSV\GenerarCSV.class
@@ -49,7 +50,6 @@ viewFormularios\VentanaInformes$1.class
 daoClasesSQL\EstadoDAO.class
 interfaz\modificar\MenuModificar$2.class
 interfaz\menuPrincipal\PanelConsultaMateriales$1.class
-viewFormularios\FormularioAltaMaterialNuevo$7.class
 viewFormularios\VentanaBusqueda$8.class
 interfaz\menuPrincipal\MenuPrincipalAdmin.class
 viewFormularios\FormularioAltaMaterialNuevo$4.class
@@ -85,7 +85,6 @@ viewFormularios\VentanaBusqueda.class
 viewFormularios\SelectorAlta$5.class
 modelClasesTablas\Ubicacion.class
 interfaz\menuPrincipal\MenuPrincipalAdmin$4.class
-viewFormularios\FormularioAltaMaterialNuevo$7$1.class
 interfaz\menuPrincipal\MenuPrincipalProfesor$3.class
 viewFormularios\VentanaBusqueda$4.class
 devolucionesYPrestamos\devoluciones.class
