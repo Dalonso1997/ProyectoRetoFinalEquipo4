@@ -18,6 +18,7 @@ public class Material {
     private LocalDateTime fecha_Alta;
     private int id_categoria;
     private int id_ubicacion;
+    private byte[] imagen;
 
     /**
      * Constructor completo para cargar materiales desde la base de datos.
@@ -31,6 +32,20 @@ public class Material {
         this.fecha_Alta = fecha_Alta;
         this.id_categoria = id_categoria;
         this.id_ubicacion = id_ubicacion;
+        
+    }
+
+    /**
+     * Constructor para la creación de nuevos materiales QUE SÍ TIENEN IMAGEN.
+     */
+    public Material(String nombre, String descripcion, int cantidad, int id_estado, int id_categoria, int id_ubicacion, byte[] imagen) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+        this.id_estado = id_estado;
+        this.id_categoria = id_categoria;
+        this.id_ubicacion = id_ubicacion;
+        this.imagen = imagen;
     }
 
     /**
@@ -89,6 +104,15 @@ public class Material {
         this.id_estado = id_estado;
     }
 
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+    
+    
     public LocalDateTime getFecha_Alta() {
         return fecha_Alta;
     }

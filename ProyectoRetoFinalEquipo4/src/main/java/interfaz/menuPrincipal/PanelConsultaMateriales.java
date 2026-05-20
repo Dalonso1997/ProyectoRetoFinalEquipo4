@@ -77,43 +77,43 @@ public class PanelConsultaMateriales extends JPanel {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-//                Cuando se hace doble click sobre un material
-//                if (evt.getClickCount() == 2) {
-//
-//                    //Uso el metodo para recoger el ID en el que se ha pulsado dos veces
-//                    int idMaterial = getIdMaterialSeleccionado();
-//
-//                    if (idMaterial != 1) {
-//
-//                        System.out.println("Doble click detectado id: " + idMaterial);
-//                        MaterialDAO dao = new MaterialDAO();
-//                        byte[] imagen = dao.obtenerImagen(idMaterial);
-//
-//                        if (imagen != null && imagen.length > 0) {
-//
-//                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
-//
-//                            JOptionPane.showMessageDialog(
-//                                    PanelConsultaMateriales.this,
-//                                    "",
-//                                    "Vista previa del material",
-//                                    JOptionPane.PLAIN_MESSAGE,
-//                                    icono
-//                            );
-//
-//                        } else {
-//
-//                            JOptionPane.showMessageDialog(
-//                                    PanelConsultaMateriales.this,
-//                                    "Este material todavía no tiene una imagen asignada en la base de datos.",
-//                                    "Sin imagen",
-//                                    JOptionPane.INFORMATION_MESSAGE
-//                            );
-//
-//                        }
-//
-//                    }
-//                }
+                //Cuando se hace doble click sobre un material
+                if (evt.getClickCount() == 2) {
+
+                    //Uso el metodo para recoger el ID en el que se ha pulsado dos veces
+                    int idMaterial = getIdMaterialSeleccionado();
+
+                    if (idMaterial != -1) {
+
+                        System.out.println("Doble click detectado id: " + idMaterial);
+                        MaterialDAO dao = new MaterialDAO();
+                        byte[] imagen = dao.obtenerImagen(idMaterial);
+
+                        if (imagen != null && imagen.length > 0) {
+
+                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "",
+                                    "Vista previa del material",
+                                    JOptionPane.PLAIN_MESSAGE,
+                                    icono
+                            );
+
+                        } else {
+
+                            JOptionPane.showMessageDialog(
+                                    PanelConsultaMateriales.this,
+                                    "Este material todavía no tiene una imagen asignada en la base de datos.",
+                                    "Sin imagen",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+
+                        }
+
+                    }
+                }
                 // Comprobamos si el usuario ha hecho exactamente 2 clics
                 
             }
@@ -168,6 +168,17 @@ public class PanelConsultaMateriales extends JPanel {
         } else {
             //devolvemos el id del seleccionado, que esta en la columna 0
             return (int) modelo.getValueAt(filaSeleccionada, 0);
+        }
+    }
+    
+    public String getNombreMaterialSeleccionado() {
+        //si es -1 significa que no has seleccionado ninguna
+        int filaSeleccionada = tabla.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return " ";
+        } else {
+            //devolvemos el id del seleccionado, que esta en la columna 0
+            return modelo.getValueAt(filaSeleccionada, 1).toString();
         }
     }
 

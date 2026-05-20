@@ -41,11 +41,12 @@ public class MenuModificar extends javax.swing.JDialog {
      * @param idMaterial el identificador numérico de la herramienta que se
      * quiere editar.
      */
-    public MenuModificar(java.awt.Frame parent, boolean modal, int idMaterial) {
+    public MenuModificar(java.awt.Frame parent, boolean modal, int idMaterial, String nombreMaterial) {
         super(parent, modal);
         initComponents();
 
         this.idMaterial = idMaterial;
+        txtNuevo.setText(nombreMaterial);
 
         this.setTitle("Modificar material");
         this.setLocationRelativeTo(parent);
@@ -352,7 +353,7 @@ public class MenuModificar extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                MenuModificar modific = new MenuModificar(new javax.swing.JFrame(), true, 0);
+                MenuModificar modific = new MenuModificar(new javax.swing.JFrame(), true, 0, " ");
                 modific.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -330,6 +330,8 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
 
             //sacamos la id del material que el admin ha pinchado en la tabla
             int idSeleccionado = panelConsulta.getIdMaterialSeleccionado();
+            
+            String nombreSeleccionado = panelConsulta.getNombreMaterialSeleccionado();
 
             //comprobamos si no ha seleccionado nada (el metodo devuelve -1 si esta vacio)
             if (idSeleccionado == -1) {
@@ -346,7 +348,7 @@ public class MenuPrincipalAdmin extends javax.swing.JFrame {
             String matActual = panelConsulta.getIdUbicacionSeleccionada();
 
             //abrimos la ventana de cambio de ubicacion pasando todos los datos necesarios
-            MenuModificar ventana = new MenuModificar(this, true, idSeleccionado);
+            MenuModificar ventana = new MenuModificar(this, true, idSeleccionado, nombreSeleccionado);
             ventana.setVisible(true);
 
             //una vez se cierre la ventana de gestion, refrescamos la tabla para ver los cambios

@@ -101,7 +101,7 @@ public class MaterialDAO {
     public boolean insertarMaterial(Material m) {
         Connection con = ConexionBD.getInstancia().getConexion();
         // 6 parámetros (?) ya que fecha_alta usa NOW()
-        String sql = "INSERT INTO materiales (nombre, descripcion, cantidad, id_estado, id_categoria, id_ubicacion, fecha_alta) VALUES (?,?,?,?,?,?,NOW())";
+        String sql = "INSERT INTO materiales (nombre, descripcion, cantidad, id_estado, id_categoria, id_ubicacion, fecha_alta, imagen) VALUES (?,?,?,?,?,?,NOW(), ?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, m.getNombre());
@@ -110,7 +110,16 @@ public class MaterialDAO {
             ps.setInt(4, m.getId_estado());    // Estado (ID numérico)
             ps.setInt(5, m.getId_categoria()); // Categoría (ID numérico)
             ps.setInt(6, m.getId_ubicacion()); // Ubicación (ID numérico)
-
+            
+            if (m.getImagen() !=  null && m.getImagen().length > 0){
+                
+                ps.setBytes(7, m.getImagen());
+                
+            } else {
+                
+                ps.setNull(7, java.sql.Types.BLOB);
+                
+            }
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
