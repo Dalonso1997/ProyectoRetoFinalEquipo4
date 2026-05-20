@@ -52,6 +52,9 @@ public class MenuModificar extends javax.swing.JDialog {
 
         cargarCategoria();
         cargarEstado();
+        
+
+        
     }
 
     /**
@@ -92,6 +95,8 @@ public class MenuModificar extends javax.swing.JDialog {
             selectEstado.addItem(e);
         }
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -288,12 +293,12 @@ public class MenuModificar extends javax.swing.JDialog {
         MaterialDAO matDAO = new MaterialDAO();
 
         boolean actualizado = matDAO.modificarMaterial(idMaterial, nombreMat, descriMat, cantMat, cantMat, cantMat);
-        
-        if(actualizado){
-            JOptionPane.showMessageDialog(this,"¡Material modificado con éxito!");
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this, "¡Material modificado con éxito!");
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this,"Error al modificar el material.");
+            JOptionPane.showMessageDialog(this, "Error al modificar el material.");
         }
 
     }//GEN-LAST:event_botonConfirmarActionPerformed
