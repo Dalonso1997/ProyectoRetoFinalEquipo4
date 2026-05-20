@@ -8,8 +8,11 @@ import daoClasesSQL.CategoriaDAO;
 import daoClasesSQL.EstadoDAO;
 import daoClasesSQL.MaterialDAO;
 import daoClasesSQL.UbicacionDAO;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelClasesTablas.Categoria;
 import modelClasesTablas.Estado;
 import modelClasesTablas.Material;
@@ -110,6 +113,9 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
         etiquetaCajon = new javax.swing.JLabel();
         desplegableCajon = new javax.swing.JComboBox<>();
+        txtImagen = new javax.swing.JLabel();
+        btnAnadir = new javax.swing.JButton();
+        campoRutaImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -185,6 +191,17 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         etiquetaCajon.setForeground(new java.awt.Color(255, 255, 255));
         etiquetaCajon.setText("Cajon:");
 
+        txtImagen.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtImagen.setForeground(new java.awt.Color(255, 255, 255));
+        txtImagen.setText("Imagen:");
+
+        btnAnadir.setText("Añadir");
+        btnAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnadirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -200,18 +217,24 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                             .addComponent(etiquetaEstado)
                             .addComponent(etiquetaCategoria)
                             .addComponent(etiquetaArmario)
-                            .addComponent(etiquetaCajon))
+                            .addComponent(etiquetaCajon)
+                            .addComponent(txtImagen))
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(campoDescripcion)
                             .addComponent(desplegableEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(desplegableCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(desplegableArmario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(campoNombre)
-                            .addComponent(desplegableCajon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(desplegableCajon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnAnadir)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(campoRutaImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 28, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,33 +264,42 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(etiquetaDescripcion)
                     .addComponent(campoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaCantidad)
-                    .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaEstado)
-                    .addComponent(desplegableEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(desplegableCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(etiquetaCategoria))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaArmario)
-                    .addComponent(desplegableArmario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(etiquetaCajon)
-                    .addComponent(desplegableCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(lineaSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
+                    .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(etiquetaCantidad))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAnadir)
+                            .addComponent(txtImagen))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(desplegableEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(etiquetaEstado))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(desplegableCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(etiquetaCategoria))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaArmario)
+                            .addComponent(desplegableArmario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaCajon)
+                            .addComponent(desplegableCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(lineaSeparador2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(campoRutaImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -313,14 +345,23 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             Ubicacion ubi = (Ubicacion) desplegableCajon.getSelectedItem();
             Estado estado = (Estado) desplegableEstado.getSelectedItem();
             
-            //Creamos un nuevo material en base a los datos recogidos del formulario
-            Material nuevoMaterial = new Material(nombre, descripcion, cantidad, estado.getId_estado(), cat.getId_categoria(), ubi.getId_ubicacion());
-            
-            // Creamos el DAO para gestionar el acceso a la base de datos
+            //Instanciamos a materialDAO para meter los datos en la base de datos
             MaterialDAO dao = new MaterialDAO();
             
+            //Creamos un nuevo material en base a los datos recogidos del formulario
+            //Para la imagen ponemos un control para en caso de que no haya imagen se llame al constructor sin imagen
+            if (imagenSeleccionada == null){
+                Material nuevoMaterial = new Material(nombre, descripcion, cantidad, estado.getId_estado(), cat.getId_categoria(), ubi.getId_ubicacion());
+                dao.insertarMaterial(nuevoMaterial);
+            } else {
+                Material nuevoMaterial = new Material(nombre,descripcion,cantidad,estado.getId_estado(), cat.getId_categoria(),ubi.getId_ubicacion(), imagenSeleccionada);
+                dao.insertarMaterial(nuevoMaterial);
+            }
+            // Creamos el DAO para gestionar el acceso a la base de datos
+            
+            
             //Insertamos el nuevo material en la base de datos
-            dao.insertarMaterial(nuevoMaterial);
+            
             
             javax.swing.JOptionPane.showMessageDialog(this, "¡Material guardado correctamente!");
             //Volvemos a la ventana princial.
@@ -344,6 +385,39 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_desplegableArmarioActionPerformed
+
+    private void btnAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnadirActionPerformed
+        //Creamos el explorador que servira para elegir la imagen que queremos subir
+        JFileChooser selector = new JFileChooser();
+        
+        //Anadimos un filtro para que lo unico que se pueda subir sean imagenes
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("iamgenes","jpg","png","jpeg");
+        
+        //Le decimos al JFileChooser que estos filtros son los que debe usar
+        selector.setFileFilter(filtro);
+        
+        int eleccion = selector.showOpenDialog(this);
+        
+        if (eleccion == JFileChooser.APPROVE_OPTION){
+            
+            java.io.File archivoElegido = selector.getSelectedFile();
+            campoRutaImagen.setText(archivoElegido.getName());
+            
+            try {
+                
+                //Guardamos los bytes de la imagen en la variable creada en esta clase para almacenarla y despues usarla desde el boton guardar
+                imagenSeleccionada = java.nio.file.Files.readAllBytes(archivoElegido.toPath());
+            
+            } catch (IOException e){
+                System.out.println(e.getMessage());
+                
+                //Ventana de aviso para el usuario
+                javax.swing.JOptionPane.showMessageDialog(this, "no se pudo cargar la imagen", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnAnadirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,12 +461,15 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             }
         });
     }
-
+    
+    private byte[] imagenSeleccionada = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JTextField campoDescripcion;
     private javax.swing.JTextField campoNombre;
+    private javax.swing.JLabel campoRutaImagen;
     private javax.swing.JComboBox<String> desplegableArmario;
     private javax.swing.JComboBox<Ubicacion> desplegableCajon;
     private javax.swing.JComboBox<Categoria> desplegableCategoria;
@@ -409,5 +486,6 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
     private javax.swing.JSeparator lineaSeparador1;
     private javax.swing.JSeparator lineaSeparador2;
     private javax.swing.JSpinner selectorCantidad;
+    private javax.swing.JLabel txtImagen;
     // End of variables declaration//GEN-END:variables
 }
