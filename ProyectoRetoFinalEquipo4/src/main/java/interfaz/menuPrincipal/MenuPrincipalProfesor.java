@@ -62,7 +62,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         botonConsulta.setBackground(new java.awt.Color(51, 51, 51));
         botonConsulta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonConsulta.setForeground(new java.awt.Color(255, 255, 255));
-        botonConsulta.setText("Consulta");
+        botonConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/menuPrincipal/consultar.png"))); // NOI18N
         botonConsulta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +73,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         botonLocalizacion.setBackground(new java.awt.Color(51, 51, 51));
         botonLocalizacion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonLocalizacion.setForeground(new java.awt.Color(255, 255, 255));
-        botonLocalizacion.setText("Localización");
+        botonLocalizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/menuPrincipal/buscar.png"))); // NOI18N
         botonLocalizacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonLocalizacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +84,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         botonPrestamos.setBackground(new java.awt.Color(51, 51, 51));
         botonPrestamos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonPrestamos.setForeground(new java.awt.Color(255, 255, 255));
-        botonPrestamos.setText("Préstamos");
+        botonPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/menuPrincipal/prestamos.png"))); // NOI18N
         botonPrestamos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonPrestamos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,7 +95,7 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         botonDevoluciones.setBackground(new java.awt.Color(51, 51, 51));
         botonDevoluciones.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonDevoluciones.setForeground(new java.awt.Color(255, 255, 255));
-        botonDevoluciones.setText("Devoluciones");
+        botonDevoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/interfaz/menuPrincipal/devoluciones.png"))); // NOI18N
         botonDevoluciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         botonDevoluciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,13 +141,13 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(panelDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelDerecha, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -158,8 +158,8 @@ public class MenuPrincipalProfesor extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(panelDerecha, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
