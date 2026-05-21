@@ -17,11 +17,9 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 ## 📂 Estructura del Proyecto
 ```text
 .
-├── .github/
 ├── Documentaciones/          # Manuales, especificaciones y diagramas del proyecto
 ├── ProyectoRetoFinalEquipo4/ # Código fuente principal de la aplicación de escritorio
 ├── Web/                      # Código y archivos del sitio web del proyecto
-├── .gitignore                # Archivos ocultos excluidos del control de versiones
 ├── BD-01 - Analizar datos y ubicaciones del inventario.pdf # Documento de base de datos terminado
 ├── cuaderno_trabajo.md       # Bitácora o diario de desarrollo del equipo
 ├── LICENSE                   # Licencia legal de uso del software
