@@ -20,9 +20,9 @@ Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consis
 ├── Documentaciones/          # Manuales, especificaciones y diagramas del proyecto
 ├── ProyectoRetoFinalEquipo4/ # Código fuente principal de la aplicación de escritorio
 ├── Web/                      # Código y archivos del sitio web del proyecto
-├── cuaderno_trabajo.md       # Bitácora o diario de desarrollo del equipo
+├── cuaderno_trabajo.md       # Cuaderno de trabajo del equipo
 ├── LICENSE                   # Licencia legal de uso del software
-├── Plantilla_issues.md       # Guía o formato manual para reportar problemas
+├── Plantilla_issues.md       # Guía manual para reportar problemas
 └── README.md                 # Descripción general y guía de inicio del repositorio
 
 
