@@ -341,6 +341,18 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             //Recogemos los datos que nos da el usuario sobre el material que quiere dar de alta en la aplicacion y en la base de datos.
             String descripcion = campoDescripcion.getText().trim();
             int cantidad = (int) selectorCantidad.getValue();
+            
+            if (cantidad < 0){
+                
+                javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "No se puede insertar una cantidad negativa en la base de datos", 
+            "Error de cantidad", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+                return;
+            }
+            
             Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
             String armario = (String) desplegableArmario.getSelectedItem();
             Ubicacion ubi = (Ubicacion) desplegableCajon.getSelectedItem();
