@@ -430,7 +430,7 @@ Diferenciación entre:
 
 ### Gestión de Inventario
 
-![Captura](Documentaciones/Im%C3%A1genes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-18%20151502.png)
+![Captura](Documentaciones/Imágenes%20para%20la%20guia%20de%20usuario/Captura%20de%20pantalla%202026-05-21%20150846.png)
 
 ---
 
