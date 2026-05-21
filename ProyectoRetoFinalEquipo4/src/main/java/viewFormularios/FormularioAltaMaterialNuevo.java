@@ -202,6 +202,8 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             }
         });
 
+        campoRutaImagen.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,13 +230,12 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
                             .addComponent(campoNombre)
                             .addComponent(desplegableCajon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnAnadir)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(campoRutaImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(selectorCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 192, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAnadir)
+                                .addGap(27, 27, 27)
+                                .addComponent(campoRutaImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 28, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,6 +341,18 @@ public class FormularioAltaMaterialNuevo extends javax.swing.JDialog {
             //Recogemos los datos que nos da el usuario sobre el material que quiere dar de alta en la aplicacion y en la base de datos.
             String descripcion = campoDescripcion.getText().trim();
             int cantidad = (int) selectorCantidad.getValue();
+            
+            if (cantidad < 0){
+                
+                javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "No se puede insertar una cantidad negativa en la base de datos", 
+            "Error de cantidad", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+                return;
+            }
+            
             Categoria cat = (Categoria) desplegableCategoria.getSelectedItem();
             String armario = (String) desplegableArmario.getSelectedItem();
             Ubicacion ubi = (Ubicacion) desplegableCajon.getSelectedItem();

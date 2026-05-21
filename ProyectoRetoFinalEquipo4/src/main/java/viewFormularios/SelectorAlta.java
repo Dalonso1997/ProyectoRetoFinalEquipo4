@@ -60,6 +60,7 @@ public class SelectorAlta extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(76, 76, 76));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Seleccione el material para dar de alta:");
 
         lineaSeparador1.setForeground(new java.awt.Color(153, 153, 153));
