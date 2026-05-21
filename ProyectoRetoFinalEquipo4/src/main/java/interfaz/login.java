@@ -205,6 +205,13 @@ public class login extends javax.swing.JFrame {
                 // SOLUCIÓN: Agregamos 'usuario' entre los paréntesis
                 new MenuPrincipalAdmin(usuario).setVisible(true);
             }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Credenciales incorrectas o error de conexión.", 
+            "Error de Login", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
         }
     }//GEN-LAST:event_botonContActionPerformed
 
