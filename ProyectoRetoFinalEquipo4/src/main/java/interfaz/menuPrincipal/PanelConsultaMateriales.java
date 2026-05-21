@@ -91,15 +91,37 @@ public class PanelConsultaMateriales extends JPanel {
 
                         if (imagen != null && imagen.length > 0) {
 
-                            javax.swing.ImageIcon icono = new javax.swing.ImageIcon(imagen);
+                            int ANCHO_FIJO = 600;
+                            int ALTO_FIJO = 400;
 
-                            JOptionPane.showMessageDialog(
-                                    PanelConsultaMateriales.this,
-                                    "",
+                            // 1. Crear el icono original
+                            javax.swing.ImageIcon iconoOriginal = new javax.swing.ImageIcon(imagen);
+
+                            // 2. Escalar la imagen suavemente al tamaño exacto de la ventana
+                            java.awt.Image imgEscalada = iconoOriginal.getImage().getScaledInstance(ANCHO_FIJO, ALTO_FIJO, java.awt.Image.SCALE_SMOOTH);
+                            javax.swing.ImageIcon iconoEscalado = new javax.swing.ImageIcon(imgEscalada);
+
+                            // 3. Crear el JDialog
+                            javax.swing.JDialog ventanaPreview = new javax.swing.JDialog(
+                                    javax.swing.SwingUtilities.getWindowAncestor(PanelConsultaMateriales.this),
                                     "Vista previa del material",
-                                    JOptionPane.PLAIN_MESSAGE,
-                                    icono
+                                    java.awt.Dialog.ModalityType.APPLICATION_MODAL
                             );
+
+                            // 4. Asignar la imagen ya escalada (aquí ya no necesitas JScrollPane si va a medir lo mismo)
+                            javax.swing.JLabel etiquetaImagen = new javax.swing.JLabel(iconoEscalado);
+                            ventanaPreview.add(etiquetaImagen);
+
+                            ventanaPreview.setSize(ANCHO_FIJO, ALTO_FIJO);
+                            ventanaPreview.setResizable(false);
+                            ventanaPreview.setLocationRelativeTo(PanelConsultaMateriales.this);
+
+                            // Cerrar con ESC
+                            ventanaPreview.getRootPane().registerKeyboardAction(e -> ventanaPreview.dispose(),
+                                    javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0),
+                                    javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+                            ventanaPreview.setVisible(true);
 
                         } else {
 
@@ -115,7 +137,7 @@ public class PanelConsultaMateriales extends JPanel {
                     }
                 }
                 // Comprobamos si el usuario ha hecho exactamente 2 clics
-                
+
             }
         });
 
@@ -170,9 +192,10 @@ public class PanelConsultaMateriales extends JPanel {
             return (int) modelo.getValueAt(filaSeleccionada, 0);
         }
     }
-    
+
     /**
      * Recupera el nombre del material seleccionado por el usuario.
+     *
      * @return el nombre del material o " " si no ha pinchado en nada.
      * @author sergio camacho
      */
@@ -186,8 +209,10 @@ public class PanelConsultaMateriales extends JPanel {
             return modelo.getValueAt(filaSeleccionada, 1).toString();
         }
     }
+
     /**
      * Recupera la descripción del material seleccionado por el usuario.
+     *
      * @return la descripción del material o " " si no ha pinchado en nada.
      * @author sergio camacho
      */
