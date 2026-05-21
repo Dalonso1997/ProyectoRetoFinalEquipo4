@@ -126,9 +126,11 @@ footer {
 .tabla-forma { border-collapse: separate; border-spacing: 2px; background: var(--navy-dark); border: 2px solid var(--navy-dark); margin: 0 auto; }
 .tabla-forma td {
     background: var(--navy); border: 1px solid var(--border); text-align: center; color: var(--text-muted);
-    font-size: 0.7rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+    font-size: 0.75rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+    height: 50px;
+    width: 140px;
+    padding: 8px;
 }
-
 .tabla-forma td:hover { background-color: var(--blue-dim) !important; transform: scale(0.98); color: var(--text); }
 .tabla-forma td.balda-activa { 
     background-color: var(--blue) !important; 
