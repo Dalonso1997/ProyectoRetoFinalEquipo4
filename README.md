@@ -539,4 +539,6 @@ El proyecto cubre todas las funcionalidades planteadas. De cara a una versión f
 - [Apache HTTP Server Documentation](https://httpd.apache.org/docs/)
 - [Draw.io](https://www.drawio.com/)
 
+---
+
 © 2026 Equipo 4 - IES Miguel Herrero Pereda
