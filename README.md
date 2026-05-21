@@ -165,7 +165,7 @@ Trigger para registrar el alta de un material nuevo, registrando:
 ---
 
 ## 🌐 Sitio Web
-# Gestión de Taller - Equipo 4
+## Gestión de Taller - Equipo 4
 
 Este proyecto consiste en una aplicación web para la gestión y localización de material del taller del IES Miguel Herrero Pereda.
 
@@ -308,7 +308,7 @@ También se muestra:
 
 ---
 </details>
-<summary>Contenido Incluido</summary>
+## Contenido Incluido
 
 La web contiene:
 - Plano visual del taller.
@@ -345,7 +345,7 @@ La aplicación desplegada está disponible en:
 
 
 
-# 💻 Aplicación Java
+## 💻 Aplicación Java
 
 ## 📖 Descripción
 
@@ -508,11 +508,11 @@ El manual de usuario se encuentra en:
 
 # 📜 Licencia
 
-Consultar el archivo:
+Este proyecto se distribuye bajo la licencia GNU GPL v3.
 
-```text
-LICENSE
-```
+Esto significa que cualquier modificación o redistribución del software debe mantenerse bajo la misma licencia y publicar también el código fuente correspondiente.
+
+Consultar el archivo LICENSE para más información.
 
 ---
 
@@ -538,3 +538,5 @@ El proyecto cubre todas las funcionalidades planteadas. De cara a una versión f
 - [GitHub Docs](https://docs.github.com/)
 - [Apache HTTP Server Documentation](https://httpd.apache.org/docs/)
 - [Draw.io](https://www.drawio.com/)
+
+© 2026 Equipo 4 - IES Miguel Herrero Pereda
