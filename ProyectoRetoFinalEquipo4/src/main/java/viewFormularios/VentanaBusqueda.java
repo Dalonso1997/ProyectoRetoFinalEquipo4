@@ -152,6 +152,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
+        TextBusqueda.setText("Buscar");
         TextBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextBusquedaActionPerformed(evt);
