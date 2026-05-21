@@ -396,12 +396,25 @@ Diferenciación entre:
 ## 📂 Estructura del Proyecto Java
 
 ```text
-/src
+src
 ├── dao
+│   ├── daoClasesSQL
+│   └── devolucionesYPrestamos
+│
 ├── model
+│   ├── modelClasesTablas
+│   └── CSV
+│
 ├── view
+│   ├── interfaz
+│   └── viewFormularios
+│
 ├── controller
+│   └── controllerClasesGestionModelVista
+│
 └── utils
+    ├── utilsClasesApoyo
+    └── Pruebas
 ```
 
 ---
