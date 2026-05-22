@@ -14,7 +14,7 @@ public class Pruebas {
         
         // 2. Le pedimos que intente hacer login con datos inventados
         System.out.println("Buscando al usuario 'profe@ies.es'...");
-        Usuario user = dao.login("alonso@david.es", "1234");
+        Usuario user = dao.login("admin@taller.com", "1234");
         
         // 3. Evaluamos la respuesta
         System.out.println("\n=== RESULTADO DE LA PRUEBA ===");
