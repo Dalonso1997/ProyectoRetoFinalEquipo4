@@ -6,6 +6,7 @@ package utilsClasesApoyo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,27 +17,32 @@ import java.util.Properties;
  * @author David Alonso, Alberto Gonzalez
  */
 public class ConexionBD {
-    
+
     // Variable estatica de la misma clase
     private static ConexionBD instancia;
-    
+
     // Variable para la conexion SQL
     private Connection conexion;
-    
-    private ConexionBD(){
-        
+
+    private ConexionBD() {
+
         // Objeto para leer el archivo de configuración creado de manera externa con las propiedades para la conexion
         Properties props = new Properties();
-        
-        try (FileInputStream fis = new FileInputStream("config.properties")) {
-            
+
+        try (InputStream fis = ConexionBD.class.getClassLoader().getResourceAsStream("config.properties")) {
+
+            if (fis == null) {
+                System.out.println("⚠️ ERROR: No se encuentra config.properties dentro de los recursos del JAR.");
+                return;
+            }
+
             // Cargamos el archivo
             props.load(fis);
-            
+
             // Leemos qué entorno queremos usar (local o aws)
             String entorno = props.getProperty("entorno");
             String url, user, pass;
-            
+
             //Si el entorno enconrado es igual a "aws"
             if ("aws".equalsIgnoreCase(entorno)) {
                 //Recogemos la url, el usuario y la contrasena ubicadas en el archivo properties
@@ -51,30 +57,30 @@ public class ConexionBD {
                 pass = props.getProperty("local.pass");
                 System.out.println("Iniciando conexión a LOCALHOST...");
             }
-            
+
             // Establecemos la conexión con los datos seguros
             this.conexion = DriverManager.getConnection(url, user, pass);
             System.out.println("Conexion establecida con éxito.");
-            
+
         } catch (IOException e) {
             System.out.println("⚠️ ERROR: No se encuentra el archivo config.properties. ¿Lo has creado en la raíz del proyecto?");
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("⚠️ Error al conectar: " + e.getMessage());
         }
-        
+
     }
-    
+
     // Aqui reside el metodo singleton, este sirve para que exista unica y exclusivamente una instancia de la conexion
     //De esta manera aseguramos que el canal por el que se conecta a la base de datos sera unico y seguro
-    public static ConexionBD getInstancia(){
-        if (instancia == null){
+    public static ConexionBD getInstancia() {
+        if (instancia == null) {
             instancia = new ConexionBD();
         }
         return instancia;
     }
-    
+
     //Devuelve la conexion activa para poder ser usada por los DAOs
-    public Connection getConexion(){
+    public Connection getConexion() {
         return this.conexion;
-    } 
+    }
 }
