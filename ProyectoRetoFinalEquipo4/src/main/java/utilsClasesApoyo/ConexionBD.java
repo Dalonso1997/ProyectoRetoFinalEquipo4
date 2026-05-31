@@ -26,48 +26,56 @@ public class ConexionBD {
 
     private ConexionBD() {
 
-        // Objeto para leer el archivo de configuración creado de manera externa con las propiedades para la conexion
-        Properties props = new Properties();
+//        // Objeto para leer el archivo de configuración creado de manera externa con las propiedades para la conexion
+//        Properties props = new Properties();
+//
+//        try (InputStream fis = ConexionBD.class.getClassLoader().getResourceAsStream("config.properties")) {
+//
+//            if (fis == null) {
+//                System.out.println("⚠️ ERROR: No se encuentra config.properties dentro de los recursos del JAR.");
+//                return;
+//            }
+//
+//            // Cargamos el archivo
+//            props.load(fis);
+//
+//            // Leemos qué entorno queremos usar (local o aws)
+//            String entorno = props.getProperty("entorno");
+//            String url, user, pass;
+//
+//            //Si el entorno enconrado es igual a "aws"
+//            if ("aws".equalsIgnoreCase(entorno)) {
+//                //Recogemos la url, el usuario y la contrasena ubicadas en el archivo properties
+//                url = props.getProperty("aws.url");
+//                user = props.getProperty("aws.user");
+//                pass = props.getProperty("aws.pass");
+//                System.out.println("Iniciando conexión a AWS...");
+//            } else {
+//                //En caso contrario recogemos los datos para la conexion local
+//                url = props.getProperty("local.url");
+//                user = props.getProperty("local.user");
+//                pass = props.getProperty("local.pass");
+//                System.out.println("Iniciando conexión a LOCALHOST...");
+//            }
+//
+//            // Establecemos la conexión con los datos seguros
+//            this.conexion = DriverManager.getConnection(url, user, pass);
+//            System.out.println("Conexion establecida con éxito.");
+//
+//        } catch (IOException e) {
+//            System.out.println("⚠️ ERROR: No se encuentra el archivo config.properties. ¿Lo has creado en la raíz del proyecto?");
+//        } catch (SQLException e) {
+//            System.out.println("⚠️ Error al conectar: " + e.getMessage());
+//        }
 
-        try (InputStream fis = ConexionBD.class.getClassLoader().getResourceAsStream("config.properties")) {
-
-            if (fis == null) {
-                System.out.println("⚠️ ERROR: No se encuentra config.properties dentro de los recursos del JAR.");
-                return;
-            }
-
-            // Cargamos el archivo
-            props.load(fis);
-
-            // Leemos qué entorno queremos usar (local o aws)
-            String entorno = props.getProperty("entorno");
-            String url, user, pass;
-
-            //Si el entorno enconrado es igual a "aws"
-            if ("aws".equalsIgnoreCase(entorno)) {
-                //Recogemos la url, el usuario y la contrasena ubicadas en el archivo properties
-                url = props.getProperty("aws.url");
-                user = props.getProperty("aws.user");
-                pass = props.getProperty("aws.pass");
-                System.out.println("Iniciando conexión a AWS...");
-            } else {
-                //En caso contrario recogemos los datos para la conexion local
-                url = props.getProperty("local.url");
-                user = props.getProperty("local.user");
-                pass = props.getProperty("local.pass");
-                System.out.println("Iniciando conexión a LOCALHOST...");
-            }
-
-            // Establecemos la conexión con los datos seguros
-            this.conexion = DriverManager.getConnection(url, user, pass);
-            System.out.println("Conexion establecida con éxito.");
-
-        } catch (IOException e) {
-            System.out.println("⚠️ ERROR: No se encuentra el archivo config.properties. ¿Lo has creado en la raíz del proyecto?");
-        } catch (SQLException e) {
-            System.out.println("⚠️ Error al conectar: " + e.getMessage());
-        }
-
+          String url = "jdbc:mysql://34.233.40.11:3306/inventario_taller";
+          String user = "tuusuario";
+          String pass = "tupassword";
+          try {
+          this.conexion = DriverManager.getConnection(url, user,pass);
+          } catch (SQLException e){
+              System.out.println(e.getMessage());
+          }
     }
 
     // Aqui reside el metodo singleton, este sirve para que exista unica y exclusivamente una instancia de la conexion

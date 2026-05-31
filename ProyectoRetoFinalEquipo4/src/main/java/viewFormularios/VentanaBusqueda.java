@@ -392,7 +392,7 @@ public class VentanaBusqueda extends javax.swing.JDialog {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(
-                        new URI("http://3.224.141.230/")
+                        new URI("http://44.194.119.121/")
                 );
             }
         } catch (Exception ex) {
