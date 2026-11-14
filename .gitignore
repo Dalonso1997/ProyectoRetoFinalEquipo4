@@ -1,2 +1,17 @@
-/ProyectoRetoFinalEquipo4/target/
+# Compilados de Maven / NetBeans
+target/
+build/
+dist/
+nbproject/private/
+nbactions.xml
+*.class
+
+# Configuración con credenciales (usar config.properties.example)
 config.properties
+
+# IDE y sistema
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

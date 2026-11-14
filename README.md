@@ -1,5 +1,36 @@
 # RETO MH – Gestión y Localización del Material del Taller
 
+![Java](https://img.shields.io/badge/Java-24-ED8B00?logo=openjdk&logoColor=white)
+![Swing](https://img.shields.io/badge/GUI-Swing-5382A1)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![JDBC](https://img.shields.io/badge/JDBC-DAO-6DB33F)
+![AWS](https://img.shields.io/badge/AWS-EC2%20%7C%20VPC-FF9900?logo=amazonwebservices&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-C71A36?logo=apachemaven&logoColor=white)
+
+> Aplicación de escritorio en Java para gestionar el inventario y los préstamos del taller de informática del IES Miguel Herrero Pereda, con base de datos MySQL desplegada en AWS y una web con el plano del taller en 3D.
+> **Proyecto final de 1º de DAM (2025/26), trabajo en equipo de 5 personas.**
+
+**Puntos clave:** patrón DAO + Singleton para la conexión · gestión por roles (login) · triggers de stock e histórico en MySQL · infraestructura en AWS con dos EC2 y Security Groups · exportación XML/XSLT a HTML y CSV.
+
+## 🚀 Cómo ejecutarlo
+
+```bash
+git clone https://github.com/Dalonso1997/ProyectoRetoFinalEquipo4.git
+cd ProyectoRetoFinalEquipo4/ProyectoRetoFinalEquipo4
+
+# 1. Crea la base de datos con los scripts de Documentaciones/Base Datos/
+#    (ScriptCreacionBaseDeDatosDefinitivo.sql y ScriptTriggers(DEFINITIVO).sql)
+# 2. Copia la plantilla de configuración y pon tus credenciales
+cp config.properties.example config.properties
+# 3. Compila y ejecuta
+mvn clean package
+mvn exec:java
+```
+
+> `config.properties` no se sube al repositorio (está en `.gitignore`) para no publicar credenciales.
+
+---
+
 ## 📝 Descripción
 Este proyecto forma parte del Reto de Historia del Software del equipo 4. Consiste en el desarrollo y despliegue de una solución técnica que integra una infraestructura segura en la nube (AWS) y una base de datos gestionada, sirviendo como soporte para la aplicación del reto. El enfoque principal es la seguridad perimetral y el trabajo colaborativo bajo estándares de industria.
 
